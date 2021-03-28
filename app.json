@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "financeBinary",
-    "slug": "financeBinary",
+    "name": "Extons",
+    "slug": "extons",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icons/logo_default.png",

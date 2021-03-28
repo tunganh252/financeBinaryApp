@@ -103,7 +103,7 @@ const TestApp = () => {
     return (
       <View style={{ flexDirection: "row", marginVertical: SIZES.padding * 2 }}>
         <View style={{ flex: 1 }}>
-          <Text style={{ ...FONTS.h1 }}>Hotbit</Text>
+          <Text style={{ ...FONTS.h1 }}>Extons</Text>
           <Text style={{ ...FONTS.body2, color: COLORS.gray }}>
             Nguyen Tung Anh
           </Text>
