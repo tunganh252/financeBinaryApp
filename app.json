@@ -4,7 +4,7 @@
     "slug": "extons",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/icons/logo_default.png",
+    "icon": "./src/assets/icons/logo_default_transparent.png",
     "splash": {
       "image": "./src/assets/icons/splash.png",
       "resizeMode": "contain",
@@ -17,13 +17,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tunganh252.extons"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/icons/logo_default.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.tunganh252.extons"
     },
     "web": {
       "favicon": "./src/assets/icons/logo_default.png"

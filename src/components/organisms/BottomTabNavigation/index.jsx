@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   createBottomTabNavigator,
   BottomTabBar,
@@ -6,7 +6,7 @@ import {
 
 // import IconTest from "../../../assets/icons/fontAwesome/test.svg";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { COLORS } from "../../../constant";
+import { COLORS, SIZES } from "../../../constant";
 import IconMarket from "../../../assets/icons/fontAwesome/IconMarket";
 import IconHome from "../../../assets/icons/fontAwesome/IconHome";
 import IconTrade from "../../../assets/icons/fontAwesome/IconTrade";
@@ -14,6 +14,7 @@ import IconInvestment from "../../../assets/icons/fontAwesome/IconInvestment";
 import IconFund from "../../../assets/icons/fontAwesome/IconFund";
 import logo from "../../../assets/icons/logo_default.png";
 import TestApp from "../../atoms/TestApp";
+import SignupAndLogin from "../../../screens/SignupAndLogin";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,36 +22,36 @@ export const dataTabNavigation = [
   {
     name: "Market",
     component: TestPage2,
-    icon: ({ width, color }) => {
-      return <IconMarket width={width} color={color} />;
+    icon: ({ width, color, height }) => {
+      return <IconMarket width={width} color={color} height={height} />;
     },
   },
   {
     name: "Trade",
     component: TestPage1,
-    icon: ({ width, color }) => {
-      return <IconTrade width={width} color={color} />;
+    icon: ({ width, color, height }) => {
+      return <IconTrade width={width} color={color} height={height} />;
     },
   },
   {
     name: "Home",
     component: TestApp,
-    icon: ({ width, color }) => {
-      return <IconHome width={width} color={color} />;
+    icon: ({ width, color, height }) => {
+      return <IconHome width={width} color={color} height={height} />;
     },
   },
   {
     name: "Investment",
     component: TestPage2,
-    icon: ({ width, color }) => {
-      return <IconInvestment width={width} color={color} />;
+    icon: ({ width, color, height }) => {
+      return <IconInvestment width={width} color={color} height={height} />;
     },
   },
   {
     name: "Fund",
-    component: TestPage1,
-    icon: ({ width, color }) => {
-      return <IconFund width={width} color={color} />;
+    component: SignupAndLogin,
+    icon: ({ width, color, height }) => {
+      return <IconFund width={width} color={color} height={height} />;
     },
   },
 ];
@@ -81,11 +82,20 @@ function TestPage2(params) {
   );
 }
 
-const CustomTabBar = (props) => {
-  return <BottomTabBar {...props.props} />;
-};
-
 const BottomTabNavigation = ({ navigation }) => {
+  const [state, setState] = useState({
+    isLogin: false,
+  });
+
+  // useEffect(() => {
+  //   if (!state.isLogin) {
+  //     setTimeout(() => {
+  //       // console.log(navigation);
+  //       navigation.navigate("SignupAndLogin");
+  //     }, 2000);
+  //   }
+  // }, []);
+
   const _loopRenderTab = (data) => {
     if (!data || data.length < 0) return;
     return data.map((item, index) => {
@@ -101,7 +111,8 @@ const BottomTabNavigation = ({ navigation }) => {
                 <Text
                   style={{
                     color: focused ? COLORS.yellow : COLORS.gray,
-                    fontSize: 12,
+                    fontSize: SIZES.body5,
+                    marginBottom: SIZES.padding / 2,
                   }}
                 >
                   {item.name}
@@ -110,10 +121,13 @@ const BottomTabNavigation = ({ navigation }) => {
             },
             tabBarIcon: ({ focused }) => {
               return (
-                <Icon
-                  width="15px"
-                  color={focused ? COLORS.yellow : COLORS.gray}
-                />
+                <View style={{ marginTop: SIZES.padding }}>
+                  <Icon
+                    width={16.5}
+                    height={16.5}
+                    color={focused ? COLORS.yellow : COLORS.gray}
+                  />
+                </View>
               );
             },
             tabBarButton: (props) => (
@@ -141,8 +155,6 @@ const BottomTabNavigation = ({ navigation }) => {
                       flex: 1,
                       justifyContent: "center",
                       alignItems: "center",
-                      // width: 50,
-                      // height: 50,
                     }}
                     activeOpacity={1}
                     onPress={onPress}
@@ -167,11 +179,12 @@ const BottomTabNavigation = ({ navigation }) => {
           bottom: 0,
           left: 0,
           right: 0,
+          // height: 70,
           backgroundColor: COLORS.white,
           elevation: 0,
         },
       }}
-      tabBar={(props) => <CustomTabBar props={props} />}
+      tabBar={(props) => <BottomTabBar {...props} />}
     >
       {_loopRenderTab(dataTabNavigation)}
     </Tab.Navigator>

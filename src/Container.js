@@ -1,8 +1,8 @@
 import React from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SignupAndLogin from './pages/SignupAndLogin';
-import MainPage from './pages/MainPage';
+import SignupAndLogin from './screens/SignupAndLogin';
+import MainPage from './screens/MainPage';
 import { useFonts } from 'expo-font';
 
 const Stack = createStackNavigator();
