@@ -1,8 +1,8 @@
 import React from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SignupAndLogin from './screens/SignupAndLogin';
-import MainPage from './screens/MainPage';
+import LoginScreen from './screens/LoginScreen';
+import MainScreen from './screens/MainScreen';
 import { useFonts } from 'expo-font';
 
 const Stack = createStackNavigator();
@@ -32,10 +32,10 @@ export default function Container() {
         <NavigationContainer theme={theme}>
             <Stack.Navigator
                 screenOptions={{ headerShown: false }}
-                initialRouteName={'MainPage'}
+                initialRouteName={'MainScreen'}
             >
-                <Stack.Screen name="MainPage" component={MainPage} />
-                <Stack.Screen name="SignupAndLogin" component={SignupAndLogin} />
+                <Stack.Screen name="MainScreen" component={MainScreen} />
+                <Stack.Screen name="LoginScreen" component={LoginScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

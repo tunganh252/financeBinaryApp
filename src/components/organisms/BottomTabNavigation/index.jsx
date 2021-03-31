@@ -14,7 +14,6 @@ import IconInvestment from "../../../assets/icons/fontAwesome/IconInvestment";
 import IconFund from "../../../assets/icons/fontAwesome/IconFund";
 import logo from "../../../assets/icons/logo_default.png";
 import TestApp from "../../atoms/TestApp";
-import SignupAndLogin from "../../../screens/SignupAndLogin";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,7 +48,7 @@ export const dataTabNavigation = [
   },
   {
     name: "Fund",
-    component: SignupAndLogin,
+    component: TestPage3,
     icon: ({ width, color, height }) => {
       return <IconFund width={width} color={color} height={height} />;
     },
@@ -81,20 +80,49 @@ function TestPage2(params) {
     </View>
   );
 }
+function TestPage3({ navigation }) {
+  const [state, setState] = useState({
+    isLogin: false,
+  });
+
+  useEffect(() => {
+    if (!state.isLogin) {
+      navigation.navigate("LoginScreen");
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      setState((prevState) => ({
+        ...prevState,
+        isLogin: false,
+      }));
+    };
+  }, []);
+
+  return (
+    <View style={{ marginTop: 50, marginLeft: 25 }}>
+      <Image
+        source={logo}
+        width={50}
+        height={50}
+        style={{ width: 50, height: 50 }}
+      />
+    </View>
+  );
+}
 
 const BottomTabNavigation = ({ navigation }) => {
   const [state, setState] = useState({
     isLogin: false,
   });
 
-  // useEffect(() => {
-  //   if (!state.isLogin) {
-  //     setTimeout(() => {
-  //       // console.log(navigation);
-  //       navigation.navigate("SignupAndLogin");
-  //     }, 2000);
-  //   }
-  // }, []);
+
+  useEffect(() => {
+    if (!state.isLogin) {
+      navigation.navigate("LoginScreen");
+    }
+  }, []);
 
   const _loopRenderTab = (data) => {
     if (!data || data.length < 0) return;
@@ -110,7 +138,7 @@ const BottomTabNavigation = ({ navigation }) => {
               return (
                 <Text
                   style={{
-                    color: focused ? COLORS.yellow : COLORS.gray,
+                    color: focused ? COLORS.primary : COLORS.gray,
                     fontSize: SIZES.body5,
                     marginBottom: SIZES.padding / 2,
                   }}
@@ -125,7 +153,7 @@ const BottomTabNavigation = ({ navigation }) => {
                   <Icon
                     width={16.5}
                     height={16.5}
-                    color={focused ? COLORS.yellow : COLORS.gray}
+                    color={focused ? COLORS.primary : COLORS.gray}
                   />
                 </View>
               );
@@ -179,9 +207,9 @@ const BottomTabNavigation = ({ navigation }) => {
           bottom: 0,
           left: 0,
           right: 0,
-          // height: 70,
           backgroundColor: COLORS.white,
           elevation: 0,
+          ...styles.shadow,
         },
       }}
       tabBar={(props) => <BottomTabBar {...props} />}
