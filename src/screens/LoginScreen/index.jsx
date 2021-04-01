@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -9,9 +8,9 @@ import {
   Image,
   TextInput,
 } from "react-native";
+import { Transition, Transitioning } from "react-native-reanimated";
 import IconBack from "../../assets/icons/fontAwesome/IconBack";
 import IconEyePass from "../../assets/icons/fontAwesome/IconEyePass";
-import IconHome from "../../assets/icons/fontAwesome/IconHome";
 import logo from "../../assets/icons/logo_default.png";
 import { COLORS, FONTS, SIZES } from "../../constant";
 
@@ -26,10 +25,19 @@ const tabLogin = {
   },
 };
 
+const valInputState = {
+  email: "",
+  phone: "",
+  password: "",
+  isSetPassword: true,
+};
+
 export const LoginScreen = ({ navigation }) => {
-  const [text, onChangeText] = useState("Useless Text");
+  const lineRef = useRef();
+
   const [valInput, setValInput] = useState({
     email: "",
+    phone: "",
     password: "",
     isSetPassword: true,
   });
@@ -42,14 +50,36 @@ export const LoginScreen = ({ navigation }) => {
     }));
   };
 
+  const _handleSetTab = (key) => {
+    setTab(tabLogin[key]);
+    setValInput(valInputState);
+  };
+
+  const _transitionLineRun = () => {
+    return (
+      <Transition.Together>
+        <Transition.In
+          type="slide-right"
+          durationMs={1500}
+          interpolation="easeInOut"
+        />
+        <Transition.In type="fade"/>
+
+      </Transition.Together>
+    );
+  };
+
+  useEffect(() => {
+    lineRef.current.animateNextTransition();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View
         style={{
           flexDirection: "row",
-          paddingLeft: 20,
-          paddingRight: 20,
-          // backgroundColor: "rgba(0, 0, 0, 0.189)",
+          paddingLeft: 25,
+          paddingRight: 25,
         }}
       >
         <TouchableOpacity
@@ -66,7 +96,6 @@ export const LoginScreen = ({ navigation }) => {
             justifyContent: "center",
             height: 50,
             marginRight: SIZES.padding * 5,
-            // backgroundColor: "rgba(131, 17, 17, 0.189)",
           }}
         >
           <View
@@ -84,9 +113,8 @@ export const LoginScreen = ({ navigation }) => {
             />
             <Text
               style={{
-                ...FONTS.h1,
                 fontFamily: "RobotoBlack",
-                fontSize: 26,
+                fontSize: 24,
                 marginLeft: SIZES.padding / 2,
               }}
             >
@@ -96,7 +124,9 @@ export const LoginScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <View
+      <Transitioning.View
+        ref={lineRef}
+        // transition={_transitionLineRun}
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -113,7 +143,7 @@ export const LoginScreen = ({ navigation }) => {
               paddingBottom: 15,
               color: tab.key === "email" ? COLORS.primary : COLORS.gray,
             }}
-            onPress={() => setTab(tabLogin["EMAIL"])}
+            onPress={() => _handleSetTab("EMAIL")}
           >
             Email Login
           </Text>
@@ -150,7 +180,7 @@ export const LoginScreen = ({ navigation }) => {
               paddingBottom: 15,
               color: tab.key === "phone" ? COLORS.primary : COLORS.gray,
             }}
-            onPress={() => setTab(tabLogin["PHONE"])}
+            onPress={() => _handleSetTab("PHONE")}
           >
             Phone Login
           </Text>
@@ -178,7 +208,7 @@ export const LoginScreen = ({ navigation }) => {
             </View>
           )}
         </View>
-      </View>
+      </Transitioning.View>
 
       <View style={{ flex: 1, maxHeight: 3 }}>
         <Text
@@ -193,17 +223,20 @@ export const LoginScreen = ({ navigation }) => {
         style={{
           flex: 1,
           marginTop: SIZES.padding2 * 2,
-          paddingLeft: 25,
-          paddingRight: 25,
+          paddingLeft: SIZES.padding2 * 3.5,
+          paddingRight: SIZES.padding2 * 3.5,
           display: "flex",
           flexDirection: "column",
         }}
       >
         <TextInput
           style={styles.input}
-          onChangeText={(text) => _onChangeValInput(text, "email")}
-          value={valInput.email}
-          placeholder="Email"
+          onChangeText={(text) =>
+            _onChangeValInput(text, tab.key === "email" ? "email" : "phone")
+          }
+          value={tab.key === "email" ? valInput.email : valInput.phone}
+          placeholder={tab.key === "email" ? "Email" : "Phone number"}
+          keyboardType={tab.key === "phone" ? "numeric" : "default"}
         />
         <View style={{ marginTop: 40, position: "relative" }}>
           <TextInput
@@ -223,10 +256,123 @@ export const LoginScreen = ({ navigation }) => {
             }
           >
             <IconEyePass
-              width={18}
-              height={18}
+              width={25}
+              height={25}
               active={valInput.isSetPassword}
             />
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            marginTop: 35,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              console.log("Forgot password?");
+            }}
+          >
+            <Text
+              style={{
+                color: COLORS.primary,
+              }}
+            >
+              Forgot password?
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            flex: 1,
+            alignContent: "center",
+            marginTop: 35,
+            maxHeight: 40,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: COLORS.primary,
+              color: COLORS.primary,
+              borderRadius: 20,
+            }}
+            onPress={() => {
+              console.log("login");
+            }}
+          >
+            <Text style={{ color: COLORS.white }}>Login</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            marginTop: 20,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              console.log("Do you have an account");
+            }}
+          >
+            <Text style={{ color: COLORS.gray }}>Do you have an account?</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            flex: 1,
+            alignContent: "center",
+            marginTop: 25,
+            maxHeight: 40,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              // backgroundColor: COLORS.primary,
+              borderWidth: 1,
+              borderColor: COLORS.gray,
+              borderRadius: 20,
+            }}
+            onPress={() => {
+              console.log("Create an account?");
+            }}
+          >
+            <Text style={{ color: COLORS.black }}>Create an account?</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            marginTop: 50,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              console.log("Language");
+            }}
+          >
+            <Text>English</Text>
           </TouchableOpacity>
         </View>
       </View>
