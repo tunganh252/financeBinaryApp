@@ -9,10 +9,12 @@ import {
   TextInput,
 } from "react-native";
 import { Transition, Transitioning } from "react-native-reanimated";
+import { useDispatch } from "react-redux";
 import IconBack from "../../assets/icons/fontAwesome/IconBack";
 import IconEyePass from "../../assets/icons/fontAwesome/IconEyePass";
 import logo from "../../assets/icons/logo_default.png";
 import { COLORS, FONTS, SIZES } from "../../constant";
+import { loginUser } from "../../stores/actions/user";
 
 const tabLogin = {
   EMAIL: {
@@ -33,6 +35,7 @@ const valInputState = {
 };
 
 export const LoginScreen = ({ navigation }) => {
+  const dispatcher = useDispatch();
   const lineRef = useRef();
 
   const [valInput, setValInput] = useState({
@@ -63,14 +66,19 @@ export const LoginScreen = ({ navigation }) => {
           durationMs={1500}
           interpolation="easeInOut"
         />
-        <Transition.In type="fade"/>
-
+        <Transition.In type="fade" />
       </Transition.Together>
     );
   };
 
   useEffect(() => {
     lineRef.current.animateNextTransition();
+
+    setTimeout(() => {
+      let email = "tunganh2521999@gmail.com";
+      let pass = "tunganh252";
+      dispatcher(loginUser({ email, pass }));
+    }, 3000);
   }, []);
 
   return (
@@ -322,13 +330,7 @@ export const LoginScreen = ({ navigation }) => {
             marginTop: 20,
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              console.log("Do you have an account");
-            }}
-          >
-            <Text style={{ color: COLORS.gray }}>Do you have an account?</Text>
-          </TouchableOpacity>
+          <Text style={{ color: COLORS.gray }}>Do you have an account?</Text>
         </View>
 
         <View
