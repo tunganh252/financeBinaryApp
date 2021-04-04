@@ -8,39 +8,22 @@ import {
   TextInput,
   Alert,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import IconBack from "../../assets/icons/fontAwesome/IconBack";
 import IconEyePass from "../../assets/icons/fontAwesome/IconEyePass";
 import logo from "../../assets/icons/logo_default.png";
-import { useAsync } from "../../components/common/hooks/useAsyncState";
+
 import { COLORS } from "../../constant";
+import { dataTabLogin, valInputState } from "./constant";
+import { styles } from "./styles";
+
+import { useAsync } from "../../components/common/hooks/useAsyncState";
 import { useUserSetting } from "../../services/module/user";
 
 import Loop from "../../components/common/Loop";
 
-import { styles } from "./styles";
 import { EXTONS_USER_LOCAL } from "../../constant/data";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useSelector } from "react-redux";
-
-import ModalTest from "react-native-modal";
-
-const dataTabLogin = [
-  {
-    name: "Email Login",
-    key: "EMAIL",
-  },
-  {
-    name: "Phone Login",
-    key: "PHONE",
-  },
-];
-
-const valInputState = {
-  email: "",
-  phone: "",
-  password: "",
-  isSetPassword: true,
-};
 
 export const LoginScreen = ({ navigation }) => {
   // ====== Stores ====== //
@@ -49,8 +32,6 @@ export const LoginScreen = ({ navigation }) => {
   const { execute: postLoginUserAsync, status: postLoginUserStatus } = useAsync(
     postLoginUser
   );
-
-  const stateReducer = useSelector((state) => state);
 
   // ====== State ====== //
   const [tab, setTab] = useState(dataTabLogin[0]);
@@ -77,16 +58,7 @@ export const LoginScreen = ({ navigation }) => {
   };
 
   const _handleLogin = () => {
-    console.log(valInput);
     const { email, phone, password } = valInput;
-
-    if (tab.key === "EMAIL" && (!email || !password)) {
-      createAlert("Warning", "Please fill in full data A !!!");
-      return false;
-    } else if (tab.key === "PHONE" && (!phone || !password)) {
-      createAlert("Warning", "Please fill in full data B !!!");
-      return false;
-    }
 
     switch (tab.key) {
       case "EMAIL": {
@@ -94,7 +66,7 @@ export const LoginScreen = ({ navigation }) => {
           createAlert("Warning", "Please fill in full data A !!!");
           return false;
         }
-        postLoginUserAsync({ email, password });
+        postLoginUserAsync({ username: email, password });
         break;
       }
       case "PHONE": {
@@ -112,39 +84,38 @@ export const LoginScreen = ({ navigation }) => {
   };
 
   const createAlert = (title, msg) =>
-    Alert.alert(title, msg, [
-      // {
-      //   text: "Cancel",
-      //   onPress: () => console.log("Cancel Pressed"),
-      //   style: "cancel",
-      // },
-      { text: "OK", style: "cancel" },
-    ]);
+    Alert.alert(title, msg, [{ text: "OK", style: "cancel" }]);
 
   //======== Effect - lifeCycle =========//
 
   useEffect(() => {
     async function getDataLocal() {
       const dataUserLocal = await AsyncStorage.getItem(EXTONS_USER_LOCAL);
-      if (!dataUserLocal) return console.log("Chưa login");
+      if (!dataUserLocal) {
+        console.log("Chưa login");
+        // createAlert("Error", "Login fail...");
+        return false;
+      }
 
       console.log("Đã Login");
+      // createAlert("Success", "Login success...");
+      console.log(dataUserLocal);
     }
 
     getDataLocal();
   }, []);
 
-  // useEffect(() => {
-  //   if (!userReducer.accessToken || !userReducer.refreshToken) return;
-  //   const jsonValue = JSON.stringify(userReducer);
-  //   AsyncStorage.setItem(EXTONS_USER_LOCAL, jsonValue);
-  // }, [userReducer]);
+  useEffect(() => {
+    if (!userReducer.accessToken || !userReducer.refreshToken) return;
+    const jsonValue = JSON.stringify(userReducer);
+    AsyncStorage.setItem(EXTONS_USER_LOCAL, jsonValue);
+      createAlert("Success", "Login success...");
 
-  console.log(stateReducer);
+  }, [userReducer]);
 
   return (
     <SafeAreaView style={styles.container}>
-      {postLoginUserStatus === "loading" && (
+      {/* {postLoginUserStatus === "loading" && (
         <View>
           <Text>Loading</Text>
           <Text>Loading</Text>
@@ -152,14 +123,14 @@ export const LoginScreen = ({ navigation }) => {
           <Text>Loading</Text>
           <Text>Loading</Text>
         </View>
-      )}
+      )} */}
 
       <View style={styles.viewBlockHeader}>
         <TouchableOpacity
           style={{ width: 50, justifyContent: "center" }}
           onPress={() => navigation.navigate("MainScreen")}
         >
-          <IconBack width={18} height={18} />
+          {/* <IconBack width={18} height={18} /> */}
         </TouchableOpacity>
 
         <View style={styles.viewIcon}>

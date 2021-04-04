@@ -22,6 +22,7 @@ const wallet = require("../../assets/testApp/wallet.png");
 
 
 const logoDefault = require("../../assets/icons/logo_default.png");
+const logoDefault_transparent = require("../../assets/icons/logo_default_transparent.png");
 
 
 export default {
@@ -45,6 +46,7 @@ export default {
     wallet,
 
 
-    logoDefault
+    logoDefault,
+    logoDefault_transparent
 
 }
