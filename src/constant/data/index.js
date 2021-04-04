@@ -1,6 +1,1 @@
-export const dataTabNavigation = [
-    {
-        name: "Home",
-        com
-    }
-]
+export const EXTONS_USER_LOCAL = "EXTONS_USER_LOCAL";

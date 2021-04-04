@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,28 +6,34 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Alert,
 } from "react-native";
-import { Transition, Transitioning } from "react-native-reanimated";
-import { useDispatch } from "react-redux";
 import IconBack from "../../assets/icons/fontAwesome/IconBack";
 import IconEyePass from "../../assets/icons/fontAwesome/IconEyePass";
 import logo from "../../assets/icons/logo_default.png";
 import { useAsync } from "../../components/common/hooks/useAsyncState";
-import { COLORS, FONTS, SIZES } from "../../constant";
+import { COLORS } from "../../constant";
 import { useUserSetting } from "../../services/module/user";
 
-import { styles } from "./styles";
+import Loop from "../../components/common/Loop";
 
-const tabLogin = {
-  EMAIL: {
+import { styles } from "./styles";
+import { EXTONS_USER_LOCAL } from "../../constant/data";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
+
+import ModalTest from "react-native-modal";
+
+const dataTabLogin = [
+  {
     name: "Email Login",
-    key: "email",
+    key: "EMAIL",
   },
-  PHONE: {
+  {
     name: "Phone Login",
-    key: "phone",
+    key: "PHONE",
   },
-};
+];
 
 const valInputState = {
   email: "",
@@ -37,13 +43,17 @@ const valInputState = {
 };
 
 export const LoginScreen = ({ navigation }) => {
+  // ====== Stores ====== //
+
   const { state: userReducer, post: postLoginUser } = useUserSetting();
   const { execute: postLoginUserAsync, status: postLoginUserStatus } = useAsync(
     postLoginUser
   );
 
-  const dispatcher = useDispatch();
-  const lineRef = useRef();
+  const stateReducer = useSelector((state) => state);
+
+  // ====== State ====== //
+  const [tab, setTab] = useState(dataTabLogin[0]);
 
   const [valInput, setValInput] = useState({
     email: "",
@@ -51,7 +61,8 @@ export const LoginScreen = ({ navigation }) => {
     password: "",
     isSetPassword: true,
   });
-  const [tab, setTab] = useState(tabLogin["EMAIL"]);
+
+  // ====== Function ====== //
 
   const _onChangeValInput = (text, key) => {
     setValInput((prevState) => ({
@@ -60,35 +71,89 @@ export const LoginScreen = ({ navigation }) => {
     }));
   };
 
-  const _handleSetTab = (key) => {
-    setTab(tabLogin[key]);
+  const _handleSetTab = (dataTab) => {
+    setTab(dataTab);
     setValInput(valInputState);
   };
 
+  const _handleLogin = () => {
+    console.log(valInput);
+    const { email, phone, password } = valInput;
+
+    if (tab.key === "EMAIL" && (!email || !password)) {
+      createAlert("Warning", "Please fill in full data A !!!");
+      return false;
+    } else if (tab.key === "PHONE" && (!phone || !password)) {
+      createAlert("Warning", "Please fill in full data B !!!");
+      return false;
+    }
+
+    switch (tab.key) {
+      case "EMAIL": {
+        if (tab.key === "EMAIL" && (!email || !password)) {
+          createAlert("Warning", "Please fill in full data A !!!");
+          return false;
+        }
+        postLoginUserAsync({ email, password });
+        break;
+      }
+      case "PHONE": {
+        if (tab.key === "PHONE" && (!phone || !password)) {
+          createAlert("Warning", "Please fill in full data B !!!");
+          return false;
+        }
+        createAlert("Login", "Login with phone...");
+        break;
+      }
+
+      default:
+        break;
+    }
+  };
+
+  const createAlert = (title, msg) =>
+    Alert.alert(title, msg, [
+      // {
+      //   text: "Cancel",
+      //   onPress: () => console.log("Cancel Pressed"),
+      //   style: "cancel",
+      // },
+      { text: "OK", style: "cancel" },
+    ]);
+
+  //======== Effect - lifeCycle =========//
+
   useEffect(() => {
-    lineRef.current.animateNextTransition();
+    async function getDataLocal() {
+      const dataUserLocal = await AsyncStorage.getItem(EXTONS_USER_LOCAL);
+      if (!dataUserLocal) return console.log("Chưa login");
 
-    setTimeout(() => {
-      // let userLocal = localStorage.getItem("test");
-      // if (!!userRducer && Object.keys(userLocal).length > 0) return false;
+      console.log("Đã Login");
+    }
 
-      let username = "tunganh2521999@gmail.com";
-      let password = "tunganh2521999";
-      postLoginUserAsync({ username, password });
-    }, 3000);
+    getDataLocal();
   }, []);
 
-  useEffect(() => {
-    if (!!userReducer && Object.keys(userReducer).length > 0) {
-      // localStorage.setItem("test", userRducer);
-    }
-  }, [userReducer]);
+  // useEffect(() => {
+  //   if (!userReducer.accessToken || !userReducer.refreshToken) return;
+  //   const jsonValue = JSON.stringify(userReducer);
+  //   AsyncStorage.setItem(EXTONS_USER_LOCAL, jsonValue);
+  // }, [userReducer]);
 
-  console.log(postLoginUserStatus);
-  console.log("data-___: ", userReducer);
+  console.log(stateReducer);
 
   return (
     <SafeAreaView style={styles.container}>
+      {postLoginUserStatus === "loading" && (
+        <View>
+          <Text>Loading</Text>
+          <Text>Loading</Text>
+          <Text>Loading</Text>
+          <Text>Loading</Text>
+          <Text>Loading</Text>
+        </View>
+      )}
+
       <View style={styles.viewBlockHeader}>
         <TouchableOpacity
           style={{ width: 50, justifyContent: "center" }}
@@ -109,47 +174,32 @@ export const LoginScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <Transitioning.View
-        ref={lineRef}
-        // transition={_transitionLineRun}
-        style={styles.viewTabHeader}
-      >
-        <View style={{ position: "relative", flex: 1 }}>
-          <Text
-            style={{
-              ...styles.tabHeader__text,
-              color: tab.key === "email" ? COLORS.primary : COLORS.gray,
-            }}
-            onPress={() => _handleSetTab("EMAIL")}
-          >
-            Email Login
-          </Text>
+      <View style={styles.viewTabHeader}>
+        <Loop
+          dataSet={dataTabLogin}
+          onRender={(item) => {
+            return (
+              <View style={{ position: "relative", flex: 1 }} key={item.key}>
+                <Text
+                  style={{
+                    ...styles.tabHeader__text,
+                    color: tab.key === item.key ? COLORS.primary : COLORS.gray,
+                  }}
+                  onPress={() => _handleSetTab(item)}
+                >
+                  {item.name}
+                </Text>
 
-          {tab.key === "email" && (
-            <View style={styles.viewLine}>
-              <Text style={styles.viewLine__text} />
-            </View>
-          )}
-        </View>
-
-        <View style={{ position: "relative", flex: 1 }}>
-          <Text
-            style={{
-              ...styles.tabHeader__text,
-              color: tab.key === "phone" ? COLORS.primary : COLORS.gray,
-            }}
-            onPress={() => _handleSetTab("PHONE")}
-          >
-            Phone Login
-          </Text>
-
-          {tab.key === "phone" && (
-            <View style={styles.viewLine}>
-              <Text style={styles.viewLine__text} />
-            </View>
-          )}
-        </View>
-      </Transitioning.View>
+                {tab.key === item.key && (
+                  <View style={styles.viewLine}>
+                    <Text style={styles.viewLine__text} />
+                  </View>
+                )}
+              </View>
+            );
+          }}
+        />
+      </View>
 
       <View style={{ flex: 1, maxHeight: 3 }}>
         <Text
@@ -164,11 +214,11 @@ export const LoginScreen = ({ navigation }) => {
         <TextInput
           style={styles.viewForm__input}
           onChangeText={(text) =>
-            _onChangeValInput(text, tab.key === "email" ? "email" : "phone")
+            _onChangeValInput(text, tab.key === "EMAIL" ? "email" : "phone")
           }
-          value={tab.key === "email" ? valInput.email : valInput.phone}
-          placeholder={tab.key === "email" ? "Email" : "Phone number"}
-          keyboardType={tab.key === "phone" ? "numeric" : "default"}
+          value={tab.key === "EMAIL" ? valInput.email : valInput.phone}
+          placeholder={tab.key === "EMAIL" ? "Email" : "Phone number"}
+          keyboardType={tab.key === "PHONE" ? "numeric" : "default"}
         />
         <View style={{ marginTop: 40, position: "relative" }}>
           <TextInput
@@ -206,12 +256,7 @@ export const LoginScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.viewBtnLogin}>
-          <TouchableOpacity
-            style={styles.touch__login}
-            onPress={() => {
-              console.log("login");
-            }}
-          >
+          <TouchableOpacity style={styles.touch__login} onPress={_handleLogin}>
             <Text style={{ color: COLORS.white }}>Login</Text>
           </TouchableOpacity>
         </View>
