@@ -56,17 +56,12 @@ export default function Container() {
         <NavigationContainer theme={theme}>
             <Stack.Navigator
                 screenOptions={{ headerShown: false }}
-                initialRouteName={"MainScreen"}
+                initialRouteName={"LoginScreen"}
             >
-                {
-                    isLogin ?
-                        <>
-                            <Stack.Screen name="MainScreen" component={MainScreen} />
-                            <Stack.Screen name="Hello" component={Hello} />
-                        </>
-                        :
-                        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-                }
+
+                <Stack.Screen name="MainScreen" component={MainScreen} />
+                <Stack.Screen name="Hello" component={Hello} />
+                <Stack.Screen name="LoginScreen" component={LoginScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

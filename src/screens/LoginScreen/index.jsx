@@ -109,8 +109,8 @@ export const LoginScreen = ({ navigation }) => {
     if (!userReducer.accessToken || !userReducer.refreshToken) return;
     const jsonValue = JSON.stringify(userReducer);
     AsyncStorage.setItem(EXTONS_USER_LOCAL, jsonValue);
-      createAlert("Success", "Login success...");
-
+    createAlert("Success", "Login success...");
+    navigation.navigate("MainScreen");
   }, [userReducer]);
 
   return (
