@@ -12,17 +12,22 @@ export default createSlice({
      * @type {UserReducerType}
      */
     initialState: {
-        test: {}
+        accessToken: "",
+        refreshToken: "",
+        expires: "",
+        type: ""
     },
     reducers: {},
     extraReducers: {
         [userActions.loginUser]: (state, action) => {
-
-            console.log("action: ", action);
-            console.log("state: ", state);
             if (!action.payload) return;
-
-            return state;
+            return {
+                ...state,
+                type: action.type,
+                accessToken: action.payload.accessToken,
+                refreshToken: action.payload.refreshToken,
+                expires: action.payload.expires,
+            };
         },
     }
 })

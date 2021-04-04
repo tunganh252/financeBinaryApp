@@ -3,7 +3,6 @@ import {
   View,
   Text,
   SafeAreaView,
-  StyleSheet,
   TouchableOpacity,
   Image,
   TextInput,
@@ -13,8 +12,11 @@ import { useDispatch } from "react-redux";
 import IconBack from "../../assets/icons/fontAwesome/IconBack";
 import IconEyePass from "../../assets/icons/fontAwesome/IconEyePass";
 import logo from "../../assets/icons/logo_default.png";
+import { useAsync } from "../../components/common/hooks/useAsyncState";
 import { COLORS, FONTS, SIZES } from "../../constant";
-import { loginUser } from "../../stores/actions/user";
+import { useUserSetting } from "../../services/module/user";
+
+import { styles } from "./styles";
 
 const tabLogin = {
   EMAIL: {
@@ -35,6 +37,11 @@ const valInputState = {
 };
 
 export const LoginScreen = ({ navigation }) => {
+  const { state: userReducer, post: postLoginUser } = useUserSetting();
+  const { execute: postLoginUserAsync, status: postLoginUserStatus } = useAsync(
+    postLoginUser
+  );
+
   const dispatcher = useDispatch();
   const lineRef = useRef();
 
@@ -58,38 +65,31 @@ export const LoginScreen = ({ navigation }) => {
     setValInput(valInputState);
   };
 
-  const _transitionLineRun = () => {
-    return (
-      <Transition.Together>
-        <Transition.In
-          type="slide-right"
-          durationMs={1500}
-          interpolation="easeInOut"
-        />
-        <Transition.In type="fade" />
-      </Transition.Together>
-    );
-  };
-
   useEffect(() => {
     lineRef.current.animateNextTransition();
 
     setTimeout(() => {
-      let email = "tunganh2521999@gmail.com";
-      let pass = "tunganh252";
-      dispatcher(loginUser({ email, pass }));
+      // let userLocal = localStorage.getItem("test");
+      // if (!!userRducer && Object.keys(userLocal).length > 0) return false;
+
+      let username = "tunganh2521999@gmail.com";
+      let password = "tunganh2521999";
+      postLoginUserAsync({ username, password });
     }, 3000);
   }, []);
 
+  useEffect(() => {
+    if (!!userReducer && Object.keys(userReducer).length > 0) {
+      // localStorage.setItem("test", userRducer);
+    }
+  }, [userReducer]);
+
+  console.log(postLoginUserStatus);
+  console.log("data-___: ", userReducer);
+
   return (
     <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          paddingLeft: 25,
-          paddingRight: 25,
-        }}
-      >
+      <View style={styles.viewBlockHeader}>
         <TouchableOpacity
           style={{ width: 50, justifyContent: "center" }}
           onPress={() => navigation.navigate("MainScreen")}
@@ -97,37 +97,14 @@ export const LoginScreen = ({ navigation }) => {
           <IconBack width={18} height={18} />
         </TouchableOpacity>
 
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            height: 50,
-            marginRight: SIZES.padding * 5,
-          }}
-        >
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+        <View style={styles.viewIcon}>
+          <View style={styles.viewIcon__block}>
             <Image
               source={logo}
               resizeMode="contain"
               style={{ width: 40, height: 40 }}
             />
-            <Text
-              style={{
-                fontFamily: "RobotoBlack",
-                fontSize: 24,
-                marginLeft: SIZES.padding / 2,
-              }}
-            >
-              EXTONS
-            </Text>
+            <Text style={styles.viewIcon__block_text}>EXTONS</Text>
           </View>
         </View>
       </View>
@@ -135,20 +112,12 @@ export const LoginScreen = ({ navigation }) => {
       <Transitioning.View
         ref={lineRef}
         // transition={_transitionLineRun}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: "row",
-          marginTop: 45,
-        }}
+        style={styles.viewTabHeader}
       >
         <View style={{ position: "relative", flex: 1 }}>
           <Text
             style={{
-              ...FONTS.body3,
-              textAlign: "center",
-              paddingBottom: 15,
+              ...styles.tabHeader__text,
               color: tab.key === "email" ? COLORS.primary : COLORS.gray,
             }}
             onPress={() => _handleSetTab("EMAIL")}
@@ -157,25 +126,8 @@ export const LoginScreen = ({ navigation }) => {
           </Text>
 
           {tab.key === "email" && (
-            <View
-              style={{
-                flex: 1,
-                maxHeight: 0.7,
-                backgroundColor: COLORS.primary,
-                color: COLORS.primary,
-              }}
-            >
-              <Text
-                style={{
-                  backgroundColor: COLORS.primary,
-                  color: COLORS.primary,
-                  width: "100%",
-                  height: 0.7,
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                }}
-              />
+            <View style={styles.viewLine}>
+              <Text style={styles.viewLine__text} />
             </View>
           )}
         </View>
@@ -183,9 +135,7 @@ export const LoginScreen = ({ navigation }) => {
         <View style={{ position: "relative", flex: 1 }}>
           <Text
             style={{
-              ...FONTS.body3,
-              textAlign: "center",
-              paddingBottom: 15,
+              ...styles.tabHeader__text,
               color: tab.key === "phone" ? COLORS.primary : COLORS.gray,
             }}
             onPress={() => _handleSetTab("PHONE")}
@@ -194,25 +144,8 @@ export const LoginScreen = ({ navigation }) => {
           </Text>
 
           {tab.key === "phone" && (
-            <View
-              style={{
-                flex: 1,
-                maxHeight: 0.7,
-                backgroundColor: COLORS.primary,
-                color: COLORS.primary,
-              }}
-            >
-              <Text
-                style={{
-                  backgroundColor: COLORS.primary,
-                  color: COLORS.primary,
-                  width: "100%",
-                  height: 0.7,
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                }}
-              />
+            <View style={styles.viewLine}>
+              <Text style={styles.viewLine__text} />
             </View>
           )}
         </View>
@@ -227,18 +160,9 @@ export const LoginScreen = ({ navigation }) => {
         />
       </View>
 
-      <View
-        style={{
-          flex: 1,
-          marginTop: SIZES.padding2 * 2,
-          paddingLeft: SIZES.padding2 * 3.5,
-          paddingRight: SIZES.padding2 * 3.5,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <View style={styles.viewForm}>
         <TextInput
-          style={styles.input}
+          style={styles.viewForm__input}
           onChangeText={(text) =>
             _onChangeValInput(text, tab.key === "email" ? "email" : "phone")
           }
@@ -248,7 +172,7 @@ export const LoginScreen = ({ navigation }) => {
         />
         <View style={{ marginTop: 40, position: "relative" }}>
           <TextInput
-            style={{ ...styles.input }}
+            style={styles.viewForm__input}
             onChangeText={(text) => _onChangeValInput(text, "password")}
             value={valInput.password}
             placeholder="Password"
@@ -271,48 +195,19 @@ export const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <View
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            alignContent: "center",
-            marginTop: 35,
-          }}
-        >
+        <View style={styles.viewForgotPass}>
           <TouchableOpacity
             onPress={() => {
               console.log("Forgot password?");
             }}
           >
-            <Text
-              style={{
-                color: COLORS.primary,
-              }}
-            >
-              Forgot password?
-            </Text>
+            <Text style={{ color: COLORS.primary }}>Forgot password?</Text>
           </TouchableOpacity>
         </View>
 
-        <View
-          style={{
-            flex: 1,
-            alignContent: "center",
-            marginTop: 35,
-            maxHeight: 40,
-          }}
-        >
+        <View style={styles.viewBtnLogin}>
           <TouchableOpacity
-            style={{
-              flex: 1,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: COLORS.primary,
-              color: COLORS.primary,
-              borderRadius: 20,
-            }}
+            style={styles.touch__login}
             onPress={() => {
               console.log("login");
             }}
@@ -321,37 +216,13 @@ export const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <View
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            alignContent: "center",
-            marginTop: 20,
-          }}
-        >
+        <View style={styles.viewHaveAccount}>
           <Text style={{ color: COLORS.gray }}>Do you have an account?</Text>
         </View>
 
-        <View
-          style={{
-            flex: 1,
-            alignContent: "center",
-            marginTop: 25,
-            maxHeight: 40,
-          }}
-        >
+        <View style={styles.viewCreateAccount}>
           <TouchableOpacity
-            style={{
-              flex: 1,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              // backgroundColor: COLORS.primary,
-              borderWidth: 1,
-              borderColor: COLORS.gray,
-              borderRadius: 20,
-            }}
+            style={styles.touch__createAccount}
             onPress={() => {
               console.log("Create an account?");
             }}
@@ -360,15 +231,7 @@ export const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <View
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            alignContent: "center",
-            marginTop: 50,
-          }}
-        >
+        <View style={styles.viewLanguage}>
           <TouchableOpacity
             onPress={() => {
               console.log("Language");
@@ -381,20 +244,5 @@ export const LoginScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-    backgroundColor: COLORS.lightGray,
-  },
-  input: {
-    height: 40,
-    // margin: 12,
-    paddingBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.gray,
-  },
-});
 
 export default LoginScreen;
