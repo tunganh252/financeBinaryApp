@@ -20,7 +20,6 @@ const userSettingSelector = createSelector(
 export const useUserSetting = () => {
     const state = useSelector(userSettingSelector);
     const dispatcher = useDispatch();
-
     const post = async (data) => {
         return await UserServices.POST_LOGIN_USER(data)
             .then(async (response) => {

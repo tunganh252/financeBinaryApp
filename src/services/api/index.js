@@ -22,7 +22,7 @@ class Service {
         let errorObject = {
             error: error.response,
             status: "error",
-            message: error.response?.data?.error,
+            message: error.response?.data,
         }
 
         if (axios.isCancel(error)) {

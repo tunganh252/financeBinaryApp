@@ -10,15 +10,24 @@ import { COLORS, SIZES } from "../../../constant";
 import { styles } from "./styles";
 
 import { dataTabNavigation } from "./constant";
-import LoginScreen from "../../../screens/LoginScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { EXTONS_USER_LOCAL } from "../../../constant/data";
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigation = ({ navigation }) => {
+
+  // useEffect(() => {
+  //   async function clearAsyncStorage() {
+  //     await AsyncStorage.removeItem(EXTONS_USER_LOCAL);
+  //   }
+  //   clearAsyncStorage();
+  // }, []);
+
   const _loopRenderTab = (data) => {
     if (!data || data.length < 0) return;
     return data.map((item, index) => {
-      const { icon: Icon, component: Component, isAuthenticate } = item;
+      const { icon: Icon, component: Component } = item;
       return (
         <Tab.Screen
           key={index}

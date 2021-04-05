@@ -11,7 +11,6 @@ import Market from "../../templates/Market";
 import Trade from "../../templates/Trade";
 import Home from "../../templates/Home";
 import Investment from "../../templates/Investment";
-import Fund from "../../templates/Fund";
 import FundAuthen from "../FundAuthen";
 
 export const dataTabNavigation = [
@@ -50,7 +49,7 @@ export const dataTabNavigation = [
     {
         name: "Fund",
         isAuthenticate: true,
-        component: Fund,
+        component: FundAuthen,
         icon: ({ width, color, height }) => {
             return <IconFund width={width} color={color} height={height} />;
         },

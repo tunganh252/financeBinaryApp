@@ -56,7 +56,7 @@ export default function Container() {
         <NavigationContainer theme={theme}>
             <Stack.Navigator
                 screenOptions={{ headerShown: false }}
-                initialRouteName={"LoginScreen"}
+                initialRouteName={"MainScreen"}
             >
 
                 <Stack.Screen name="MainScreen" component={MainScreen} />

@@ -7,6 +7,9 @@ import {
   Image,
   TextInput,
   Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ScrollView,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -24,6 +27,7 @@ import { useUserSetting } from "../../services/module/user";
 import Loop from "../../components/common/Loop";
 
 import { EXTONS_USER_LOCAL } from "../../constant/data";
+import LoadingScreen from "../../components/atoms/LoadingScreen";
 
 export const LoginScreen = ({ navigation }) => {
   // ====== Stores ====== //
@@ -92,13 +96,11 @@ export const LoginScreen = ({ navigation }) => {
     async function getDataLocal() {
       const dataUserLocal = await AsyncStorage.getItem(EXTONS_USER_LOCAL);
       if (!dataUserLocal) {
-        console.log("Chưa login");
-        // createAlert("Error", "Login fail...");
+        console.log("login screen: KHÔNG có user local");
         return false;
       }
 
-      console.log("Đã Login");
-      // createAlert("Success", "Login success...");
+      console.log("login screen: CÓ user local");
       console.log(dataUserLocal);
     }
 
@@ -110,27 +112,20 @@ export const LoginScreen = ({ navigation }) => {
     const jsonValue = JSON.stringify(userReducer);
     AsyncStorage.setItem(EXTONS_USER_LOCAL, jsonValue);
     createAlert("Success", "Login success...");
-    navigation.navigate("MainScreen");
+    navigation.replace("MainScreen");
   }, [userReducer]);
+
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* {postLoginUserStatus === "loading" && (
-        <View>
-          <Text>Loading</Text>
-          <Text>Loading</Text>
-          <Text>Loading</Text>
-          <Text>Loading</Text>
-          <Text>Loading</Text>
-        </View>
-      )} */}
+      {postLoginUserStatus === "loading" && <LoadingScreen />}
 
       <View style={styles.viewBlockHeader}>
         <TouchableOpacity
           style={{ width: 50, justifyContent: "center" }}
-          onPress={() => navigation.navigate("MainScreen")}
+          onPress={() => navigation.replace("MainScreen")}
         >
-          {/* <IconBack width={18} height={18} /> */}
+          <IconBack width={18} height={18} />
         </TouchableOpacity>
 
         <View style={styles.viewIcon}>
@@ -180,40 +175,41 @@ export const LoginScreen = ({ navigation }) => {
           }}
         />
       </View>
-
       <View style={styles.viewForm}>
-        <TextInput
-          style={styles.viewForm__input}
-          onChangeText={(text) =>
-            _onChangeValInput(text, tab.key === "EMAIL" ? "email" : "phone")
-          }
-          value={tab.key === "EMAIL" ? valInput.email : valInput.phone}
-          placeholder={tab.key === "EMAIL" ? "Email" : "Phone number"}
-          keyboardType={tab.key === "PHONE" ? "numeric" : "default"}
-        />
-        <View style={{ marginTop: 40, position: "relative" }}>
+        <View>
           <TextInput
             style={styles.viewForm__input}
-            onChangeText={(text) => _onChangeValInput(text, "password")}
-            value={valInput.password}
-            placeholder="Password"
-            secureTextEntry={valInput.isSetPassword}
-          />
-          <TouchableOpacity
-            style={{ position: "absolute", top: 0, right: 0 }}
-            onPress={() =>
-              setValInput((prevState) => ({
-                ...prevState,
-                isSetPassword: !valInput.isSetPassword,
-              }))
+            onChangeText={(text) =>
+              _onChangeValInput(text, tab.key === "EMAIL" ? "email" : "phone")
             }
-          >
-            <IconEyePass
-              width={25}
-              height={25}
-              active={valInput.isSetPassword}
+            value={tab.key === "EMAIL" ? valInput.email : valInput.phone}
+            placeholder={tab.key === "EMAIL" ? "Email" : "Phone number"}
+            keyboardType={tab.key === "EMAIL" ? "email-address" : "numeric"}
+          />
+          <View style={{ marginTop: 40, position: "relative" }}>
+            <TextInput
+              style={styles.viewForm__input}
+              onChangeText={(text) => _onChangeValInput(text, "password")}
+              value={valInput.password}
+              placeholder="Password"
+              secureTextEntry={valInput.isSetPassword}
             />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={{ position: "absolute", top: 0, right: 0 }}
+              onPress={() =>
+                setValInput((prevState) => ({
+                  ...prevState,
+                  isSetPassword: !valInput.isSetPassword,
+                }))
+              }
+            >
+              <IconEyePass
+                width={25}
+                height={25}
+                active={valInput.isSetPassword}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <View style={styles.viewForgotPass}>
