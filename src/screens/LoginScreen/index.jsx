@@ -7,11 +7,7 @@ import {
   Image,
   TextInput,
   Alert,
-  TouchableWithoutFeedback,
-  Keyboard,
-  ScrollView,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import IconBack from "../../assets/icons/fontAwesome/IconBack";
 import IconEyePass from "../../assets/icons/fontAwesome/IconEyePass";
@@ -26,7 +22,6 @@ import { useUserSetting } from "../../services/module/user";
 
 import Loop from "../../components/common/Loop";
 
-import { EXTONS_USER_LOCAL } from "../../constant/data";
 import LoadingScreen from "../../components/atoms/LoadingScreen";
 
 export const LoginScreen = ({ navigation }) => {
@@ -91,26 +86,8 @@ export const LoginScreen = ({ navigation }) => {
     Alert.alert(title, msg, [{ text: "OK", style: "cancel" }]);
 
   //======== Effect - lifeCycle =========//
-
-  useEffect(() => {
-    async function getDataLocal() {
-      const dataUserLocal = await AsyncStorage.getItem(EXTONS_USER_LOCAL);
-      if (!dataUserLocal) {
-        console.log("login screen: KHÔNG có user local");
-        return false;
-      }
-
-      console.log("login screen: CÓ user local");
-      console.log(dataUserLocal);
-    }
-
-    getDataLocal();
-  }, []);
-
   useEffect(() => {
     if (!userReducer.accessToken || !userReducer.refreshToken) return;
-    const jsonValue = JSON.stringify(userReducer);
-    AsyncStorage.setItem(EXTONS_USER_LOCAL, jsonValue);
     createAlert("Success", "Login success...");
     navigation.replace("MainScreen");
   }, [userReducer]);

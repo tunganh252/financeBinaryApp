@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './screens/LoginScreen';
 import MainScreen from './screens/MainScreen';
 import { useFonts } from 'expo-font';
 import Hello from './screens/Hello';
+import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
 
@@ -19,11 +20,8 @@ const theme = {
 
 export default function Container() {
 
-    // const { state: userReducer} = useUserSetting();
-
-
-    const [isLogin, setIsLogin] = useState(false)
-
+    const state = useSelector((state) => state);
+    console.log(state);
 
     const [loaded] = useFonts({
         RobotoRegular: require('./assets/fonts/Roboto-Regular.ttf'),
@@ -34,23 +32,6 @@ export default function Container() {
     if (!loaded) {
         return null;
     }
-
-
-    // useEffect(() => {
-    //     async function getDataLocal() {
-    //         const dataUserLocal = await AsyncStorage.getItem(EXTONS_USER_LOCAL);
-    //         if (!dataUserLocal) {
-    //             console.log("Chưa login");
-    //             return false;
-    //         }
-
-    //         console.log("Đã Login");
-    //         setIsLogin(true)
-    //         console.log(dataUserLocal);
-    //     }
-
-    //     getDataLocal();
-    // }, []);
 
     return (
         <NavigationContainer theme={theme}>

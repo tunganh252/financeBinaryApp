@@ -45,8 +45,9 @@ class Service {
     }
 
     getDefaultConfig({ isPrivate, isFormData } = {}) {
-        const config = { headers: CONSTANT_SERVICE.HEADER }
-
+        let config = { headers: { ...CONSTANT_SERVICE.HEADER } }
+        console.log(1111, config);
+        console.log(isPrivate);
         if (isPrivate) {
             const privateHeaderConfig = this.preparePrivateHeaderConfig();
             Object.assign(config.headers, privateHeaderConfig);
@@ -58,28 +59,30 @@ class Service {
             });
         }
 
+        console.log("2222222", config);
+
         return config;
     }
 
 
-    async GET(path, { isPrivate = true } = {}) {
+    async GET(path, { isPrivate = false } = {}) {
         const config = this.getDefaultConfig({ isPrivate });
 
         return await this.service.get(path, config);
     }
 
-    async POST(path, payload, { isPrivate = true, isFormData = false } = {}) {
+    async POST(path, payload, { isPrivate = false, isFormData = false } = {}) {
         const config = this.getDefaultConfig({ isPrivate, isFormData });
         return await this.service.post(path, payload, config);
     }
 
-    async PUT(path, payload, { isPrivate = true } = {}) {
+    async PUT(path, payload, { isPrivate = false } = {}) {
         const config = this.getDefaultConfig({ isPrivate });
 
         return await this.service.put(path, payload, config);
     }
 
-    async DELETE(path, { isPrivate = true } = {}) {
+    async DELETE(path, { isPrivate = false } = {}) {
         const config = this.getDefaultConfig({ isPrivate });
 
         return await this.service.delete(path, config);

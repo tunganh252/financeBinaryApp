@@ -16,7 +16,7 @@ const Authenticate = ({ navigation, handleIsLogin, isPassLogin = false }) => {
       const dataUserIsLogin = await AsyncStorage.getItem(EXTONS_USER_LOCAL);
       let dataCheck = JSON.parse(dataUserIsLogin);
 
-      // console.log(dataCheck);
+      console.log(dataCheck);
       if (!dataCheck && !dataCheck?.accessToken) setIsLogin(false);
       else setIsLogin(true);
     }
