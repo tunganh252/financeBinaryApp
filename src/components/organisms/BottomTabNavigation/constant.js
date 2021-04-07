@@ -54,12 +54,12 @@ export const dataTabNavigation = [
             return <IconFund width={width} color={color} height={height} />;
         },
     },
-    {
-        name: "Logout",
-        isAuthenticate: true,
-        component: Home,
-        icon: ({ width, color, height }) => {
-            return <IconHome width={width} color={color} height={height} />;
-        },
-    },
+    // {
+    //     name: "Logout",
+    //     isAuthenticate: true,
+    //     component: Home,
+    //     icon: ({ width, color, height }) => {
+    //         return <IconHome width={width} color={color} height={height} />;
+    //     },
+    // },
 ];
