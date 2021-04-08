@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import IconEyePass from "../../../assets/icons/fontAwesome/IconEyePass";
+import { LinearGradient } from "expo-linear-gradient";
+
 import { styles } from "./styles";
+
+import IconEyePass from "../../../assets/icons/fontAwesome/IconEyePass";
+
+import { arrSelectBtn } from "./constant";
+
+import Loop from "../../common/Loop";
 
 const Fund = () => {
   const [isShowEyes, setIsShowEyes] = useState(false);
@@ -45,9 +52,59 @@ const Fund = () => {
             </View>
           </View>
 
-          {/* Tab button select */}
-          <View>
-            
+          {/* Select button*/}
+          <View
+            style={{
+              ...styles.shadow,
+              ...styles.viewSelectBtn,
+              shadowOffset: { width: 4, height: 6 },
+            }}
+          >
+            <View style={styles.viewBlockItemSelect}>
+              <Loop
+                dataSet={arrSelectBtn}
+                memorize={arrSelectBtn}
+                onRender={(item) => {
+                  const {
+                    name,
+                    icon: Icon,
+                    sizeIcon,
+                    colorIcon,
+                    backgroundColor,
+                  } = item;
+                  return (
+                    <TouchableOpacity
+                      key={name}
+                      style={styles.touchAbleSelectBtn}
+                    >
+                      {backgroundColor.isLinear ? (
+                        <>
+                          <LinearGradient
+                            style={styles.linearGradientStyle}
+                            colors={backgroundColor.color}
+                          >
+                            <Icon width={sizeIcon} color={colorIcon} />
+                          </LinearGradient>
+                          <Text style={styles.textNameSelectBtn}>{name}</Text>
+                        </>
+                      ) : (
+                        <>
+                          <View
+                            style={{
+                              ...styles.viewBgSelectBtn,
+                              backgroundColor: backgroundColor.color,
+                            }}
+                          >
+                            <Icon width={sizeIcon} color={colorIcon} />
+                          </View>
+                          <Text style={styles.textNameSelectBtn}>{name}</Text>
+                        </>
+                      )}
+                    </TouchableOpacity>
+                  );
+                }}
+              />
+            </View>
           </View>
         </View>
       </View>
