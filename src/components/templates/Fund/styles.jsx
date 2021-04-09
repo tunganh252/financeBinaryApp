@@ -8,17 +8,17 @@ export const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: Platform.OS === "ios" ? 0.05 : 0.5,
     shadowRadius: 3.84,
     elevation: 5,
   },
   containerHeader: {
     flex: 1,
-    paddingBottom: 130,
+    paddingBottom: Platform.OS === "ios" ? 45 : 42,
   },
   viewSectionHeader: {
     width: "100%",
-    height: 170,
+    height: Platform.OS === "ios" ? 190 : 170,
   },
   viewBgHeader: {
     flex: 1,
@@ -58,6 +58,11 @@ export const styles = StyleSheet.create({
     ...FONTS.h2,
     fontWeight: "100",
   },
+  textConver__coint: {
+    color: COLORS.white,
+    fontSize: 12,
+    marginTop: 5
+  },
   viewSelectBtn: {
     width: "100%",
     height: 95,
@@ -90,7 +95,7 @@ export const styles = StyleSheet.create({
   textNameSelectBtn: {
     fontSize: 11,
     color: "#8b8b8b",
-    fontWeight: "600",
+    // fontWeight: "600",
     marginTop: 3,
   },
   viewBgSelectBtn: {
@@ -101,5 +106,45 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
     alignItems: "center",
+  },
+
+  /**
+   * Content
+   */
+
+  viewContentContainer: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+    height: "100%",
+    paddingBottom: 70,
+  },
+  viewTabHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    marginTop: 20,
+  },
+  tabHeader__text: {
+    textAlign: "center",
+    paddingBottom: 20,
+    fontSize: Platform.OS === "ios" ? 8 : 9,
+    color: "#353434",
+    fontWeight: "800",
+  },
+  viewLine: {
+    flex: 1,
+    maxHeight: 0.7,
+    backgroundColor: COLORS.primary,
+    color: COLORS.primary,
+  },
+  viewLine__text: {
+    backgroundColor: COLORS.primary,
+    color: COLORS.primary,
+    width: "100%",
+    height: 2,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
   },
 });

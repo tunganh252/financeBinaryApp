@@ -61,3 +61,22 @@ export const arrSelectBtn = [
         },
     },
 ];
+
+export const dataTabFundPage = [
+    {
+        name: "Trading account",
+        key: "tradingAccount",
+    },
+    {
+        name: "ETF account",
+        key: "etfAccount",
+    },
+    {
+        name: "Investment account",
+        key: "investmentAccount",
+    },
+    {
+        name: "Game account",
+        key: "gameAccount",
+    },
+];
