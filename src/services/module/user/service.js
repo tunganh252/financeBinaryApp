@@ -28,5 +28,9 @@ UserServices.POST_LOGOUT_USER = async () => {
     return await apiService.POST(`/v1/user/tokens/cancel`, {}, { isPrivate: true, isFormData: false })
 }
 
+UserServices.POST_REFRESH_TOKEN = async (token) => {
+    return await apiService.POST(`/v1/user/tokens/${token}/refresh`)
+}
+
 
 export default UserServices;

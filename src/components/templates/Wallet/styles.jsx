@@ -130,7 +130,7 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     paddingBottom: 20,
     fontSize: Platform.OS === "ios" ? 11 : 13,
-    color: "#353434",
+    color: "#636a7757",
     fontWeight: "800",
   },
   viewLine: {

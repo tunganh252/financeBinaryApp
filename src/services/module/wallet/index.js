@@ -13,7 +13,6 @@ export const useWalletTradingGetAllSetting = () => {
         return await WalletServices.GET_ALL_TRADINGS(data)
             .then(async (response) => {
                 if (!response || !response.data) return;
-
                 dispatcher(actionGetAllTrading(response.data))
             })
             .catch((err) => {

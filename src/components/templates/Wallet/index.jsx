@@ -22,7 +22,7 @@ import Loop from "../../common/Loop";
 import { COLORS, SIZES } from "../../../constant";
 import Exchange from "../../organisms/Exchange";
 
-const Wallet = () => {
+const Wallet = ({navigation}) => {
   /**
    * State
    */
@@ -120,7 +120,6 @@ const Wallet = () => {
                             style={styles.linearGradientStyle}
                             colors={backgroundColor.color}
                           >
-                            {/* <Icon width={sizeIcon} color={colorIcon} /> */}
                           </LinearGradient>
                           <Text style={styles.textNameSelectBtn}>{name}</Text>
                         </>
@@ -182,8 +181,8 @@ const Wallet = () => {
         <View style={{ flex: 1, maxHeight: 3 }}>
           <Text
             style={{
-              backgroundColor: COLORS.gray,
-              height: 0.5,
+              backgroundColor: "#636a7757",
+              height: 1,
             }}
           />
         </View>
@@ -194,7 +193,7 @@ const Wallet = () => {
             paddingHorizontal: SIZES.padding * 2,
           }}
         >
-          {tab.key === "exchange" && <Exchange />}
+          {tab.key === "exchange" && <Exchange navigation={navigation}/>}
         </View>
       </View>
     );
@@ -211,7 +210,6 @@ const Wallet = () => {
       {/* main screen */}
       <View style={styles.viewContentContainer}>
         {_renderContent()}
-        <View style={{ height: 500 }}></View>
       </View>
     </ScrollView>
   );

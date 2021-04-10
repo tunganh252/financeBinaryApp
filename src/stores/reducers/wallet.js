@@ -20,7 +20,7 @@ export default createSlice({
                 ...state,
                 trading: {
                     ...state.trading,
-                    data: [],
+                    data: action.payload,
                     type: action.type
                 }
             }

@@ -50,7 +50,6 @@ class Service {
     getDefaultConfig({ isPrivate, isFormData } = {}) {
         let config = { headers: { ...CONSTANT_SERVICE.HEADER } }
 
-        console.log(444545, isPrivate);
         if (isPrivate) {
             const privateHeaderConfig = this.preparePrivateHeaderConfig();
             Object.assign(config.headers, privateHeaderConfig);

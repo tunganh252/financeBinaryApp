@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './screens/LoginScreen';
@@ -7,6 +7,8 @@ import MainScreen from './screens/MainScreen';
 import { useFonts } from 'expo-font';
 import Hello from './screens/Hello';
 import { useSelector } from "react-redux";
+import { useUserCheckToken } from './services/module/user';
+import { useAsync } from './components/common/hooks/useAsyncState';
 
 const Stack = createStackNavigator();
 
@@ -20,9 +22,23 @@ const theme = {
 };
 
 export default function Container() {
-
+    /**
+     * Stores
+     */
     const state = useSelector((state) => state);
     console.log(state);
+
+    const { post: postCheckToken } = useUserCheckToken()
+    const { execute: postCheckTokenAsync } = useAsync(postCheckToken)
+
+
+    /**
+     * Effect
+     */
+
+    useEffect(() => {
+        postCheckTokenAsync()
+    }, [])
 
     const [loaded] = useFonts({
         RobotoRegular: require('./assets/fonts/Roboto-Regular.ttf'),

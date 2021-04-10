@@ -42,7 +42,7 @@ export default createSlice({
         [userActions.actionSendRegisterCode]: (state, action) => {
             return { ...state, type: action.type }
         },
-        
+
         [userActions.actionSignupUser]: (state, action) => {
             return { ...state, type: action.type }
         },
@@ -55,6 +55,14 @@ export default createSlice({
                 accessToken: "",
                 refreshToken: "",
                 expires: "",
+                type: action.type
+            }
+        },
+
+        [userActions.actionCheckTokenToSave]: (state, action) => {
+            return {
+                ...state,
+                ...action.payload,
                 type: action.type
             }
         }

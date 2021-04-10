@@ -6,7 +6,7 @@
  * @returns string
  */
 export const convertNumToMoney = (num = 0, sign = ".", unit = "đ", isUnitFirst = true) => {
-    if (num === 0) return `0.0000000`;
+    if (num === 0) return `0.000`;
 
     let val = num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, `$1${sign}`)
     let res = ""
