@@ -13,7 +13,7 @@ export const arrSelectBtn = [
         colorIcon: COLORS.white,
         sizeIcon: 24,
         backgroundColor: {
-            isLinear: true,
+            isLinear: false,
             color: ["#f3402c", "#f5af19"],
         },
     },
@@ -24,7 +24,7 @@ export const arrSelectBtn = [
         sizeIcon: 23,
 
         backgroundColor: {
-            isLinear: true,
+            isLinear: false,
             color: ["#f7971e", "#ffd200"],
         },
     },
@@ -34,49 +34,49 @@ export const arrSelectBtn = [
         colorIcon: COLORS.white,
         sizeIcon: 24,
         backgroundColor: {
-            isLinear: true,
+            isLinear: false,
             // color: ["#fdc830", "#f37335"],
             color: ["#ff5f6d", "#ffc371"],
         },
     },
-    {
-        name: "History",
-        icon: IconHistory,
-        colorIcon: COLORS.primary,
-        sizeIcon: 22,
-        backgroundColor: {
-            isLinear: false,
-            color: "#ededed",
-        },
-    },
-    {
-        name: "Record",
-        icon: IconRecord,
-        colorIcon: COLORS.primary,
-        sizeIcon: 18,
-        backgroundColor: {
-            isLinear: false,
-            color: "#ededed",
-            // color: COLORS.gray,
-        },
-    },
+    // {
+    //     name: "History",
+    //     icon: IconHistory,
+    //     colorIcon: COLORS.primary,
+    //     sizeIcon: 22,
+    //     backgroundColor: {
+    //         isLinear: false,
+    //         color: "#ededed",
+    //     },
+    // },
+    // {
+    //     name: "Record",
+    //     icon: IconRecord,
+    //     colorIcon: COLORS.primary,
+    //     sizeIcon: 18,
+    //     backgroundColor: {
+    //         isLinear: false,
+    //         color: "#ededed",
+    //         // color: COLORS.gray,
+    //     },
+    // },
 ];
 
-export const dataTabFundPage = [
+export const dataTabWalletPage = [
     {
-        name: "Trading account",
-        key: "tradingAccount",
+        name: "Exchange",
+        key: "exchange",
     },
     {
-        name: "ETF account",
-        key: "etfAccount",
+        name: "Investment",
+        key: "investment",
     },
     {
-        name: "Investment account",
-        key: "investmentAccount",
+        name: "Partner",
+        key: "partner",
     },
     {
-        name: "Game account",
-        key: "gameAccount",
+        name: "Fiat",
+        key: "fiat",
     },
 ];

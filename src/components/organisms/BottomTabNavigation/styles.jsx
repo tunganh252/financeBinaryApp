@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.blueDark,
     elevation: 0,
   },
   shadow: {

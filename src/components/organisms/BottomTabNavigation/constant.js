@@ -4,14 +4,14 @@ import IconMarket from "../../../assets/icons/fontAwesome/IconMarket";
 import IconHome from "../../../assets/icons/fontAwesome/IconHome";
 import IconTrade from "../../../assets/icons/fontAwesome/IconTrade";
 import IconInvestment from "../../../assets/icons/fontAwesome/IconInvestment";
-import IconFund from "../../../assets/icons/fontAwesome/IconFund";
+import IconWallet from "../../../assets/icons/fontAwesome/IconWallet";
 
 import TestApp from "../../atoms/TestApp";
 import Market from "../../templates/Market";
 import Trade from "../../templates/Trade";
 import Home from "../../templates/Home";
 import Investment from "../../templates/Investment";
-import FundAuthen from "../FundAuthen";
+import WalletAuthen from "../WalletAuthen";
 
 export const dataTabNavigation = [
     {
@@ -47,19 +47,19 @@ export const dataTabNavigation = [
         },
     },
     {
-        name: "Fund",
+        name: "Wallet",
         isAuthenticate: true,
-        component: FundAuthen,
+        component: WalletAuthen,
         icon: ({ width, color, height }) => {
-            return <IconFund width={width} color={color} height={height} />;
+            return <IconWallet width={width} color={color} height={height} />;
         },
     },
-    // {
-    //     name: "Logout",
-    //     isAuthenticate: true,
-    //     component: Home,
-    //     icon: ({ width, color, height }) => {
-    //         return <IconHome width={width} color={color} height={height} />;
-    //     },
-    // },
+    {
+        name: "Logout",
+        isAuthenticate: true,
+        component: Home,
+        icon: ({ width, color, height }) => {
+            return <IconHome width={width} color={color} height={height} />;
+        },
+    },
 ];

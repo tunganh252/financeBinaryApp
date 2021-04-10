@@ -7,7 +7,11 @@ export const COLORS = {
     primary: "#f59d37",
     secondary: "#f8ac59",
 
-    baseGreen: "#24C16B", 
+    blueDark: "#1b2945",
+    blueBlack: "#1a1e30",
+    blueLight: "#1da1f2",
+
+    baseGreen: "#24C16B",
     darkGreen: "#0C381F",
 
     green: "#66D59A",
@@ -22,7 +26,7 @@ export const COLORS = {
     purple: "#6B3CE9",
     lightpurple: "#F3EFFF",
 
-    
+
     yellow: "#FFC664",
     lightyellow: "#FFF9EC",
 

@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
   containerHeader: {
     flex: 1,
     paddingBottom: Platform.OS === "ios" ? 45 : 42,
+    backgroundColor: "#000"
   },
   viewSectionHeader: {
     width: "100%",
@@ -66,13 +67,13 @@ export const styles = StyleSheet.create({
   viewSelectBtn: {
     width: "100%",
     height: 95,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.blueBlack,
     borderRadius: 5,
     marginTop: 12,
   },
   viewBlockItemSelect: {
     flex: 1,
-    paddingHorizontal: 15,
+    paddingHorizontal: 50,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -114,7 +115,7 @@ export const styles = StyleSheet.create({
 
   viewContentContainer: {
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.blueBlack,
     height: "100%",
     paddingBottom: 70,
   },
@@ -128,7 +129,7 @@ export const styles = StyleSheet.create({
   tabHeader__text: {
     textAlign: "center",
     paddingBottom: 20,
-    fontSize: Platform.OS === "ios" ? 8 : 9,
+    fontSize: Platform.OS === "ios" ? 11 : 13,
     color: "#353434",
     fontWeight: "800",
   },

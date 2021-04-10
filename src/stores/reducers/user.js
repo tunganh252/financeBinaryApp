@@ -39,6 +39,14 @@ export default createSlice({
             };
         },
 
+        [userActions.actionSendRegisterCode]: (state, action) => {
+            return { ...state, type: action.type }
+        },
+        
+        [userActions.actionSignupUser]: (state, action) => {
+            return { ...state, type: action.type }
+        },
+
         [userActions.actionLogout]: (state, action) => {
             AsyncStorage.removeItem(EXTONS_USER_LOCAL)
             console.log("Logout thành công...");

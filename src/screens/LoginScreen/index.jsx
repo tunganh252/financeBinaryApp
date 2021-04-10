@@ -18,7 +18,7 @@ import { dataTabLogin, valInputState } from "./constant";
 import { styles } from "./styles";
 
 import { useAsync } from "../../components/common/hooks/useAsyncState";
-import { useUserSetting } from "../../services/module/user";
+import { useUserLoginSetting } from "../../services/module/user";
 
 import Loop from "../../components/common/Loop";
 
@@ -27,7 +27,7 @@ import LoadingScreen from "../../components/atoms/LoadingScreen";
 export const LoginScreen = ({ navigation }) => {
   // ====== Stores ====== //
 
-  const { state: userReducer, post: postLoginUser } = useUserSetting();
+  const { state: userReducer, post: postLoginUser } = useUserLoginSetting();
   const { execute: postLoginUserAsync, status: postLoginUserStatus } = useAsync(
     postLoginUser
   );
@@ -92,7 +92,6 @@ export const LoginScreen = ({ navigation }) => {
     navigation.replace("MainScreen");
   }, [userReducer]);
 
-
   return (
     <SafeAreaView style={styles.container}>
       {postLoginUserStatus === "loading" && <LoadingScreen />}
@@ -102,7 +101,7 @@ export const LoginScreen = ({ navigation }) => {
           style={{ width: 50, justifyContent: "center" }}
           onPress={() => navigation.replace("MainScreen")}
         >
-          <IconBack width={18} height={18} />
+          <IconBack width={18} height={18} color={COLORS.white} />
         </TouchableOpacity>
 
         <View style={styles.viewIcon}>
@@ -126,7 +125,7 @@ export const LoginScreen = ({ navigation }) => {
                 <Text
                   style={{
                     ...styles.tabHeader__text,
-                    color: tab.key === item.key ? COLORS.primary : COLORS.gray,
+                    color: tab.key === item.key ? COLORS.primary : COLORS.white,
                   }}
                   onPress={() => _handleSetTab(item)}
                 >
@@ -147,7 +146,7 @@ export const LoginScreen = ({ navigation }) => {
       <View style={{ flex: 1, maxHeight: 3 }}>
         <Text
           style={{
-            backgroundColor: COLORS.gray,
+            backgroundColor: COLORS.white,
             height: 0.5,
           }}
         />
@@ -161,6 +160,7 @@ export const LoginScreen = ({ navigation }) => {
             }
             value={tab.key === "EMAIL" ? valInput.email : valInput.phone}
             placeholder={tab.key === "EMAIL" ? "Email" : "Phone number"}
+            placeholderTextColor={COLORS.white}
             keyboardType={tab.key === "EMAIL" ? "email-address" : "numeric"}
           />
           <View style={{ marginTop: 40, position: "relative" }}>
@@ -169,6 +169,7 @@ export const LoginScreen = ({ navigation }) => {
               onChangeText={(text) => _onChangeValInput(text, "password")}
               value={valInput.password}
               placeholder="Password"
+              placeholderTextColor={COLORS.white}
               secureTextEntry={valInput.isSetPassword}
             />
             <TouchableOpacity
@@ -183,6 +184,7 @@ export const LoginScreen = ({ navigation }) => {
               <IconEyePass
                 width={25}
                 height={25}
+                color={COLORS.white}
                 active={valInput.isSetPassword}
               />
             </TouchableOpacity>
@@ -214,9 +216,10 @@ export const LoginScreen = ({ navigation }) => {
             style={styles.touch__createAccount}
             onPress={() => {
               console.log("Create an account?");
+              navigation.navigate("SignupScreen");
             }}
           >
-            <Text style={{ color: COLORS.black }}>Create an account?</Text>
+            <Text style={{ color: COLORS.white }}>Create an account?</Text>
           </TouchableOpacity>
         </View>
 
@@ -226,7 +229,7 @@ export const LoginScreen = ({ navigation }) => {
               console.log("Language");
             }}
           >
-            <Text>English</Text>
+            <Text style={{ color: COLORS.white }}>English</Text>
           </TouchableOpacity>
         </View>
       </View>

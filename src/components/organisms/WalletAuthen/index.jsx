@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Authenticate from "../../common/Authenticate";
-import Fund from "../../templates/Fund";
+import Fund from "../../templates/Wallet";
 
-const FundAuthen = ({ navigation }) => {
+const WalletAuthen = ({ navigation }) => {
   const [isLogin, setIsLogin] = useState(false);
 
   const _handleCheckIsLogin = (isLogin) => {
@@ -23,4 +23,4 @@ const FundAuthen = ({ navigation }) => {
   );
 };
 
-export default FundAuthen;
+export default WalletAuthen;

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { CONSTANT_SERVICE } from './constant';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { EXTONS_USER_LOCAL } from '../../constant/data';
 
 class Service {
     constructor() {
@@ -33,10 +35,11 @@ class Service {
     }
 
     preparePrivateHeaderConfig() {
-        // const { token } = AuthenticationServices.hasUserSession();
+        // const dataUserIsLogin = await AsyncStorage.getItem(EXTONS_USER_LOCAL);
+        // let dataCheck = JSON.parse(dataUserIsLogin);
 
         return {
-            [CONSTANT_SERVICE.AuthenticationHeaderField]: "token"
+            [CONSTANT_SERVICE.AuthenticationHeaderField]: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzA0YWZiOC1hYmQyLTQwMjAtYjRlYS1mOTg5ODkwMTZjZTkiLCJpc3MiOiJleHRvbnMuaW8iLCJpYXQiOjE2MTgwNzQ2NTksImV4cCI6MTYxODA3NDk1OSwidW5pcXVlX25hbWUiOiIxYzA0YWZiOC1hYmQyLTQwMjAtYjRlYS1mOTg5ODkwMTZjZTkifQ.UsNMgp0c__48FeadTI7UyLQH1tjH6ZDDqaVF2yICw_E"
         }
     }
 
@@ -46,8 +49,8 @@ class Service {
 
     getDefaultConfig({ isPrivate, isFormData } = {}) {
         let config = { headers: { ...CONSTANT_SERVICE.HEADER } }
-        console.log(1111, config);
-        console.log(isPrivate);
+
+        console.log(444545, isPrivate);
         if (isPrivate) {
             const privateHeaderConfig = this.preparePrivateHeaderConfig();
             Object.assign(config.headers, privateHeaderConfig);
@@ -58,16 +61,12 @@ class Service {
                 'Content-Type': 'multipart/form-data'
             });
         }
-
-        console.log("2222222", config);
-
         return config;
     }
 
 
     async GET(path, { isPrivate = false } = {}) {
         const config = this.getDefaultConfig({ isPrivate });
-
         return await this.service.get(path, config);
     }
 

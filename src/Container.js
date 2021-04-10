@@ -2,6 +2,7 @@ import React from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
 import MainScreen from './screens/MainScreen';
 import { useFonts } from 'expo-font';
 import Hello from './screens/Hello';
@@ -43,6 +44,7 @@ export default function Container() {
                 <Stack.Screen name="MainScreen" component={MainScreen} />
                 <Stack.Screen name="Hello" component={Hello} />
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                <Stack.Screen name="SignupScreen" component={SignupScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

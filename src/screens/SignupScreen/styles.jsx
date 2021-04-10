@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 30,
     backgroundColor: COLORS.blueDark,
+    position: "relative",
   },
   viewBlockHeader: {
     flexDirection: "row",
@@ -29,7 +30,7 @@ export const styles = StyleSheet.create({
     fontFamily: "RobotoBlack",
     fontSize: 24,
     marginLeft: SIZES.padding / 2,
-    color: COLORS.white,
+    color: COLORS.white
   },
   viewTabHeader: {
     display: "flex",
@@ -45,7 +46,7 @@ export const styles = StyleSheet.create({
   },
   viewLine: {
     flex: 1,
-    maxHeight: 2,
+    maxHeight: 0.7,
     backgroundColor: COLORS.primary,
     color: COLORS.primary,
   },
@@ -53,7 +54,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     color: COLORS.primary,
     width: "100%",
-    height: 2,
+    height: 0.7,
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -68,6 +69,7 @@ export const styles = StyleSheet.create({
   },
   viewForm__input: {
     height: 40,
+    width: "100%",
     paddingBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.white,
@@ -93,7 +95,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: COLORS.primary,
     color: COLORS.primary,
-    borderRadius: 20,
+    borderRadius: 5,
   },
   viewHaveAccount: {
     display: "flex",

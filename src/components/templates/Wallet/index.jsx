@@ -12,7 +12,7 @@ import { styles } from "./styles";
 
 import IconEyePass from "../../../assets/icons/fontAwesome/IconEyePass";
 
-import { arrSelectBtn, dataTabFundPage } from "./constant";
+import { arrSelectBtn, dataTabWalletPage } from "./constant";
 import {
   convertNumToMoney,
   wait_macroTask,
@@ -20,14 +20,15 @@ import {
 
 import Loop from "../../common/Loop";
 import { COLORS, SIZES } from "../../../constant";
+import Exchange from "../../organisms/Exchange";
 
-const Fund = () => {
+const Wallet = () => {
   /**
    * State
    */
-  const [refreshing, setRefreshing] = useState(false);
+  // const [refreshing, setRefreshing] = useState(false);
   const [isShowEyes, setIsShowEyes] = useState(false);
-  const [tab, setTab] = useState(dataTabFundPage[0]);
+  const [tab, setTab] = useState(dataTabWalletPage[0]);
 
   /**
    * Function
@@ -44,10 +45,10 @@ const Fund = () => {
   /**
    * Effect
    */
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait_macroTask(1000).then(() => setRefreshing(false));
-  }, []);
+  // const onRefresh = useCallback(() => {
+  //   setRefreshing(true);
+  //   wait_macroTask(1000).then(() => setRefreshing(false));
+  // }, []);
 
   const _renderHeader = () => {
     return (
@@ -119,7 +120,7 @@ const Fund = () => {
                             style={styles.linearGradientStyle}
                             colors={backgroundColor.color}
                           >
-                            <Icon width={sizeIcon} color={colorIcon} />
+                            {/* <Icon width={sizeIcon} color={colorIcon} /> */}
                           </LinearGradient>
                           <Text style={styles.textNameSelectBtn}>{name}</Text>
                         </>
@@ -152,7 +153,7 @@ const Fund = () => {
       <View>
         <View style={styles.viewTabHeader}>
           <Loop
-            dataSet={dataTabFundPage}
+            dataSet={dataTabWalletPage}
             onRender={(item) => {
               return (
                 <View style={{ position: "relative", flex: 1 }} key={item.key}>
@@ -187,32 +188,23 @@ const Fund = () => {
           />
         </View>
 
-        {tab.key === "tradingAccount" && (
-          <View
-            style={{
-              marginTop: SIZES.padding2,
-              paddingHorizontal: SIZES.padding * 2,
-            }}
-          >
-            <Text
-              style={{
-                color: "#a4a4a4",
-                fontSize: 13,
-              }}
-            >
-              Value of Trading Account(s)
-            </Text>
-          </View>
-        )}
+        <View
+          style={{
+            marginTop: SIZES.padding2,
+            paddingHorizontal: SIZES.padding * 2,
+          }}
+        >
+          {tab.key === "exchange" && <Exchange />}
+        </View>
       </View>
     );
   };
 
   return (
     <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
+    // refreshControl={
+    //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    // }
     >
       <View style={styles.containerHeader}>{_renderHeader()}</View>
 
@@ -225,4 +217,4 @@ const Fund = () => {
   );
 };
 
-export default Fund;
+export default Wallet;
