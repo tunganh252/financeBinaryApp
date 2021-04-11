@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
-    marginTop: 15,
   },
   tabHeader__text: {
     paddingBottom: 8,
@@ -74,6 +73,7 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
     opacity: 0.6,
     fontSize: 12,
+    textTransform: "uppercase",
   },
 
   textBtnPercent: {

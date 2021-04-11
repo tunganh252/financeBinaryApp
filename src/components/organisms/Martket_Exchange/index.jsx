@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import IconSort from "../../../assets/icons/fontAwesome/IconSort";
 import { COLORS } from "../../../constant";
+import {
+  useMarketGetListCoins,
+  useMarketGetMakePairsCoin,
+} from "../../../services/module/market";
+import { useAsync } from "../../common/hooks/useAsyncState";
 import Loop from "../../common/Loop";
 import { listCoinParent, listfilter } from "./constant";
 
@@ -9,9 +14,31 @@ import { styles } from "./styles";
 
 const Market_Exchange = ({ navigation }) => {
   /**
+   * Stores
+   */
+  const {
+    state: listCoinsReducer,
+    get: getAllListCoins,
+  } = useMarketGetListCoins();
+
+  const {
+    execute: getAllListCoinsAsync,
+    status: getAllListCoinsStatus,
+  } = useAsync(getAllListCoins);
+
+  const {
+    state: makePairsDataReducer,
+    get: getPairsCoin,
+  } = useMarketGetMakePairsCoin();
+
+  const { execute: getPairsCoinAsync, status: getPairsCoinStatus } = useAsync(
+    getPairsCoin
+  );
+
+  /**
    * State
    */
-  const [tabParent, setTabParent] = useState(listCoinParent[0]);
+  const [tabParent, setTabParent] = useState({});
   const [tabChildFilter, setTabChildFilter] = useState(listfilter[0]);
 
   /**
@@ -20,38 +47,65 @@ const Market_Exchange = ({ navigation }) => {
 
   const _handleSetTabCoin = (tabParent) => {
     setTabParent(tabParent);
+    getPairsCoinAsync(tabParent.code);
   };
+
+  /**
+   * Effect
+   */
+
+  useEffect(() => {
+    getAllListCoinsAsync();
+  }, []);
+
+  useEffect(() => {
+    if (!listCoinsReducer || listCoinsReducer.length <= 0) return;
+    setTabParent(listCoinsReducer[0]);
+    getPairsCoinAsync(listCoinsReducer[0].code);
+  }, [listCoinsReducer]);
+
+  console.log(makePairsDataReducer);
 
   return (
     <View style={styles.viewContainer}>
       {/* List các coin chính */}
-      <View style={styles.viewTabHeader}>
-        <Loop
-          dataSet={listCoinParent}
-          onRender={(item) => {
-            return (
-              <View key={item.code} style={{ marginRight: 20 }}>
-                <Text
-                  style={{
-                    ...styles.tabHeader__text,
-                    color:
-                      tabParent.code === item.code
-                        ? COLORS.primary
-                        : COLORS.gray,
-                  }}
-                  numberOfLines={2}
-                  onPress={() => _handleSetTabCoin(item)}
-                >
-                  {item.name}
-                </Text>
-                {tabParent.code === item.code && (
-                  <View style={styles.viewLine__text} />
-                )}
-              </View>
-            );
-          }}
-        />
-      </View>
+      <ScrollView
+        style={{ marginTop: 12 }}
+        horizontal={true}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
+        <View style={styles.viewTabHeader}>
+          {!!listCoinsReducer && listCoinsReducer.length > 0 && (
+            <Loop
+              dataSet={listCoinsReducer}
+              onRender={(item) => {
+                return (
+                  <View key={item.id} style={{ marginRight: 20 }}>
+                    <Text
+                      style={{
+                        ...styles.tabHeader__text,
+                        color:
+                          tabParent.code === item.code
+                            ? COLORS.primary
+                            : COLORS.gray,
+                      }}
+                      numberOfLines={2}
+                      onPress={() => _handleSetTabCoin(item)}
+                    >
+                      {item.code}
+                    </Text>
+                    {tabParent.code === item.code && (
+                      <View style={styles.viewLine__text} />
+                    )}
+                  </View>
+                );
+              }}
+            />
+          )}
+        </View>
+      </ScrollView>
+
       {/* List filter trong tab co */}
       <ScrollView
         style={{ marginTop: 12 }}
@@ -114,137 +168,67 @@ const Market_Exchange = ({ navigation }) => {
         </View>
       </View>
 
-      {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
-      {/*  */}
-
-      <View style={{ ...styles.viewCoinContainer, marginTop: 15 }}>
-        <View style={{ flex: 2 }}>
-          <View style={styles.viewFlexRowJustifyStart}>
-            <Text style={{ color: COLORS.white, fontWeight: "700" }}>BTC</Text>
-            <Text
-              style={{
-                ...styles.textFilterCoin,
-                fontSize: 9,
-                paddingTop: 6,
-                opacity: 0.4,
-                fontWeight: "600",
-              }}
+      <Loop
+        dataSet={makePairsDataReducer.dataCoinPairs}
+        onRender={(item) => {
+          return (
+            <View
+              key={item.code}
+              style={{ ...styles.viewCoinContainer, marginTop: 15 }}
             >
-              &nbsp; /USDT
-            </Text>
-          </View>
-          <Text style={{ ...styles.textFilterCoin }}>24H $1.5B</Text>
-        </View>
-        <View
-          style={{
-            ...styles.viewLastFilterCoin,
-            flexDirection: "column",
-            flex: 1,
-          }}
-        >
-          <Text style={{ color: COLORS.white, fontWeight: "700" }}>
-            60606006
-          </Text>
-          <Text style={{ ...styles.textFilterCoin }}>$136151</Text>
-        </View>
-        <View style={{ ...styles.viewLastFilterCoin, alignItems: "center" }}>
-          <Text
-            style={{
-              ...styles.textBtnPercent,
-              backgroundColor: COLORS.baseGreen,
-            }}
-          >
-            +0.22%
-          </Text>
-        </View>
-      </View>
-      <View style={{ ...styles.viewCoinContainer, marginTop: 15 }}>
-        <View style={{ flex: 2 }}>
-          <View style={styles.viewFlexRowJustifyStart}>
-            <Text style={{ color: COLORS.white, fontWeight: "700" }}>BTC</Text>
-            <Text
-              style={{
-                ...styles.textFilterCoin,
-                fontSize: 9,
-                paddingTop: 6,
-                opacity: 0.4,
-                fontWeight: "600",
-              }}
-            >
-              &nbsp; /USDT
-            </Text>
-          </View>
-          <Text style={{ ...styles.textFilterCoin }}>24H $1.5B</Text>
-        </View>
-        <View
-          style={{
-            ...styles.viewLastFilterCoin,
-            flexDirection: "column",
-            flex: 1,
-          }}
-        >
-          <Text style={{ color: COLORS.white, fontWeight: "700" }}>
-            60606006
-          </Text>
-          <Text style={{ ...styles.textFilterCoin }}>$136151</Text>
-        </View>
-        <View style={{ ...styles.viewLastFilterCoin, alignItems: "center" }}>
-          <Text
-            style={{
-              ...styles.textBtnPercent,
-              backgroundColor: COLORS.baseGreen,
-            }}
-          >
-            +0.22%
-          </Text>
-        </View>
-      </View>
-      <View style={{ ...styles.viewCoinContainer, marginTop: 15 }}>
-        <View style={{ flex: 2 }}>
-          <View style={styles.viewFlexRowJustifyStart}>
-            <Text style={{ color: COLORS.white, fontWeight: "700" }}>BTC</Text>
-            <Text
-              style={{
-                ...styles.textFilterCoin,
-                fontSize: 9,
-                paddingTop: 6,
-                opacity: 0.4,
-                fontWeight: "600",
-              }}
-            >
-              &nbsp; /USDT
-            </Text>
-          </View>
-          <Text style={{ ...styles.textFilterCoin }}>24H $1.5B</Text>
-        </View>
-        <View
-          style={{
-            ...styles.viewLastFilterCoin,
-            flexDirection: "column",
-            flex: 1,
-          }}
-        >
-          <Text style={{ color: COLORS.white, fontWeight: "700" }}>
-            60606006
-          </Text>
-          <Text style={{ ...styles.textFilterCoin }}>$136151</Text>
-        </View>
-        <View style={{ ...styles.viewLastFilterCoin, alignItems: "center" }}>
-          <Text
-            style={{
-              ...styles.textBtnPercent,
-              backgroundColor: COLORS.baseGreen,
-            }}
-          >
-            +0.22%
-          </Text>
-        </View>
-      </View>
+              <View style={{ flex: 2 }}>
+                <View style={styles.viewFlexRowJustifyStart}>
+                  <Text
+                    style={{
+                      color: COLORS.white,
+                      fontWeight: "700",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {item.symbolFirst}
+                  </Text>
+                  <Text
+                    style={{
+                      ...styles.textFilterCoin,
+                      fontSize: 9,
+                      paddingTop: 6,
+                      opacity: 0.4,
+                      fontWeight: "600",
+                    }}
+                  >
+                    &nbsp; /{item.symbolSecond}
+                  </Text>
+                </View>
+                <Text style={{ ...styles.textFilterCoin }}>24H $1.5B</Text>
+              </View>
+              <View
+                style={{
+                  ...styles.viewLastFilterCoin,
+                  flexDirection: "column",
+                  flex: 1,
+                }}
+              >
+                <Text style={{ color: COLORS.white, fontWeight: "700" }}>
+                  60606006
+                </Text>
+                <Text style={{ ...styles.textFilterCoin }}>$136151</Text>
+              </View>
+              <View
+                style={{ ...styles.viewLastFilterCoin, alignItems: "center" }}
+              >
+                <Text
+                  style={{
+                    ...styles.textBtnPercent,
+                    backgroundColor: COLORS.baseGreen,
+                  }}
+                >
+                  +0.22%
+                </Text>
+              </View>
+            </View>
+          );
+        }}
+      />
     </View>
   );
 };
