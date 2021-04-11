@@ -20,9 +20,9 @@ import {
 
 import Loop from "../../common/Loop";
 import { COLORS, SIZES } from "../../../constant";
-import Exchange from "../../organisms/Exchange";
+import Wallet_Exchange from "../../organisms/Wallet_Exchange";
 
-const Wallet = ({navigation}) => {
+const Wallet = ({ navigation }) => {
   /**
    * State
    */
@@ -83,8 +83,7 @@ const Wallet = ({navigation}) => {
                 <Text style={styles.textAsset_coint}>BTC</Text>
 
                 <Text style={styles.textConver__coint}>
-                  {" "}
-                  = {convertNumToMoney(10234, ".", "$")}
+                  &asymp; {convertNumToMoney(10234, ".", "$")}
                 </Text>
               </View>
             </View>
@@ -119,8 +118,7 @@ const Wallet = ({navigation}) => {
                           <LinearGradient
                             style={styles.linearGradientStyle}
                             colors={backgroundColor.color}
-                          >
-                          </LinearGradient>
+                          ></LinearGradient>
                           <Text style={styles.textNameSelectBtn}>{name}</Text>
                         </>
                       ) : (
@@ -193,7 +191,9 @@ const Wallet = ({navigation}) => {
             paddingHorizontal: SIZES.padding * 2,
           }}
         >
-          {tab.key === "exchange" && <Exchange navigation={navigation}/>}
+          {tab.key === "exchange" && (
+            <Wallet_Exchange navigation={navigation} />
+          )}
         </View>
       </View>
     );
@@ -208,9 +208,7 @@ const Wallet = ({navigation}) => {
       <View style={styles.containerHeader}>{_renderHeader()}</View>
 
       {/* main screen */}
-      <View style={styles.viewContentContainer}>
-        {_renderContent()}
-      </View>
+      <View style={styles.viewContentContainer}>{_renderContent()}</View>
     </ScrollView>
   );
 };

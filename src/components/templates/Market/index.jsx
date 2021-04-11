@@ -9,8 +9,9 @@ import { COLORS } from "../../../constant";
 import IconAnalytics from "../../../assets/icons/fontAwesome/IconAnalytics";
 import IconSearch from "../../../assets/icons/fontAwesome/IconSearch";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Market_Exchange from "../../organisms/Martket_Exchange";
 
-const Market = () => {
+const Market = ({ navigation }) => {
   const [tabParent, setTabParent] = useState(arrTabParent[1]);
 
   return (
@@ -22,7 +23,10 @@ const Market = () => {
             dataSet={arrTabParent}
             onRender={(item) => {
               return (
-                <TouchableOpacity key={item.key}>
+                <TouchableOpacity
+                  key={item.key}
+                  onPress={() => setTabParent(item)}
+                >
                   <Text
                     style={{
                       color:
@@ -51,7 +55,9 @@ const Market = () => {
 
       {/* Content */}
       <View>
-        {}
+        {tabParent.key === "exchange" ? (
+          <Market_Exchange navigation={navigation} />
+        ) : null}
       </View>
     </ScrollView>
   );

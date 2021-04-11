@@ -8,7 +8,7 @@ import Loop from "../../common/Loop";
 
 import { styles } from "./styles";
 
-const Exchange = ({ navigation }) => {
+const Wallet_Exchange = ({ navigation }) => {
   /**
    * Stores
    */
@@ -47,14 +47,13 @@ const Exchange = ({ navigation }) => {
 
   return (
     <ScrollView>
-      <Text style={styles.textBalance}>Exchange Balances (BTC)</Text>
+      <Text style={styles.textBalance}>Wallet_Exchange Balances (BTC)</Text>
       <View style={styles.viewMoney}>
         <Text style={{ color: COLORS.white, fontSize: 13, fontWeight: "700" }}>
           {convertNumToMoney(0, ".", "", false)}
         </Text>
         <Text style={{ color: COLORS.gray, fontSize: 9 }}>
-          {" "}
-          = {convertNumToMoney(0, ".", "", false)} {"USD"}
+          &asymp; {convertNumToMoney(0, ".", "", false)} {"USD"}
         </Text>
       </View>
 
@@ -103,4 +102,4 @@ const Exchange = ({ navigation }) => {
   );
 };
 
-export default Exchange;
+export default Wallet_Exchange;
