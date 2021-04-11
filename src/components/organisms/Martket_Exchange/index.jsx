@@ -89,19 +89,19 @@ const Market_Exchange = ({ navigation }) => {
           <View style={styles.viewFlexRowJustifyStart}>
             <TouchableOpacity style={styles.viewFlexRowJustifyStart}>
               <Text style={styles.textFilterCoin}>Name &nbsp;</Text>
-              <IconSort color={"#636a7757"} width={10} height={19} />
+              <IconSort color={"#636a7757"} width={8} height={17} />
             </TouchableOpacity>
             <Text style={styles.textFilterCoin}>&nbsp;/&nbsp;</Text>
             <TouchableOpacity style={styles.viewFlexRowJustifyStart}>
               <Text style={styles.textFilterCoin}>24h &nbsp;</Text>
-              <IconSort color={"#636a7757"} width={10} height={19} />
+              <IconSort color={"#636a7757"} width={8} height={17} />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{ ...styles.viewLastFilterCoin, flex: 1 }}>
           <TouchableOpacity style={styles.viewFlexRowJustifyStart}>
             <Text style={styles.textFilterCoin}>Market Price &nbsp;</Text>
-            <IconSort color={"#636a7757"} width={10} height={19} />
+            <IconSort color={"#636a7757"} width={8} height={17} />
           </TouchableOpacity>
         </View>
         <View style={styles.viewLastFilterCoin}>
@@ -109,12 +109,141 @@ const Market_Exchange = ({ navigation }) => {
             <Text style={{ ...styles.textFilterCoin, fontSize: 11 }}>
               Change % &nbsp;
             </Text>
-            <IconSort color={"#636a7757"} width={10} height={19} />
+            <IconSort color={"#636a7757"} width={8} height={17} />
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.viewCoinContainer}>
-          
+
+      {/*  */}
+      {/*  */}
+      {/*  */}
+      {/*  */}
+      {/*  */}
+      {/*  */}
+      {/*  */}
+
+      <View style={{ ...styles.viewCoinContainer, marginTop: 15 }}>
+        <View style={{ flex: 2 }}>
+          <View style={styles.viewFlexRowJustifyStart}>
+            <Text style={{ color: COLORS.white, fontWeight: "700" }}>BTC</Text>
+            <Text
+              style={{
+                ...styles.textFilterCoin,
+                fontSize: 9,
+                paddingTop: 6,
+                opacity: 0.4,
+                fontWeight: "600",
+              }}
+            >
+              &nbsp; /USDT
+            </Text>
+          </View>
+          <Text style={{ ...styles.textFilterCoin }}>24H $1.5B</Text>
+        </View>
+        <View
+          style={{
+            ...styles.viewLastFilterCoin,
+            flexDirection: "column",
+            flex: 1,
+          }}
+        >
+          <Text style={{ color: COLORS.white, fontWeight: "700" }}>
+            60606006
+          </Text>
+          <Text style={{ ...styles.textFilterCoin }}>$136151</Text>
+        </View>
+        <View style={{ ...styles.viewLastFilterCoin, alignItems: "center" }}>
+          <Text
+            style={{
+              ...styles.textBtnPercent,
+              backgroundColor: COLORS.baseGreen,
+            }}
+          >
+            +0.22%
+          </Text>
+        </View>
+      </View>
+      <View style={{ ...styles.viewCoinContainer, marginTop: 15 }}>
+        <View style={{ flex: 2 }}>
+          <View style={styles.viewFlexRowJustifyStart}>
+            <Text style={{ color: COLORS.white, fontWeight: "700" }}>BTC</Text>
+            <Text
+              style={{
+                ...styles.textFilterCoin,
+                fontSize: 9,
+                paddingTop: 6,
+                opacity: 0.4,
+                fontWeight: "600",
+              }}
+            >
+              &nbsp; /USDT
+            </Text>
+          </View>
+          <Text style={{ ...styles.textFilterCoin }}>24H $1.5B</Text>
+        </View>
+        <View
+          style={{
+            ...styles.viewLastFilterCoin,
+            flexDirection: "column",
+            flex: 1,
+          }}
+        >
+          <Text style={{ color: COLORS.white, fontWeight: "700" }}>
+            60606006
+          </Text>
+          <Text style={{ ...styles.textFilterCoin }}>$136151</Text>
+        </View>
+        <View style={{ ...styles.viewLastFilterCoin, alignItems: "center" }}>
+          <Text
+            style={{
+              ...styles.textBtnPercent,
+              backgroundColor: COLORS.baseGreen,
+            }}
+          >
+            +0.22%
+          </Text>
+        </View>
+      </View>
+      <View style={{ ...styles.viewCoinContainer, marginTop: 15 }}>
+        <View style={{ flex: 2 }}>
+          <View style={styles.viewFlexRowJustifyStart}>
+            <Text style={{ color: COLORS.white, fontWeight: "700" }}>BTC</Text>
+            <Text
+              style={{
+                ...styles.textFilterCoin,
+                fontSize: 9,
+                paddingTop: 6,
+                opacity: 0.4,
+                fontWeight: "600",
+              }}
+            >
+              &nbsp; /USDT
+            </Text>
+          </View>
+          <Text style={{ ...styles.textFilterCoin }}>24H $1.5B</Text>
+        </View>
+        <View
+          style={{
+            ...styles.viewLastFilterCoin,
+            flexDirection: "column",
+            flex: 1,
+          }}
+        >
+          <Text style={{ color: COLORS.white, fontWeight: "700" }}>
+            60606006
+          </Text>
+          <Text style={{ ...styles.textFilterCoin }}>$136151</Text>
+        </View>
+        <View style={{ ...styles.viewLastFilterCoin, alignItems: "center" }}>
+          <Text
+            style={{
+              ...styles.textBtnPercent,
+              backgroundColor: COLORS.baseGreen,
+            }}
+          >
+            +0.22%
+          </Text>
+        </View>
       </View>
     </View>
   );

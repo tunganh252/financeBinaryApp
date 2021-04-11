@@ -62,17 +62,26 @@ export const styles = StyleSheet.create({
   },
 
   viewLastFilterCoin: {
-    flex: 1,
+    flex: 1.2,
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "flex-end",
     flexDirection: "row",
   },
-  
+
   textFilterCoin: {
     color: COLORS.gray,
     fontWeight: "600",
-    opacity: 0.7,
+    opacity: 0.6,
     fontSize: 12,
+  },
+
+  textBtnPercent: {
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 7,
+    overflow: "hidden",
+    color: COLORS.white,
+    fontWeight: "bold",
   },
 });

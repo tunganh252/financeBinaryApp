@@ -56,8 +56,8 @@ export const styles = StyleSheet.create({
   },
   textAsset_coint: {
     color: COLORS.white,
-    ...FONTS.h2,
-    fontWeight: "100",
+    fontSize: SIZES.h2,
+    fontWeight: "700",
   },
   textConver__coint: {
     color: COLORS.white,
