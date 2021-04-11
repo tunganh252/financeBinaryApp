@@ -65,6 +65,14 @@ export default createSlice({
                 ...action.payload,
                 type: action.type
             }
+        },
+        [userActions.actionSignupUser]: (action) => {
+            return {
+                accessToken: "",
+                refreshToken: "",
+                expires: "",
+                type: action.type
+            }
         }
     }
 })

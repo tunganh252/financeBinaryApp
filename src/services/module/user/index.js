@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import UserServices from './service';
-import { actionLoginUser, actionLogout, actionSignupUser, actionSendRegisterCode, actionCheckTokenToSave } from '../../../stores/actions/user';
+import { actionLoginUser, actionLogout, actionSignupUser, actionClearDataUser, actionSendRegisterCode, actionCheckTokenToSave } from '../../../stores/actions/user';
 import { EXTONS_USER_LOCAL } from '../../../constant/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -97,10 +97,11 @@ export const useUserCheckToken = () => {
     const state = useSelector(state => (state?.user));
     const dispatcher = useDispatch();
 
-    const post = async () => {
+    const post = async (navigation) => {
         let userLocalStorage = await AsyncStorage.getItem(EXTONS_USER_LOCAL);
         let dataCheck = JSON.parse(userLocalStorage) || {};
 
+        // console.log("navigation: ", navigation);
         // console.log("check TOken:__ ", dataCheck);
         // console.log("xxxxx ", timeStampNow);
         // console.log("yyyyy ", dataCheck.expires);
@@ -111,13 +112,17 @@ export const useUserCheckToken = () => {
 
         if (dataCheck.expires - timeStampNow <= 600 || timeStampNow > dataCheck.expires) {
             console.log("call API refresh token");
-            return await UserServices.POST_REFRESH_TOKEN(dataCheck)
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+            AsyncStorage.removeItem(EXTONS_USER_LOCAL);
+            dispatcher(actionClearDataUser())
+            navigation.replace("MainScreen")
+
+            // return await UserServices.POST_REFRESH_TOKEN(dataCheck)
+            //     .then(res => {
+            //         console.log(res);
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
+            //     })
         } else {
             console.log("Lưu state redux");
             dispatcher(actionCheckTokenToSave(dataCheck))

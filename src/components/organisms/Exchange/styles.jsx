@@ -31,4 +31,37 @@ export const styles = StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "column",
   },
+  textLineItemTrading: {
+    width: "100%",
+    height: 1,
+    backgroundColor: "#636a7757",
+    marginTop: 15,
+  },
+  textItemCoin: {
+    color: COLORS.primary,
+    fontSize: 13,
+    fontWeight: "700",
+    textTransform: "uppercase",
+    marginTop: 15,
+  },
+  textItemAvailable: {
+    color: COLORS.white,
+    color: "#636a77",
+    fontSize: 11,
+  },
+  textItemOnOrder: {
+    color: COLORS.white,
+    color: "#636a77",
+    fontSize: 11,
+  },
+  textItemEstimated: {
+    color: COLORS.white,
+    color: "#636a77",
+    fontSize: 11,
+  },
+  textItemValueEstimated: {
+    color: COLORS.gray,
+    fontSize: 10,
+    lineHeight: 20,
+  }
 });

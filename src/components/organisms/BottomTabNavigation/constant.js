@@ -15,6 +15,14 @@ import WalletAuthen from "../WalletAuthen";
 
 export const dataTabNavigation = [
     {
+        name: "Home",
+        isAuthenticate: false,
+        component: TestApp,
+        icon: ({ width, color, height }) => {
+            return <IconHome width={width} color={color} height={height} />;
+        },
+    },
+    {
         name: "Market",
         isAuthenticate: false,
         component: Market,
@@ -30,14 +38,7 @@ export const dataTabNavigation = [
             return <IconTrade width={width} color={color} height={height} />;
         },
     },
-    {
-        name: "Home",
-        isAuthenticate: false,
-        component: TestApp,
-        icon: ({ width, color, height }) => {
-            return <IconHome width={width} color={color} height={height} />;
-        },
-    },
+
     {
         name: "Investment",
         isAuthenticate: false,

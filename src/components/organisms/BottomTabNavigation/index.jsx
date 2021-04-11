@@ -38,7 +38,7 @@ const BottomTabNavigation = () => {
             },
             tabBarIcon: ({ focused }) => {
               return (
-                <View style={{ marginTop: SIZES.padding }}>
+                <View style={{ marginTop: SIZES.padding2 }}>
                   <Icon
                     width={16.5}
                     height={16.5}

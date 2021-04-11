@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../../constant";
 
 export const styles = StyleSheet.create({
@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    height: Platform.OS === "ios" ? 100 : 60,
     backgroundColor: COLORS.blueDark,
     elevation: 0,
   },
@@ -22,7 +23,8 @@ export const styles = StyleSheet.create({
   },
   tabBarLabel__text: {
     fontSize: SIZES.body5,
-    marginBottom: SIZES.padding / 2,
+    marginBottom: SIZES.padding,
+    marginTop: 5,
   },
   touch__btn: {
     flex: 1,
