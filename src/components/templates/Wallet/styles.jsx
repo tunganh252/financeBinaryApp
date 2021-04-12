@@ -14,12 +14,11 @@ export const styles = StyleSheet.create({
   },
   containerHeader: {
     flex: 1,
-    paddingBottom: Platform.OS === "ios" ? 45 : 42,
     backgroundColor: "#000"
   },
   viewSectionHeader: {
     width: "100%",
-    height: Platform.OS === "ios" ? 190 : 170,
+    height: Platform.OS === "ios" ? 150 : 130,
   },
   viewBgHeader: {
     flex: 1,

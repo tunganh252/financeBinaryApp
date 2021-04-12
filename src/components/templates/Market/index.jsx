@@ -25,7 +25,7 @@ const Market = ({ navigation }) => {
               return (
                 <TouchableOpacity
                   key={item.key}
-                  onPress={() => setTabParent(item)}
+                  // onPress={() => setTabParent(item)}
                 >
                   <Text
                     style={{

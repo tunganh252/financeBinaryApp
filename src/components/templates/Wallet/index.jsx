@@ -6,13 +6,12 @@ import {
   TouchableOpacity,
   RefreshControl,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { styles } from "./styles";
 
 import IconEyePass from "../../../assets/icons/fontAwesome/IconEyePass";
 
-import { arrSelectBtn, dataTabWalletPage } from "./constant";
+import { dataTabWalletPage } from "./constant";
 import {
   convertNumToMoney,
   wait_macroTask,
@@ -26,7 +25,7 @@ const Wallet = ({ navigation }) => {
   /**
    * State
    */
-  // const [refreshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [isShowEyes, setIsShowEyes] = useState(false);
   const [tab, setTab] = useState(dataTabWalletPage[0]);
 
@@ -45,10 +44,10 @@ const Wallet = ({ navigation }) => {
   /**
    * Effect
    */
-  // const onRefresh = useCallback(() => {
-  //   setRefreshing(true);
-  //   wait_macroTask(1000).then(() => setRefreshing(false));
-  // }, []);
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait_macroTask(1000).then(() => setRefreshing(false));
+  }, []);
 
   const _renderHeader = () => {
     return (
@@ -76,68 +75,21 @@ const Wallet = ({ navigation }) => {
             <View>
               <Text style={styles.textAsset__title}>My Assets</Text>
 
-              <View style={styles.viewAsset__coin}>
-                <Text style={{ marginRight: 8, ...styles.textAsset_coint }}>
-                  {convertNumToMoney(10, ".", "")}
-                </Text>
-                <Text style={styles.textAsset_coint}>BTC</Text>
+              <View>
+                <View style={styles.viewAsset__coin}>
+                  <Text style={{ marginRight: 8, ...styles.textAsset_coint }}>
+                    {isShowEyes ? "****" : convertNumToMoney(10, ".", "")}
+                  </Text>
+                  <Text style={styles.textAsset_coint}>BTC</Text>
+                </View>
 
                 <Text style={styles.textConver__coint}>
-                  &asymp; {convertNumToMoney(10234, ".", "$")}
+                  &asymp;{" "}
+                  {isShowEyes
+                    ? "****"
+                    : convertNumToMoney(10234, ".", " USD", false)}
                 </Text>
               </View>
-            </View>
-          </View>
-
-          {/* Select button*/}
-          <View
-            style={{
-              ...styles.shadow,
-              ...styles.viewSelectBtn,
-            }}
-          >
-            <View style={styles.viewBlockItemSelect}>
-              <Loop
-                dataSet={arrSelectBtn}
-                memorize={arrSelectBtn}
-                onRender={(item) => {
-                  const {
-                    name,
-                    icon: Icon,
-                    sizeIcon,
-                    colorIcon,
-                    backgroundColor,
-                  } = item;
-                  return (
-                    <TouchableOpacity
-                      key={name}
-                      style={styles.touchAbleSelectBtn}
-                    >
-                      {backgroundColor.isLinear ? (
-                        <>
-                          <LinearGradient
-                            style={styles.linearGradientStyle}
-                            colors={backgroundColor.color}
-                          ></LinearGradient>
-                          <Text style={styles.textNameSelectBtn}>{name}</Text>
-                        </>
-                      ) : (
-                        <>
-                          <View
-                            style={{
-                              ...styles.viewBgSelectBtn,
-                              backgroundColor: backgroundColor.color,
-                            }}
-                          >
-                            <Icon width={sizeIcon} color={colorIcon} />
-                          </View>
-                          <Text style={styles.textNameSelectBtn}>{name}</Text>
-                        </>
-                      )}
-                    </TouchableOpacity>
-                  );
-                }}
-              />
             </View>
           </View>
         </View>
@@ -192,7 +144,7 @@ const Wallet = ({ navigation }) => {
           }}
         >
           {tab.key === "exchange" && (
-            <Wallet_Exchange navigation={navigation} />
+            <Wallet_Exchange navigation={navigation} isShowEyes={isShowEyes} />
           )}
         </View>
       </View>
@@ -201,9 +153,9 @@ const Wallet = ({ navigation }) => {
 
   return (
     <ScrollView
-    // refreshControl={
-    //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-    // }
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
     >
       <View style={styles.containerHeader}>{_renderHeader()}</View>
 

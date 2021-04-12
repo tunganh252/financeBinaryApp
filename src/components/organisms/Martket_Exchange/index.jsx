@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import IconSort from "../../../assets/icons/fontAwesome/IconSort";
 import { COLORS } from "../../../constant";
+import { convertNumToMoney } from "../../../constant/helpers/function";
 import {
   useMarketGetListCoins,
   useMarketGetMakePairsCoin,
@@ -62,9 +63,7 @@ const Market_Exchange = ({ navigation }) => {
     if (!listCoinsReducer || listCoinsReducer.length <= 0) return;
     setTabParent(listCoinsReducer[0]);
     getPairsCoinAsync(listCoinsReducer[0].code);
-  }, [listCoinsReducer]);
-
-  console.log(makePairsDataReducer);
+  }, [JSON.stringify(listCoinsReducer)]);
 
   return (
     <View style={styles.viewContainer}>
@@ -199,7 +198,7 @@ const Market_Exchange = ({ navigation }) => {
                     &nbsp; /{item.symbolSecond}
                   </Text>
                 </View>
-                <Text style={{ ...styles.textFilterCoin }}>24H $1.5B</Text>
+                <Text style={{ ...styles.textFilterCoin }}>-</Text>
               </View>
               <View
                 style={{
@@ -209,9 +208,11 @@ const Market_Exchange = ({ navigation }) => {
                 }}
               >
                 <Text style={{ color: COLORS.white, fontWeight: "700" }}>
-                  60606006
+                  {convertNumToMoney(item.currentPrice, "", "")}
                 </Text>
-                <Text style={{ ...styles.textFilterCoin }}>$136151</Text>
+                <Text style={{ ...styles.textFilterCoin }}>
+                  {convertNumToMoney(item.currentPrice, ".", "$", true)}
+                </Text>
               </View>
               <View
                 style={{ ...styles.viewLastFilterCoin, alignItems: "center" }}
@@ -219,10 +220,13 @@ const Market_Exchange = ({ navigation }) => {
                 <Text
                   style={{
                     ...styles.textBtnPercent,
-                    backgroundColor: COLORS.baseGreen,
+                    backgroundColor:
+                      Math.floor(Math.random() * 11) % 2
+                        ? COLORS.baseGreen
+                        : COLORS.red,
                   }}
                 >
-                  +0.22%
+                  ...... %
                 </Text>
               </View>
             </View>

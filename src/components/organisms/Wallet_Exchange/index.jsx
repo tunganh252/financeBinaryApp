@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { COLORS } from "../../../constant";
 import { convertNumToMoney } from "../../../constant/helpers/function";
+import { useMarketGetListCoins } from "../../../services/module/market";
 import { useWalletTradingGetAllSetting } from "../../../services/module/wallet";
 import { useAsync } from "../../common/hooks/useAsyncState";
 import Loop from "../../common/Loop";
 
 import { styles } from "./styles";
 
-const Wallet_Exchange = ({ navigation }) => {
+const Wallet_Exchange = ({ navigation, isShowEyes }) => {
   /**
    * Stores
    */
@@ -21,11 +22,19 @@ const Wallet_Exchange = ({ navigation }) => {
     status: getAllWalletTradingStatus,
   } = useAsync(getAllWalletTrading);
 
+  const {
+    state: listCoinsReducer,
+    get: getAllListCoins,
+  } = useMarketGetListCoins();
+
+  const {
+    execute: getAllListCoinsAsync,
+    status: getAllListCoinsStatus,
+  } = useAsync(getAllListCoins);
+
   /**
    * State
    */
-
-  const [refreshing, setRefreshing] = useState(false);
 
   /**
    * Effect
@@ -39,6 +48,7 @@ const Wallet_Exchange = ({ navigation }) => {
 
   useEffect(() => {
     getAllWalletTradingAsync();
+    getAllListCoinsAsync();
   }, []);
 
   /**
@@ -50,10 +60,11 @@ const Wallet_Exchange = ({ navigation }) => {
       <Text style={styles.textBalance}>Wallet_Exchange Balances (BTC)</Text>
       <View style={styles.viewMoney}>
         <Text style={{ color: COLORS.white, fontSize: 13, fontWeight: "700" }}>
-          {convertNumToMoney(0, ".", "", false)}
+          {isShowEyes ? "****" : convertNumToMoney(0, ".", "", false)}
         </Text>
         <Text style={{ color: COLORS.gray, fontSize: 9 }}>
-          &asymp; {convertNumToMoney(0, ".", "", false)} {"USD"}
+          &asymp; {isShowEyes ? "****" : convertNumToMoney(0, ".", "", false)}{" "}
+          {"USD"}
         </Text>
       </View>
 
@@ -67,7 +78,17 @@ const Wallet_Exchange = ({ navigation }) => {
       <View>
         <Loop
           dataSet={walletTradingReducer?.data}
-          onRender={(item) => {
+          onRender={(item, index) => {
+            let estimatedUSD = "-";
+
+            if (
+              !!listCoinsReducer[index] &&
+              listCoinsReducer[index]?.currentPrice
+            ) {
+              estimatedUSD = Number(listCoinsReducer[index]?.currentPrice) * 1;
+              // Number(item.availableBalance);
+            }
+
             return (
               <View key={item.name}>
                 <Text style={styles.textLineItemTrading} />
@@ -77,19 +98,23 @@ const Wallet_Exchange = ({ navigation }) => {
                   <View>
                     <Text style={styles.textItemAvailable}>Available</Text>
                     <Text style={{ color: COLORS.white }}>
-                      {convertNumToMoney(item.availableBalance, ".", "")}
+                      {isShowEyes
+                        ? "****"
+                        : convertNumToMoney(item.availableBalance, ".", "")}
                     </Text>
                   </View>
                   <View>
                     <Text style={styles.textItemOnOrder}>On orders</Text>
                     <Text style={{ color: COLORS.white }}>
-                      {convertNumToMoney(item.freeze, ".", "")}
+                      {isShowEyes
+                        ? "****"
+                        : convertNumToMoney(item.freeze, ".", "")}
                     </Text>
                   </View>
                   <View style={styles.viewEstimated}>
                     <Text style={styles.textItemEstimated}>Estimated(USD)</Text>
                     <Text style={styles.textItemValueEstimated}>
-                      {convertNumToMoney(0, ".", "")}
+                      {isShowEyes ? "****" : estimatedUSD}
                     </Text>
                   </View>
                 </View>
