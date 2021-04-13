@@ -28,7 +28,7 @@ export const useWalletTradingGetAllSetting = () => {
     }, [state])
 }
 
-export const useWalletTradingGetAllSetting = () => {
+export const useWalletTradingGetDetailSetting = () => {
     const state = useSelector(state => (state?.wallet?.trading));
     const dispatcher = useDispatch();
 
@@ -74,7 +74,7 @@ export const useWalletInvestmentGetAllSetting = () => {
     }, [state])
 }
 
-export const useWalletInvestmentGetAllSetting = () => {
+export const useWalletInvestmentGetDetailSetting = () => {
     const state = useSelector(state => (state?.wallet?.trading));
     const dispatcher = useDispatch();
 
@@ -121,7 +121,7 @@ export const useWalletPartnerGetAllSetting = () => {
     }, [state])
 }
 
-export const useWalletPartnerGetAllSetting = () => {
+export const useWalletPartnerGetDetailSetting = () => {
     const state = useSelector(state => (state?.wallet?.trading));
     const dispatcher = useDispatch();
 

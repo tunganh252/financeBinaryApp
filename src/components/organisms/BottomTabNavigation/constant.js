@@ -30,23 +30,22 @@ export const dataTabNavigation = [
             return <IconMarket width={width} color={color} height={height} />;
         },
     },
-    {
-        name: "Trade",
-        isAuthenticate: false,
-        component: Trade,
-        icon: ({ width, color, height }) => {
-            return <IconTrade width={width} color={color} height={height} />;
-        },
-    },
-
-    {
-        name: "Investment",
-        isAuthenticate: false,
-        component: Investment,
-        icon: ({ width, color, height }) => {
-            return <IconInvestment width={width} color={color} height={height} />;
-        },
-    },
+    // {
+    //     name: "Trade",
+    //     isAuthenticate: false,
+    //     component: Trade,
+    //     icon: ({ width, color, height }) => {
+    //         return <IconTrade width={width} color={color} height={height} />;
+    //     },
+    // },
+    // {
+    //     name: "Investment",
+    //     isAuthenticate: false,
+    //     component: Investment,
+    //     icon: ({ width, color, height }) => {
+    //         return <IconInvestment width={width} color={color} height={height} />;
+    //     },
+    // },
     {
         name: "Wallet",
         isAuthenticate: true,
@@ -55,12 +54,12 @@ export const dataTabNavigation = [
             return <IconWallet width={width} color={color} height={height} />;
         },
     },
-    {
-        name: "Logout",
-        isAuthenticate: true,
-        component: Home,
-        icon: ({ width, color, height }) => {
-            return <IconHome width={width} color={color} height={height} />;
-        },
-    },
+    // {
+    //     name: "Logout",
+    //     isAuthenticate: true,
+    //     component: Home,
+    //     icon: ({ width, color, height }) => {
+    //         return <IconHome width={width} color={color} height={height} />;
+    //     },
+    // },
 ];

@@ -103,9 +103,9 @@ const TestApp = () => {
     return (
       <View style={{ flexDirection: "row", marginVertical: SIZES.padding * 2 }}>
         <View style={{ flex: 1 }}>
-          <Text style={{ ...FONTS.h1 }}>Extons</Text>
+          <Text style={{ ...FONTS.h1, color: COLORS.white, marginTop: 10 }}>Extons</Text>
           <Text style={{ ...FONTS.body2, color: COLORS.gray }}>
-            Nguyen Tung Anh
+            Charlie Munger
           </Text>
         </View>
 
@@ -116,7 +116,7 @@ const TestApp = () => {
               width: 40,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: COLORS.lightGray,
+              // backgroundColor: COLORS.lightGray,
             }}
           >
             <Image
@@ -124,7 +124,7 @@ const TestApp = () => {
               style={{
                 width: 20,
                 height: 20,
-                tintColor: COLORS.secondary,
+                tintColor: COLORS.white,
               }}
             />
             <View
@@ -168,7 +168,7 @@ const TestApp = () => {
   function renderFeatures() {
     const Header = () => (
       <View style={{ marginBottom: SIZES.padding * 2 }}>
-        <Text style={{ ...FONTS.h3 }}>Features</Text>
+        <Text style={{ ...FONTS.h3, color: COLORS.white }}>Features</Text>
       </View>
     );
 
@@ -202,7 +202,7 @@ const TestApp = () => {
             }}
           />
         </View>
-        <Text style={{ textAlign: "center", flexWrap: "wrap", ...FONTS.body4 }}>
+        <Text style={{ textAlign: "center", flexWrap: "wrap", ...FONTS.body4, color: COLORS.white }}>
           {item.description}
         </Text>
       </TouchableOpacity>
@@ -227,7 +227,7 @@ const TestApp = () => {
         {renderHeader()}
         {/* {renderBanner()} */}
         {renderFeatures()}
-        {/* {renderPromoHeader()} */}
+        {renderPromoHeader()}
       </View>
     );
 
@@ -239,7 +239,7 @@ const TestApp = () => {
         }}
       >
         <View style={{ flex: 1 }}>
-          <Text style={{ ...FONTS.h3 }}>Special Promos</Text>
+          <Text style={{ ...FONTS.h3, color: COLORS.white }}>Special Promos</Text>
         </View>
         <TouchableOpacity onPress={() => console.log("View All")}>
           <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>View All</Text>
@@ -305,7 +305,7 @@ const TestApp = () => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blueBlack }}>
       {renderPromos()}
     </SafeAreaView>
   );
