@@ -20,6 +20,8 @@ import {
 import Loop from "../../common/Loop";
 import { COLORS, SIZES } from "../../../constant";
 import Wallet_Exchange from "../../organisms/Wallet_Exchange";
+import Wallet_Investment from "../../organisms/Wallet_Investment";
+import Wallet_Partner from "../../organisms/Wallet_Partner";
 
 const Wallet = ({ navigation }) => {
   /**
@@ -146,6 +148,15 @@ const Wallet = ({ navigation }) => {
           {tab.key === "exchange" && (
             <Wallet_Exchange navigation={navigation} isShowEyes={isShowEyes} />
           )}
+          {tab.key === "investment" && (
+            <Wallet_Investment navigation={navigation} isShowEyes={isShowEyes} />
+          )}
+          {tab.key === "partner" && (
+            <Wallet_Partner navigation={navigation} isShowEyes={isShowEyes} />
+          )}
+          {/* {tab.key === "fiat" && (
+            <Wallet_Exchange navigation={navigation} isShowEyes={isShowEyes} />
+          )} */}
         </View>
       </View>
     );

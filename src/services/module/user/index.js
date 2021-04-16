@@ -123,10 +123,11 @@ export const useUserCheckToken = () => {
             //     .catch(err => {
             //         console.log(err);
             //     })
-        } else {
-            console.log("Lưu state redux");
-            dispatcher(actionCheckTokenToSave(dataCheck))
         }
+        // else {
+        //     console.log("Lưu state redux");
+        //     dispatcher(actionCheckTokenToSave(dataCheck))
+        // }
     }
 
     return useMemo(() => {

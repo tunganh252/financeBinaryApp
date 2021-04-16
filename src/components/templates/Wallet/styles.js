@@ -115,7 +115,7 @@ export const styles = StyleSheet.create({
   viewContentContainer: {
     flex: 1,
     backgroundColor: COLORS.blueBlack,
-    minHeight: 600,
+    minHeight: 1000,
     paddingBottom: 70,
   },
   viewTabHeader: {

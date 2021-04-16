@@ -6,7 +6,13 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
   Alert,
+  Platform,
+  ToastAndroid,
+  AlertIOS,
 } from "react-native";
 
 import IconBack from "../../assets/icons/fontAwesome/IconBack";
@@ -85,12 +91,21 @@ export const LoginScreen = ({ navigation }) => {
   const createAlert = (title, msg) =>
     Alert.alert(title, msg, [{ text: "OK", style: "cancel" }]);
 
+  const notifyMessage = (msg = "") => {
+    if (Platform.OS === 'android') {
+      ToastAndroid.show(msg, ToastAndroid.SHORT)
+    } else {
+      AlertIOS.alert(msg);
+    }
+  }
+
   //======== Effect - lifeCycle =========//
   useEffect(() => {
     if (!userReducer.accessToken || !userReducer.refreshToken) return;
-    createAlert("Success", "Login success...");
+    notifyMessage("Login successfull")
+    console.log("283749237649379374827492384273498237492374");
     navigation.replace("MainScreen");
-  }, [userReducer]);
+  }, [JSON.stringify(userReducer)]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -153,16 +168,25 @@ export const LoginScreen = ({ navigation }) => {
       </View>
       <View style={styles.viewForm}>
         <View>
-          <TextInput
-            style={styles.viewForm__input}
-            onChangeText={(text) =>
-              _onChangeValInput(text, tab.key === "EMAIL" ? "email" : "phone")
-            }
-            value={tab.key === "EMAIL" ? valInput.email : valInput.phone}
-            placeholder={tab.key === "EMAIL" ? "Email" : "Phone number"}
-            placeholderTextColor={COLORS.white}
-            keyboardType={tab.key === "EMAIL" ? "email-address" : "numeric"}
-          />
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+          >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <TextInput
+                style={styles.viewForm__input}
+                onChangeText={(text) =>
+                  _onChangeValInput(text, tab.key === "EMAIL" ? "email" : "phone")
+                }
+                value={tab.key === "EMAIL" ? valInput.email : valInput.phone}
+                placeholder={tab.key === "EMAIL" ? "Email" : "Phone number"}
+                placeholderTextColor={COLORS.white}
+                keyboardType={tab.key === "EMAIL" ? "email-address" : "numeric"}
+              />
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
+
+
+
           <View style={{ marginTop: 40, position: "relative" }}>
             <TextInput
               style={styles.viewForm__input}

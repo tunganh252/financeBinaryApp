@@ -52,7 +52,7 @@ export const useWalletTradingGetDetailSetting = () => {
 }
 
 export const useWalletInvestmentGetAllSetting = () => {
-    const state = useSelector(state => (state?.wallet?.trading));
+    const state = useSelector(state => (state?.wallet?.investment));
     const dispatcher = useDispatch();
 
     const get = async (data) => {
@@ -75,7 +75,7 @@ export const useWalletInvestmentGetAllSetting = () => {
 }
 
 export const useWalletInvestmentGetDetailSetting = () => {
-    const state = useSelector(state => (state?.wallet?.trading));
+    const state = useSelector(state => (state?.wallet?.investment));
     const dispatcher = useDispatch();
 
     const get = async (coin) => {
@@ -99,7 +99,7 @@ export const useWalletInvestmentGetDetailSetting = () => {
 
 
 export const useWalletPartnerGetAllSetting = () => {
-    const state = useSelector(state => (state?.wallet?.trading));
+    const state = useSelector(state => (state?.wallet?.partner));
     const dispatcher = useDispatch();
 
     const get = async (data) => {
@@ -122,7 +122,7 @@ export const useWalletPartnerGetAllSetting = () => {
 }
 
 export const useWalletPartnerGetDetailSetting = () => {
-    const state = useSelector(state => (state?.wallet?.trading));
+    const state = useSelector(state => (state?.wallet?.partner));
     const dispatcher = useDispatch();
 
     const get = async (coin) => {

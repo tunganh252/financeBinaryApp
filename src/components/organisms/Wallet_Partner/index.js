@@ -3,24 +3,24 @@ import { View, Text, ScrollView } from "react-native";
 import { COLORS } from "../../../constant";
 import { convertNumToMoney } from "../../../constant/helpers/function";
 import { useMarketGetListCoins } from "../../../services/module/market";
-import { useWalletTradingGetAllSetting } from "../../../services/module/wallet";
+import { useWalletPartnerGetAllSetting } from "../../../services/module/wallet";
 import { useAsync } from "../../common/hooks/useAsyncState";
 import Loop from "../../common/Loop";
 
 import { styles } from "./styles";
 
-const Wallet_Exchange = ({ navigation, isShowEyes }) => {
+const Wallet_Partner = ({ navigation, isShowEyes }) => {
   /**
    * Stores
    */
   const {
-    state: walletTradingReducer,
-    get: getAllWalletTrading,
-  } = useWalletTradingGetAllSetting();
+    state: walletPartnerReducer,
+    get: getWalletPartner,
+  } = useWalletPartnerGetAllSetting();
   const {
-    execute: getAllWalletTradingAsync,
-    status: getAllWalletTradingStatus,
-  } = useAsync(getAllWalletTrading);
+    execute: getWalletPartnerAsync,
+    status: getWalletPartnerStatus,
+  } = useAsync(getWalletPartner);
 
   const {
     state: listCoinsReducer,
@@ -41,13 +41,13 @@ const Wallet_Exchange = ({ navigation, isShowEyes }) => {
    */
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      getAllWalletTradingAsync();
+      getWalletPartnerAsync();
     });
     return unsubscribe;
   }, [navigation]);
 
   useEffect(() => {
-    getAllWalletTradingAsync();
+    getWalletPartnerAsync();
     getAllListCoinsAsync();
   }, []);
 
@@ -57,7 +57,7 @@ const Wallet_Exchange = ({ navigation, isShowEyes }) => {
 
   return (
     <ScrollView>
-      <Text style={styles.textBalance}>Wallet Exchange Balances (BTC)</Text>
+      <Text style={styles.textBalance}>Wallet Partner Balances (BTC)</Text>
       <View style={styles.viewMoney}>
         <Text style={{ color: COLORS.white, fontSize: 13, fontWeight: "700" }}>
           {isShowEyes ? "****" : convertNumToMoney(0, ".", "", false)}
@@ -77,7 +77,7 @@ const Wallet_Exchange = ({ navigation, isShowEyes }) => {
 
       <View>
         <Loop
-          dataSet={walletTradingReducer?.data}
+          dataSet={walletPartnerReducer?.data}
           onRender={(item, index) => {
             let estimatedUSD = "-";
 
@@ -127,4 +127,4 @@ const Wallet_Exchange = ({ navigation, isShowEyes }) => {
   );
 };
 
-export default Wallet_Exchange;
+export default Wallet_Partner;
