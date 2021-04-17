@@ -8,7 +8,12 @@ import {
   TextInput,
   Alert,
   Modal,
-  Pressable,
+  ScrollView,
+  Linking,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  Platform,
 } from "react-native";
 
 import IconBack from "../../assets/icons/fontAwesome/IconBack";
@@ -16,7 +21,6 @@ import IconEyePass from "../../assets/icons/fontAwesome/IconEyePass";
 import logo from "../../assets/icons/logo_default.png";
 
 import { COLORS } from "../../constant";
-import { dataTabLogin, valInputState } from "./constant";
 import { styles } from "./styles";
 
 import { useAsync } from "../../components/common/hooks/useAsyncState";
@@ -24,8 +28,6 @@ import {
   useUserSendRegisterCodeSetting,
   useUserSignupSetting,
 } from "../../services/module/user";
-
-import Loop from "../../components/common/Loop";
 
 import LoadingScreen from "../../components/atoms/LoadingScreen";
 
@@ -47,21 +49,18 @@ export const SignupScreen = ({ navigation }) => {
   } = useAsync(postSendRegisterCode);
 
   // ====== State ====== //
-  const [tab, setTab] = useState(dataTabLogin[0]);
 
   const [valInput, setValInput] = useState({
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-    isShowPassword: true,
-    isShowConfirmPassword: true,
+    email: "tunganh2521999@gmail.com",
+    password: "123",
+    confirmPassword: "123",
+    invitorUid: "",
+    isHidePassword: false,
+    isHideConfirmPassword: false,
     registerCode: "",
   });
 
-  const [isShowModalCode, setIsShowModalCode] = useState(false);
-
-  console.log(isShowModalCode);
+  const [isShowModalCode, setIsShowModalCode] = useState(true);
 
   // ====== Function ====== //
 
@@ -72,52 +71,41 @@ export const SignupScreen = ({ navigation }) => {
     }));
   };
 
-  const _handleSetTab = (dataTab) => {
-    setTab(dataTab);
-    setValInput(valInputState);
+  const _handleSendCodeRegister = () => {
+    const { email, password, confirmPassword } = valInput;
+
+    if (!email || !password || !confirmPassword) {
+      createAlert("Warning", "Please complete all information!");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      createAlert("Warning", "Confirm Password is wrong");
+      return false;
+    }
+    postSendRegisterCodeAsync({ email });
   };
 
-  const _handleLogin = () => {
-    const { email, phone, password, confirmPassword, registerCode } = valInput;
+  const _handeSignup = () => {
+    const {
+      email,
+      password,
+      confirmPassword,
+      invitorUid,
+      registerCode,
+    } = valInput;
 
-    switch (tab.key) {
-      case "EMAIL": {
-        if (tab.key === "EMAIL" && (!email || !password || !confirmPassword)) {
-          createAlert("Warning", "Please fill in full data A !!!");
-          return false;
-        }
-        if (password !== confirmPassword) {
-          createAlert("Warning", "Confirm Password is wrong");
-          return false;
-        }
-
-        if (!registerCode) {
-          postSendRegisterCodeAsync({ email });
-        } else {
-          setValInput((prevState) => ({ ...prevState, registerCode: "" }));
-          setIsShowModalCode(false);
-          postSignupUserAsync({
-            email: email,
-            password,
-            confirmPassword,
-            registerCode,
-          });
-        }
-
-        break;
-      }
-      case "PHONE": {
-        if (tab.key === "PHONE" && (!phone || !password)) {
-          createAlert("Warning", "Please fill in full data B !!!");
-          return false;
-        }
-        createAlert("Login", "Login with phone...");
-        break;
-      }
-
-      default:
-        break;
+    if (!registerCode) {
+      createAlert("Warning", "Please enter register code!");
+      return false;
     }
+    setValInput((prevState) => ({ ...prevState, registerCode: "" }));
+    postSignupUserAsync({
+      email: email,
+      password,
+      confirmPassword,
+      registerCode,
+      invitorUid,
+    });
   };
 
   const createAlert = (title, msg) =>
@@ -127,7 +115,7 @@ export const SignupScreen = ({ navigation }) => {
   useEffect(() => {
     if (userReducer.type === "@user/signup") {
       navigation.replace("LoginScreen");
-      createAlert("Notification", "Signup successfull");
+      createAlert("Notification", "Sign Up Success!");
     } else if (userReducer.type === "@user/sendRegisterCode") {
       setIsShowModalCode(true);
     }
@@ -135,190 +123,181 @@ export const SignupScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {(postSignupUserStatus === "loading" ||
-        postSendRegisterCodeStatus === "loading") && <LoadingScreen />}
+      <ScrollView scrollEnabled={false}>
+        {(postSignupUserStatus === "loading" ||
+          postSendRegisterCodeStatus === "loading") && <LoadingScreen />}
 
-      <View
-        style={{
-          backgroundColor: COLORS.blueDark,
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-        }}
-      >
+        <View style={styles.viewBlockHeader}>
+          <TouchableOpacity
+            style={{ width: 50, justifyContent: "center" }}
+            onPress={() => navigation.goBack()}
+          >
+            <IconBack width={18} height={18} color={COLORS.white} />
+          </TouchableOpacity>
+
+          <View style={styles.viewIcon}>
+            <View style={styles.viewIcon__block}>
+              <Image
+                source={logo}
+                resizeMode="contain"
+                style={{ width: 40, height: 40 }}
+              />
+              <Text style={styles.viewIcon__block_text}>EXTONS</Text>
+            </View>
+          </View>
+        </View>
+
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.viewForm}>
+              <View>
+                <TextInput
+                  style={styles.viewForm__input}
+                  onChangeText={(text) => _onChangeValInput(text, "email")}
+                  value={valInput.email}
+                  placeholder={"Email*"}
+                  placeholderTextColor={COLORS.white}
+                  keyboardType={"email-address"}
+                  autoCapitalize="none"
+                />
+                <View style={{ marginTop: 40, position: "relative" }}>
+                  <TextInput
+                    style={styles.viewForm__input}
+                    onChangeText={(text) => _onChangeValInput(text, "password")}
+                    value={valInput.password}
+                    placeholder="Password*"
+                    placeholderTextColor={COLORS.white}
+                    secureTextEntry={valInput.isHidePassword}
+                    autoCapitalize="none"
+                  />
+                  <TouchableOpacity
+                    style={{ position: "absolute", top: 0, right: 0 }}
+                    onPress={() =>
+                      setValInput((prevState) => ({
+                        ...prevState,
+                        isHidePassword: !valInput.isHidePassword,
+                      }))
+                    }
+                  >
+                    <IconEyePass
+                      width={25}
+                      height={25}
+                      active={valInput.isHidePassword}
+                      color={COLORS.white}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <View style={{ marginTop: 40, position: "relative" }}>
+                  <TextInput
+                    style={styles.viewForm__input}
+                    onChangeText={(text) =>
+                      _onChangeValInput(text, "confirmPassword")
+                    }
+                    value={valInput.confirmPassword}
+                    placeholder="Confirm Password*"
+                    placeholderTextColor={COLORS.white}
+                    secureTextEntry={valInput.isHideConfirmPassword}
+                    autoCapitalize="none"
+                  />
+                  <TouchableOpacity
+                    style={{ position: "absolute", top: 0, right: 0 }}
+                    onPress={() =>
+                      setValInput((prevState) => ({
+                        ...prevState,
+                        isHideConfirmPassword: !valInput.isHideConfirmPassword,
+                      }))
+                    }
+                  >
+                    <IconEyePass
+                      width={25}
+                      height={25}
+                      active={valInput.isHideConfirmPassword}
+                      color={COLORS.white}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <TextInput
+                  style={{ ...styles.viewForm__input, marginTop: 40 }}
+                  onChangeText={(text) => _onChangeValInput(text, "invitorUid")}
+                  value={valInput.invitorUid}
+                  placeholder={"Sponsor ID (option)"}
+                  placeholderTextColor={COLORS.white}
+                  keyboardType={"default"}
+                  autoCapitalize="none"
+                />
+              </View>
+              <View style={styles.viewAlreadyLogin}>
+                <Text style={styles.textAlready}>Already have an account?</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.push("LoginScreen");
+                  }}
+                >
+                  <Text style={styles.textLogin}>Login</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.viewBtnRegister}>
+                <TouchableOpacity
+                  style={styles.touch__register}
+                  onPress={_handleSendCodeRegister}
+                >
+                  <Text style={{ color: COLORS.white }}>Get Register Code</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+
         <Modal
           animationType="slide"
-          transparent={false}
+          transparent={true}
           visible={isShowModalCode}
           onRequestClose={() => {
             console.log("modal has been closed");
             setIsShowModalCode(!isShowModalCode);
           }}
         >
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              backgroundColor: COLORS.blueDark,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <View style={styles.viewCardModal}>
             <View>
+              <Text
+                style={{
+                  color: COLORS.white,
+                  fontWeight: "800",
+                  top: 20,
+                  right: 20,
+                }}
+              >
+                X
+              </Text>
+            </View>
+            <View style={[styles.viewContentModal, styles.shadow]}>
               <TextInput
                 style={styles.viewForm__input}
                 onChangeText={(text) => _onChangeValInput(text, "registerCode")}
                 value={valInput.registerCode}
                 placeholder="Register Code"
                 placeholderTextColor={COLORS.white}
+                autoCapitalize="none"
               />
-              <View style={styles.viewBtnLogin}>
+              <View style={styles.viewBtnRegister}>
                 <TouchableOpacity
-                  style={styles.touch__login}
-                  onPress={_handleLogin}
+                  style={styles.touch__register}
+                  onPress={_handeSignup}
                 >
                   <Text style={{ color: COLORS.white, marginHorizontal: 30 }}>
-                    Signup
+                    {" "}
+                    Signup{" "}
                   </Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </Modal>
-      </View>
-
-      <View style={styles.viewBlockHeader}>
-        <TouchableOpacity
-          style={{ width: 50, justifyContent: "center" }}
-          onPress={() => navigation.goBack()}
-        >
-          <IconBack width={18} height={18} color={COLORS.white} />
-        </TouchableOpacity>
-
-        <View style={styles.viewIcon}>
-          <View style={styles.viewIcon__block}>
-            <Image
-              source={logo}
-              resizeMode="contain"
-              style={{ width: 40, height: 40 }}
-            />
-            <Text style={styles.viewIcon__block_text}>EXTONS</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.viewForm}>
-        <View>
-          <TextInput
-            style={styles.viewForm__input}
-            onChangeText={(text) =>
-              _onChangeValInput(text, tab.key === "EMAIL" ? "email" : "phone")
-            }
-            value={tab.key === "EMAIL" ? valInput.email : valInput.phone}
-            placeholder={tab.key === "EMAIL" ? "Email" : "Phone number"}
-            placeholderTextColor={COLORS.white}
-            keyboardType={tab.key === "EMAIL" ? "email-address" : "numeric"}
-          />
-          <View style={{ marginTop: 40, position: "relative" }}>
-            <TextInput
-              style={styles.viewForm__input}
-              onChangeText={(text) => _onChangeValInput(text, "password")}
-              value={valInput.password}
-              placeholder="Password"
-              placeholderTextColor={COLORS.white}
-              secureTextEntry={valInput.isShowPassword}
-            />
-            <TouchableOpacity
-              style={{ position: "absolute", top: 0, right: 0 }}
-              onPress={() =>
-                setValInput((prevState) => ({
-                  ...prevState,
-                  isShowPassword: !valInput.isShowPassword,
-                }))
-              }
-            >
-              <IconEyePass
-                width={25}
-                height={25}
-                active={valInput.isShowPassword}
-                color={COLORS.white}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={{ marginTop: 40, position: "relative" }}>
-            <TextInput
-              style={styles.viewForm__input}
-              onChangeText={(text) =>
-                _onChangeValInput(text, "confirmPassword")
-              }
-              value={valInput.confirmPassword}
-              placeholder="Confirm Password"
-              placeholderTextColor={COLORS.white}
-              secureTextEntry={valInput.isShowConfirmPassword}
-            />
-            <TouchableOpacity
-              style={{ position: "absolute", top: 0, right: 0 }}
-              onPress={() =>
-                setValInput((prevState) => ({
-                  ...prevState,
-                  isShowConfirmPassword: !valInput.isShowConfirmPassword,
-                }))
-              }
-            >
-              <IconEyePass
-                width={25}
-                height={25}
-                active={valInput.isShowConfirmPassword}
-                color={COLORS.white}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.viewBtnLogin}>
-          <TouchableOpacity style={styles.touch__login} onPress={_handleLogin}>
-            <Text style={{ color: COLORS.white }}>Get Register Code</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            ...styles.viewBtnLogin,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: 12,
-              fontWeight: "800",
-              marginRight: 5,
-            }}
-          >
-            Already have an account?
-          </Text>
-          <TouchableOpacity
-            style={{}}
-            onPress={() => {
-              navigation.push("LoginScreen");
-            }}
-          >
-            <Text
-              style={{
-                color: COLORS.blueLight,
-                fontSize: 12,
-                fontWeight: "800",
-              }}
-            >
-              Login
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

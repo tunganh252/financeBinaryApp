@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: SIZES.padding2 * 3.5,
     paddingRight: SIZES.padding2 * 3.5,
-    paddingTop: SIZES.padding2 * 2,
+    paddingTop: SIZES.padding2 * 3.5,
     marginTop: 10,
     display: "flex",
     flexDirection: "column",

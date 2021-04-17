@@ -1,11 +1,21 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SIZES } from "../../constant";
+import { COLORS, SIZES } from "../../constant";
 
 export const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 11,
+    },
+    shadowOpacity: 0.55,
+    shadowRadius: 14.78,
+    elevation: 22,
+  },
   container: {
     flex: 1,
     paddingTop: 30,
-    backgroundColor: COLORS.blueDark,
+    backgroundColor: COLORS.blueBlack,
     position: "relative",
   },
   viewBlockHeader: {
@@ -32,40 +42,18 @@ export const styles = StyleSheet.create({
     marginLeft: SIZES.padding / 2,
     color: COLORS.white
   },
-  viewTabHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    marginTop: 45,
-  },
-  tabHeader__text: {
-    ...FONTS.body3,
-    textAlign: "center",
-    paddingBottom: 15,
-  },
-  viewLine: {
-    flex: 1,
-    maxHeight: 0.7,
-    backgroundColor: COLORS.primary,
-    color: COLORS.primary,
-  },
-  viewLine__text: {
-    backgroundColor: COLORS.primary,
-    color: COLORS.primary,
-    width: "100%",
-    height: 0.7,
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-  },
   viewForm: {
     flex: 1,
-    marginTop: SIZES.padding2 * 2,
     paddingLeft: SIZES.padding2 * 3.5,
     paddingRight: SIZES.padding2 * 3.5,
+    paddingTop: SIZES.padding2 * 3.5,
+    marginTop: 10,
     display: "flex",
     flexDirection: "column",
+    backgroundColor: COLORS.blueDark,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    height: SIZES.height
   },
   viewForm__input: {
     height: 40,
@@ -75,55 +63,50 @@ export const styles = StyleSheet.create({
     borderBottomColor: COLORS.white,
     color: COLORS.white
   },
-  viewForgotPass: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  viewBtnRegister: {
     alignContent: "center",
     marginTop: 35,
+    height: 40,
   },
-  viewBtnLogin: {
-    flex: 1,
-    alignContent: "center",
-    marginTop: 35,
-    maxHeight: 40,
-  },
-  touch__login:{
-    flex: 1,
+  touch__register: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: COLORS.primary,
     color: COLORS.primary,
-    borderRadius: 5,
+    borderRadius: 7,
+    height: 40,
   },
-  viewHaveAccount: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  viewAlreadyLogin: {
     alignContent: "center",
-    marginTop: 20,
+    marginTop: 35,
+    height: 40,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
   },
-  viewCreateAccount: {
+  textAlready: {
+    color: COLORS.white,
+    fontSize: 12,
+    fontWeight: "800",
+    marginRight: 5,
+  },
+  textLogin: {
+    color: COLORS.blueLight,
+    fontSize: 12,
+    fontWeight: "800",
+  },
+  viewCardModal: {
     flex: 1,
-    alignContent: "center",
-    marginTop: 25,
-    maxHeight: 40,
-  },
-  touch__createAccount: {
-    flex: 1,
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: COLORS.white,
-    borderRadius: 20,
+    marginTop: 22,
+    
   },
-  viewLanguage: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-    marginTop: 50,
+  viewContentModal: {
+    backgroundColor: COLORS.blueBlack,
+    paddingHorizontal: 80,
+    paddingVertical: 30,
+    borderRadius: 10,
   }
 });

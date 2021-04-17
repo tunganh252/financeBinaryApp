@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -14,13 +14,14 @@ import {
   KeyboardAvoidingView,
   AlertIOS,
   ScrollView,
+  Linking,
 } from "react-native";
 
 import IconBack from "../../assets/icons/fontAwesome/IconBack";
 import IconEyePass from "../../assets/icons/fontAwesome/IconEyePass";
 import logo from "../../assets/icons/logo_default.png";
 
-import { COLORS } from "../../constant";
+import { COLORS, FONTS } from "../../constant";
 import { styles } from "./styles";
 
 import { useAsync } from "../../components/common/hooks/useAsyncState";
@@ -39,14 +40,12 @@ export const LoginScreen = ({ navigation }) => {
 
   // ====== State ====== //
   const [valInput, setValInput] = useState({
-    // email: "",
-    // password: "",
-    email: "tunganh2521999@gmail.com",
-    password: "tunganh252",
-    isSetPassword: true,
+    email: "",
+    password: "",
+    // email: "tunganh2521999@gmail.com",
+    // password: "tunganh252",
+    isHidePassword: true,
   });
-
-  const [email, setEmail] = useState('')
 
 
   // ====== Function ====== //
@@ -68,9 +67,33 @@ export const LoginScreen = ({ navigation }) => {
       ToastAndroid.show(msg, ToastAndroid.SHORT)
     } else {
       // AlertIOS.alert("",msg);
+      // AlertIOS.alert(
+      //   'Sync Complete',
+      //   'All your data are belong to us.'
+      //  );
     }
     console.log(AlertIOS);
   }
+
+  const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+      // Checking if the link is supported for links with custom URL scheme.
+      const supported = await Linking.canOpenURL(url);
+
+      if (supported) {
+        // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+        // by some browser in the mobile
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(`Don't know how to open this URL: ${url}`);
+      }
+    }, [url]);
+
+    // return <Button title={children} onPress={handlePress} />;
+    return <TouchableOpacity onPress={handlePress}>
+      <Text style={{ color: COLORS.primary, fontWeight: "600", fontSize: 11}}>{children}</Text>
+    </TouchableOpacity>
+  };
 
   //======== Effect - lifeCycle =========//
   useEffect(() => {
@@ -81,7 +104,7 @@ export const LoginScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView scrollEnabled={false}>
         {postLoginUserStatus === "loading" && <LoadingScreen />}
         <View style={styles.viewBlockHeader}>
           <TouchableOpacity
@@ -131,14 +154,14 @@ export const LoginScreen = ({ navigation }) => {
                     autoCapitalize="none"
                     placeholder="Password"
                     placeholderTextColor={COLORS.white}
-                    secureTextEntry={valInput.isSetPassword}
+                    secureTextEntry={valInput.isHidePassword}
                   />
                   <TouchableOpacity
                     style={{ position: "absolute", top: 0, right: 0 }}
                     onPress={() =>
                       setValInput((prevState) => ({
                         ...prevState,
-                        isSetPassword: !valInput.isSetPassword,
+                        isHidePassword: !valInput.isHidePassword,
                       }))
                     }
                   >
@@ -146,14 +169,11 @@ export const LoginScreen = ({ navigation }) => {
                       width={25}
                       height={25}
                       color={COLORS.white}
-                      active={valInput.isSetPassword}
+                      active={valInput.isHidePassword}
                     />
                   </TouchableOpacity>
                 </View>
-
-
               </View>
-
               <View style={styles.viewForgotPass}>
                 <TouchableOpacity
                   onPress={() => {
@@ -185,11 +205,16 @@ export const LoginScreen = ({ navigation }) => {
                   <Text style={{ color: COLORS.white }}>Create an account?</Text>
                 </TouchableOpacity>
               </View>
+              <View style={{ flex: 1, display: "flex", justifyContent: "center", marginTop: 50, flexDirection: "row", alignItems: "center" }}>
+                <Text style={{ color: COLORS.gray, fontSize: 11, fontWeight: "600", marginRight: 5 }}>Continue the registration if you agree to</Text>
+                <OpenURLButton url={"https://thisoption.com/terms"}>
+                  Term of Use.
+                  </OpenURLButton>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </ScrollView>
-
     </SafeAreaView>
   );
 };

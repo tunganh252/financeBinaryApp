@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     width: SIZES.width,
     height: SIZES.height,
     backgroundColor: "#000000b8",
-    zIndex: 9999,
+    zIndex: 99999,
   },
   horizontal: {
     flexDirection: "row",
