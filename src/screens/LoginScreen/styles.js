@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 30,
-    backgroundColor: COLORS.blueDark,
+    backgroundColor: COLORS.blueBlack,
   },
   viewBlockHeader: {
     flexDirection: "row",
@@ -31,40 +31,18 @@ export const styles = StyleSheet.create({
     marginLeft: SIZES.padding / 2,
     color: COLORS.white,
   },
-  viewTabHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    marginTop: 45,
-  },
-  tabHeader__text: {
-    ...FONTS.body3,
-    textAlign: "center",
-    paddingBottom: 15,
-  },
-  viewLine: {
-    flex: 1,
-    maxHeight: 2,
-    backgroundColor: COLORS.primary,
-    color: COLORS.primary,
-  },
-  viewLine__text: {
-    backgroundColor: COLORS.primary,
-    color: COLORS.primary,
-    width: "100%",
-    height: 2,
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-  },
   viewForm: {
     flex: 1,
-    marginTop: SIZES.padding2 * 2,
     paddingLeft: SIZES.padding2 * 3.5,
     paddingRight: SIZES.padding2 * 3.5,
+    paddingTop: SIZES.padding2 * 2,
+    marginTop: 10,
     display: "flex",
     flexDirection: "column",
+    backgroundColor: COLORS.blueDark,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    height: SIZES.height
   },
   viewForm__input: {
     height: 40,
@@ -81,19 +59,17 @@ export const styles = StyleSheet.create({
     marginTop: 35,
   },
   viewBtnLogin: {
-    flex: 1,
     alignContent: "center",
     marginTop: 35,
-    maxHeight: 40,
   },
-  touch__login:{
-    flex: 1,
+  touch__login: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: COLORS.primary,
     color: COLORS.primary,
-    borderRadius: 20,
+    borderRadius: 7,
+    height: 40,
   },
   viewHaveAccount: {
     display: "flex",
@@ -103,25 +79,17 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   viewCreateAccount: {
-    flex: 1,
     alignContent: "center",
     marginTop: 25,
-    maxHeight: 40,
+
   },
   touch__createAccount: {
-    flex: 1,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
     borderColor: COLORS.white,
-    borderRadius: 20,
+    borderRadius: 7,
+    height: 40,
   },
-  viewLanguage: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-    marginTop: 50,
-  }
 });
