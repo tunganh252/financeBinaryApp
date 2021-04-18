@@ -27,7 +27,6 @@ import { styles } from "./styles";
 import { useAsync } from "../../components/common/hooks/useAsyncState";
 import { useUserLoginSetting } from "../../services/module/user";
 
-
 import LoadingScreen from "../../components/atoms/LoadingScreen";
 
 export const LoginScreen = ({ navigation }) => {
@@ -47,7 +46,6 @@ export const LoginScreen = ({ navigation }) => {
     isHidePassword: true,
   });
 
-
   // ====== Function ====== //
 
   const _handleLogin = () => {
@@ -63,8 +61,8 @@ export const LoginScreen = ({ navigation }) => {
     Alert.alert(title, msg, [{ text: "OK", style: "cancel" }]);
 
   const notifyMessage = (msg = "") => {
-    if (Platform.OS === 'android') {
-      ToastAndroid.show(msg, ToastAndroid.SHORT)
+    if (Platform.OS === "android") {
+      ToastAndroid.show(msg, ToastAndroid.SHORT);
     } else {
       // AlertIOS.alert("",msg);
       // AlertIOS.alert(
@@ -73,7 +71,7 @@ export const LoginScreen = ({ navigation }) => {
       //  );
     }
     console.log(AlertIOS);
-  }
+  };
 
   const OpenURLButton = ({ url, children }) => {
     const handlePress = useCallback(async () => {
@@ -90,15 +88,26 @@ export const LoginScreen = ({ navigation }) => {
     }, [url]);
 
     // return <Button title={children} onPress={handlePress} />;
-    return <TouchableOpacity onPress={handlePress}>
-      <Text style={{ color: COLORS.primary, fontWeight: "600", fontSize: 11}}>{children}</Text>
-    </TouchableOpacity>
+    return (
+      <TouchableOpacity onPress={handlePress}>
+        <Text
+          style={{ color: COLORS.primary, fontWeight: "600", fontSize: 11 }}
+        >
+          {children}
+        </Text>
+      </TouchableOpacity>
+    );
   };
 
   //======== Effect - lifeCycle =========//
   useEffect(() => {
+    if (!!userReducer.error && userReducer.type === "@user/login-error") {
+      createAlert("Login failed", userReducer.error);
+      return;
+    }
+
     if (!userReducer.accessToken || !userReducer.refreshToken) return;
-    notifyMessage("Login successfull")
+    notifyMessage("Login successfull");
     navigation.replace("MainScreen");
   }, [JSON.stringify(userReducer)]);
 
@@ -139,7 +148,10 @@ export const LoginScreen = ({ navigation }) => {
                   keyboardType={"email-address"}
                   autoCapitalize="none"
                   onChangeText={(value) => {
-                    setValInput(prevState => ({ ...prevState, email: value }))
+                    setValInput((prevState) => ({
+                      ...prevState,
+                      email: value,
+                    }));
                   }}
                   value={valInput.email}
                 />
@@ -148,7 +160,10 @@ export const LoginScreen = ({ navigation }) => {
                   <TextInput
                     style={styles.viewForm__input}
                     onChangeText={(value) => {
-                      setValInput(prevState => ({ ...prevState, password: value }))
+                      setValInput((prevState) => ({
+                        ...prevState,
+                        password: value,
+                      }));
                     }}
                     value={valInput.password}
                     autoCapitalize="none"
@@ -180,18 +195,25 @@ export const LoginScreen = ({ navigation }) => {
                     console.log("Forgot password?");
                   }}
                 >
-                  <Text style={{ color: COLORS.primary }}>Forgot password?</Text>
+                  <Text style={{ color: COLORS.primary }}>
+                    Forgot password?
+                  </Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.viewBtnLogin}>
-                <TouchableOpacity style={styles.touch__login} onPress={_handleLogin}>
+                <TouchableOpacity
+                  style={styles.touch__login}
+                  onPress={_handleLogin}
+                >
                   <Text style={{ color: COLORS.white }}>Login</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.viewHaveAccount}>
-                <Text style={{ color: COLORS.gray }}>Do you have an account?</Text>
+                <Text style={{ color: COLORS.gray }}>
+                  Do you have an account?
+                </Text>
               </View>
 
               <View style={styles.viewCreateAccount}>
@@ -202,14 +224,18 @@ export const LoginScreen = ({ navigation }) => {
                     navigation.navigate("SignupScreen");
                   }}
                 >
-                  <Text style={{ color: COLORS.white }}>Create an account?</Text>
+                  <Text style={{ color: COLORS.white }}>
+                    Create an account?
+                  </Text>
                 </TouchableOpacity>
               </View>
-              <View style={{ flex: 1, display: "flex", justifyContent: "center", marginTop: 50, flexDirection: "row", alignItems: "center" }}>
-                <Text style={{ color: COLORS.gray, fontSize: 11, fontWeight: "600", marginRight: 5 }}>Continue the registration if you agree to</Text>
+              <View style={styles.viewJuridical}>
+                <Text style={styles.textJuridical}>
+                  Continue the registration if you agree to
+                </Text>
                 <OpenURLButton url={"https://thisoption.com/terms"}>
                   Term of Use.
-                  </OpenURLButton>
+                </OpenURLButton>
               </View>
             </View>
           </TouchableWithoutFeedback>

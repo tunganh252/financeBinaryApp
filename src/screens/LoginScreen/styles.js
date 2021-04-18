@@ -42,14 +42,14 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.blueDark,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    height: SIZES.height
+    height: SIZES.height,
   },
   viewForm__input: {
     height: 40,
     paddingBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.white,
-    color: COLORS.white
+    color: COLORS.white,
   },
   viewForgotPass: {
     display: "flex",
@@ -81,7 +81,6 @@ export const styles = StyleSheet.create({
   viewCreateAccount: {
     alignContent: "center",
     marginTop: 25,
-
   },
   touch__createAccount: {
     display: "flex",
@@ -91,5 +90,19 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.white,
     borderRadius: 7,
     height: 40,
+  },
+  viewJuridical: {
+    flex: 1,
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 50,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  textJuridical: {
+    color: COLORS.gray,
+    fontSize: 11,
+    fontWeight: "600",
+    marginRight: 5,
   },
 });

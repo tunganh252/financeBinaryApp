@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     fontFamily: "RobotoBlack",
     fontSize: 24,
     marginLeft: SIZES.padding / 2,
-    color: COLORS.white
+    color: COLORS.white,
   },
   viewForm: {
     flex: 1,
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.blueDark,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    height: SIZES.height
+    height: SIZES.height,
   },
   viewForm__input: {
     height: 40,
@@ -61,11 +61,11 @@ export const styles = StyleSheet.create({
     paddingBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.white,
-    color: COLORS.white
+    color: COLORS.white,
   },
   viewBtnRegister: {
     alignContent: "center",
-    marginTop: 35,
+    marginTop: 15,
     height: 40,
   },
   touch__register: {
@@ -101,12 +101,50 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
-    
   },
   viewContentModal: {
     backgroundColor: COLORS.blueBlack,
-    paddingHorizontal: 80,
-    paddingVertical: 30,
     borderRadius: 10,
-  }
+    height: 200,
+    width: 300,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    paddingHorizontal: 30,
+  },
+  viewBtnModal: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  viewCreateAccount: {
+    alignContent: "center",
+    marginTop: 35,
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  touch__createAccount: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: COLORS.white,
+    borderRadius: 7,
+    height: 40,
+  },
+  viewJuridical: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 80,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  textJuridical: {
+    color: COLORS.gray,
+    fontSize: 11,
+    fontWeight: "600",
+    marginRight: 5,
+  },
 });
