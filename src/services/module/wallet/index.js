@@ -29,7 +29,7 @@ export const useWalletTradingGetAllSetting = () => {
 }
 
 export const useWalletTradingGetDetailSetting = () => {
-    const state = useSelector(state => (state?.wallet?.trading));
+    const state = useSelector(state => (state?.wallet?.trading?.detail));
     const dispatcher = useDispatch();
 
     const get = async (coin) => {

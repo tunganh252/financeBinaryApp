@@ -11,7 +11,7 @@ import Market from "../../templates/Market";
 import Trade from "../../templates/Trade";
 import Home from "../../templates/Home";
 import Investment from "../../templates/Investment";
-import WalletAuthen from "../WalletAuthen";
+import Wallet_Authen from "../Wallet_Authen";
 
 export const dataTabNavigation = [
     {
@@ -49,7 +49,7 @@ export const dataTabNavigation = [
     {
         name: "Wallet",
         isAuthenticate: true,
-        component: WalletAuthen,
+        component: Wallet_Authen,
         icon: ({ width, color, height }) => {
             return <IconWallet width={width} color={color} height={height} />;
         },

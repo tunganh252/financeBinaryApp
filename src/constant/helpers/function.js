@@ -5,7 +5,7 @@
  * @param {*string} unit VNĐ / đ / $
  * @returns string
  */
-export const convertNumToMoney = (num = 0, sign = ".", unit = "đ", isUnitFirst = true) => {
+export const convertNumToMoney = (num = 0, sign = ".", unit = "", isUnitFirst = false) => {
     if (num === 0) return `0.000`;
 
     if (Number(num) < 1000) {

@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, Text, ScrollView } from "react-native";
+import { useScrollToTop } from "@react-navigation/native";
+
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { COLORS } from "../../../constant";
 import { convertNumToMoney } from "../../../constant/helpers/function";
 import { useMarketGetListCoins } from "../../../services/module/market";
@@ -9,7 +12,10 @@ import Loop from "../../common/Loop";
 
 import { styles } from "./styles";
 
-const Wallet_Exchange = ({ navigation, isShowEyes }) => {
+const Wallet_Exchange = ({ navigation, isShowEyes, setLoadingPage }) => {
+  const refScroll = useRef(null);
+  useScrollToTop(refScroll);
+
   /**
    * Stores
    */
@@ -42,6 +48,7 @@ const Wallet_Exchange = ({ navigation, isShowEyes }) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       getAllWalletTradingAsync();
+      getAllListCoinsAsync();
     });
     return unsubscribe;
   }, [navigation]);
@@ -51,12 +58,21 @@ const Wallet_Exchange = ({ navigation, isShowEyes }) => {
     getAllListCoinsAsync();
   }, []);
 
+  useEffect(() => {
+    if (
+      getAllWalletTradingStatus === "loading" ||
+      getAllListCoinsStatus === "loading"
+    )
+      setLoadingPage(true);
+    else setLoadingPage(false);
+  }, [getAllWalletTradingStatus, getAllListCoinsStatus]);
+
   /**
    * Function
    */
 
   return (
-    <ScrollView>
+    <ScrollView ref={refScroll}>
       <Text style={styles.textBalance}>Wallet Exchange Balances (BTC)</Text>
       <View style={styles.viewMoney}>
         <Text style={{ color: COLORS.white, fontSize: 13, fontWeight: "700" }}>
@@ -90,35 +106,44 @@ const Wallet_Exchange = ({ navigation, isShowEyes }) => {
             }
 
             return (
-              <View key={item.name}>
-                <Text style={styles.textLineItemTrading} />
+              <TouchableOpacity
+                key={item.name}
+                onPress={() =>
+                  navigation.navigate("detail_wallet_exchange", item)
+                }
+              >
+                <View>
+                  <Text style={styles.textLineItemTrading} />
 
-                <Text style={styles.textItemCoin}>{item.coin}</Text>
-                <View style={styles.viewItemTrading}>
-                  <View>
-                    <Text style={styles.textItemAvailable}>Available</Text>
-                    <Text style={{ color: COLORS.white }}>
-                      {isShowEyes
-                        ? "****"
-                        : convertNumToMoney(item.availableBalance, ".", "")}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={styles.textItemOnOrder}>On orders</Text>
-                    <Text style={{ color: COLORS.white }}>
-                      {isShowEyes
-                        ? "****"
-                        : convertNumToMoney(item.freeze, ".", "")}
-                    </Text>
-                  </View>
-                  <View style={styles.viewEstimated}>
-                    <Text style={styles.textItemEstimated}>Estimated(USD)</Text>
-                    <Text style={styles.textItemValueEstimated}>
-                      {isShowEyes ? "****" : estimatedUSD}
-                    </Text>
+                  <Text style={styles.textItemCoin}>{item.coin}</Text>
+                  <View style={styles.viewItemTrading}>
+                    <View>
+                      <Text style={styles.textItemAvailable}>Available</Text>
+                      <Text style={{ color: COLORS.white }}>
+                        {isShowEyes
+                          ? "****"
+                          : convertNumToMoney(item.availableBalance, ".", "")}
+                      </Text>
+                    </View>
+                    <View>
+                      <Text style={styles.textItemOnOrder}>On orders</Text>
+                      <Text style={{ color: COLORS.white }}>
+                        {isShowEyes
+                          ? "****"
+                          : convertNumToMoney(item.freeze, ".", "")}
+                      </Text>
+                    </View>
+                    <View style={styles.viewEstimated}>
+                      <Text style={styles.textItemEstimated}>
+                        Estimated(USD)
+                      </Text>
+                      <Text style={styles.textItemValueEstimated}>
+                        {isShowEyes ? "****" : estimatedUSD}
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           }}
         />

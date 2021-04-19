@@ -9,7 +9,7 @@ import Loop from "../../common/Loop";
 
 import { styles } from "./styles";
 
-const Wallet_Partner = ({ navigation, isShowEyes }) => {
+const Wallet_Partner = ({ navigation, isShowEyes, setLoadingPage }) => {
   /**
    * Stores
    */
@@ -37,11 +37,16 @@ const Wallet_Partner = ({ navigation, isShowEyes }) => {
    */
 
   /**
+   * Function
+   */
+
+  /**
    * Effect
    */
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       getWalletPartnerAsync();
+      getAllListCoinsAsync();
     });
     return unsubscribe;
   }, [navigation]);
@@ -51,9 +56,14 @@ const Wallet_Partner = ({ navigation, isShowEyes }) => {
     getAllListCoinsAsync();
   }, []);
 
-  /**
-   * Function
-   */
+  useEffect(() => {
+    if (
+      getWalletPartnerStatus === "loading" ||
+      getAllListCoinsStatus === "loading"
+    )
+      setLoadingPage(true);
+    else setLoadingPage(false);
+  }, [getWalletPartnerStatus, getAllListCoinsStatus]);
 
   return (
     <ScrollView>

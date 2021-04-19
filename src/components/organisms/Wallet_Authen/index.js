@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Authenticate from "../../common/Authenticate";
 import Wallet from "../../templates/Wallet";
 
-const WalletAuthen = ({ navigation }) => {
+const Wallet_Authen = ({ navigation }) => {
   const [isLogin, setIsLogin] = useState(false);
 
   const _handleCheckIsLogin = (isLogin) => {
@@ -23,4 +23,4 @@ const WalletAuthen = ({ navigation }) => {
   );
 };
 
-export default WalletAuthen;
+export default Wallet_Authen;

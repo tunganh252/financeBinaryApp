@@ -1,5 +1,3 @@
-
-
 const back = require("../../assets/testApp/back.png");
 const bell = require("../../assets/testApp/bell.png");
 const bill = require("../../assets/testApp/bill.png");
@@ -18,9 +16,6 @@ const scan = require("../../assets/testApp/scan.png");
 const send = require("../../assets/testApp/send.png");
 const user = require("../../assets/testApp/user.png");
 const wallet = require("../../assets/testApp/wallet.png");
-
-
-
 const logoDefault = require("../../assets/icons/logo_default.png");
 const logoDefault_transparent = require("../../assets/icons/logo_default_transparent.png");
 
@@ -44,8 +39,6 @@ export default {
     send,
     user,
     wallet,
-
-
     logoDefault,
     logoDefault_transparent
 

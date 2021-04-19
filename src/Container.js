@@ -5,7 +5,7 @@ import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import MainScreen from './screens/MainScreen';
 import { useFonts } from 'expo-font';
-import Hello from './screens/Hello';
+import Detail_Wallet_Exchange from './screens/Detail_Wallet_Exchange';
 
 const Stack = createStackNavigator();
 
@@ -20,9 +20,9 @@ const theme = {
 
 export default function Container() {
     const [loaded] = useFonts({
-        RobotoRegular: require('./assets/fonts/Roboto-Regular.ttf'),
-        RobotoBlack: require('./assets/fonts/Roboto-Black.ttf'),
-        RobotoBold: require('./assets/fonts/Roboto-Bold.ttf'),
+        RobotoRegular: require('../src/assets/fonts/Roboto-Regular.ttf'),
+        RobotoBlack: require('../src/assets/fonts/Roboto-Black.ttf'),
+        RobotoBold: require('../src/assets/fonts/Roboto-Bold.ttf'),
     });
 
     if (!loaded) {
@@ -36,9 +36,9 @@ export default function Container() {
                 initialRouteName={"MainScreen"}
             >
                 <Stack.Screen name="MainScreen" component={MainScreen} />
-                <Stack.Screen name="Hello" component={Hello} />
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen name="SignupScreen" component={SignupScreen} />
+                <Stack.Screen name="detail_wallet_exchange" component={Detail_Wallet_Exchange} />
             </Stack.Navigator>
         </NavigationContainer>
     );

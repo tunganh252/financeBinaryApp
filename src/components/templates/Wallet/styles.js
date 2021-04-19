@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
   containerHeader: {
     flex: 1,
-    backgroundColor: "#000"
+    backgroundColor: "#000",
   },
   viewSectionHeader: {
     width: "100%",
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
   textConver__coint: {
     color: COLORS.white,
     fontSize: 12,
-    marginTop: 5
+    marginTop: 5,
   },
   viewSelectBtn: {
     width: "100%",
@@ -146,5 +146,12 @@ export const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     left: 0,
+  },
+
+  viewContentData: {
+    marginTop: SIZES.padding2,
+    paddingHorizontal: SIZES.padding * 2,
+    paddingBottom:
+      Platform.OS === "ios" ? SIZES.padding * 5 : SIZES.padding * 1.5,
   },
 });
