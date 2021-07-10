@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo } from 'react'
 
 /**
  * @callback onRender
@@ -17,29 +17,29 @@ import { useMemo } from "react";
  * @param {LoopProps} props
  */
 const Loop = (props) => {
-  const { dataSet = [], onRender, memorize } = props;
-  
+  const { dataSet = [], onRender, memorize } = props
+
   const _render = () => {
-    const elements = [];
+    const elements = []
 
     for (let index = 0; index < dataSet.length; index++) {
-      const elementData = dataSet[index];
-      const element = onRender(elementData, index);
-      if (!element) continue;
+      const elementData = dataSet[index]
+      const element = onRender(elementData, index)
+      if (!element) continue
 
-      elements.push(element);
+      elements.push(element)
     }
 
-    return elements;
-  };
+    return elements
+  }
 
   if (memorize) {
     return useMemo(() => {
-      return _render();
-    }, memorize);
+      return _render()
+    }, memorize)
   }
 
-  return _render();
-};
+  return _render()
+}
 
-export default Loop;
+export default Loop

@@ -226,7 +226,7 @@ export const SignupScreen = ({ navigation }) => {
                       autoCapitalize="none"
                     />
                     <TouchableOpacity
-                      style={{ position: "absolute", top: 0, right: 0 }}
+                      style={{ position: "absolute", top: 0, right: 0, padding: 6 }}
                       onPress={() =>
                         setValInput((prevState) => ({
                           ...prevState,
@@ -256,7 +256,7 @@ export const SignupScreen = ({ navigation }) => {
                       autoCapitalize="none"
                     />
                     <TouchableOpacity
-                      style={{ position: "absolute", top: 0, right: 0 }}
+                      style={{ position: "absolute", top: 0, right: 0, padding: 6 }}
                       onPress={() =>
                         setValInput((prevState) => ({
                           ...prevState,
@@ -331,7 +331,6 @@ export const SignupScreen = ({ navigation }) => {
         transparent={true}
         visible={isShowModalCode}
         onRequestClose={() => {
-          console.log("modal has been closed");
           setIsShowModalCode(!isShowModalCode);
         }}
       >

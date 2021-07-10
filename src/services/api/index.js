@@ -62,7 +62,7 @@ class Service {
             });
         }
 
-        console.log('%c Call API ', 'background: #000; color: #bada55; font-size: 30px');
+        // console.log('%c Call API ', 'background: #000; color: #bada55; font-size: 20px');
         return config;
     }
 

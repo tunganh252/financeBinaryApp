@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "assets/*": ["src/assets/*"],
+      "fontAwesome/*": ["src/assets/icons/fontAwesome/*"],
+      "components/*": ["src/components/*"],
+      "atoms/*": ["src/components/atoms/*"],
+      "common/*": ["src/components/common/*"],
+      "organisms/*": ["src/components/organisms/*"],
+      "templates/*": ["src/components/templates/*"],
+      "constant/*": ["src/constant/*"],
+      "services/*": ["src/services/*"],
+      "stores/*": ["src/stores/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

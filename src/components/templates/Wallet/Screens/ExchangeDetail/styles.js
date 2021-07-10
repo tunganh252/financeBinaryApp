@@ -1,0 +1,138 @@
+import { Platform, StyleSheet } from "react-native";
+import { COLORS, FONTS } from "constant";
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.blueBlack,
+    position: "relative",
+  },
+  viewBlockHeader: {
+    width: "100%",
+    height: 360,
+    paddingHorizontal: 20,
+    paddingTop: Platform.OS === "ios" ? 10 : 40,
+    backgroundColor: COLORS.blueBlack,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    zIndex: 10,
+  },
+  textNameCoin: {
+    marginTop: 17,
+    color: COLORS.primary,
+    ...FONTS.h1,
+  },
+  viewMoney: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  textTitle: {
+    color: COLORS.grayTransparent,
+    // fontWeight: "700",
+  },
+  textViewMoney: {
+    color: COLORS.white,
+    fontWeight: "600",
+    fontSize: 18,
+  },
+
+  textTrade: { color: COLORS.white, marginTop: 25, ...FONTS.h1, fontSize: 24 },
+
+  viewBlockPrice: {
+    width: 180,
+    height: 70,
+    backgroundColor: "#0554422e",
+    marginTop: 15,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+  },
+  viewNameCoin: {
+    flex: 1,
+    display: "flex",
+    justifyContent: "flex-start",
+    flexDirection: "row",
+  },
+  textPriceChild: {
+    color: COLORS.white,
+    fontWeight: "600",
+    fontSize: 9,
+    marginTop: 4
+  },
+  viewPriceCoin: {
+    flex: 1,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  viewBgBlack: {
+    position: "absolute",
+    top: 350,
+    width: "100%",
+    height: 30,
+    backgroundColor: "#000",
+    zIndex: 9,
+  },
+  viewBlockContent: {
+    width: "100%",
+    minHeight: 350,
+    backgroundColor: COLORS.blueBlack,
+    zIndex: 10,
+    marginTop: 10,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    position: "relative",
+  },
+
+  blockBtnAction: {
+    position: "absolute",
+    bottom: 30,
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 10,
+  },
+  btnPrimaryColor: {
+    flex: 1,
+    height: 40,
+    borderRadius: 5,
+    backgroundColor: COLORS.primary,
+    marginHorizontal: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  btnBorder: {
+    flex: 1,
+    height: 40,
+    borderRadius: 5,
+    marginHorizontal: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#9194937a",
+    borderWidth: 0.5,
+  },
+  textBtn: { color: COLORS.white, fontWeight: "bold" },
+  viewTitleRecord: {
+    marginHorizontal: 15,
+    marginTop: 10,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  viewNoData: {
+    opacity: 0.2,
+    flex: 1,
+    marginTop: 60,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+});

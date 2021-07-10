@@ -1,16 +1,16 @@
-import { combineReducers } from "redux";
-import user from "./user";
-import wallet from "./wallet";
-import market from "./market";
-
-
+import { combineReducers } from 'redux'
+import user from './user'
+import wallet from './wallet'
+import market from './market'
+import system from './system'
 /**
  * @typedef {object} RootState
  */
 const rootReducer = combineReducers({
-    user: user.reducer,
-    wallet: wallet.reducer,
-    market: market.reducer,
+  system: system.reducer,
+  user: user.reducer,
+  wallet: wallet.reducer,
+  market: market.reducer,
 })
 
-export default rootReducer;
+export default rootReducer

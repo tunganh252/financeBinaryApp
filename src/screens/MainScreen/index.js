@@ -10,10 +10,10 @@ const MainScreen = ({ navigation }) => {
    * Stores
    */
   const state = useSelector((state) => state);
-  console.log(
-    "%c Redux__Stores:__",
-    "background: #00a65a; color: #fff; font-size: 15px", state
-  );
+  // console.log(
+  //   "%c Redux__Stores:__",
+  //   "background: #00a65a; color: #fff; font-size: 20px", state
+  // );
 
   const { post: postCheckToken } = useUserCheckToken();
   const { execute: postCheckTokenAsync } = useAsync(postCheckToken);

@@ -18,14 +18,18 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tunganh252.extons"
+      "bundleIdentifier": "com.thisoption.extons",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets.",
+        "NSFaceIDUsageDescription": "Enabling Face ID allows you quick and secure access to your account."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/icons/logo_default.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.tunganh252.extons"
+      "package": "com.thisoption.extons"
     },
     "web": {
       "favicon": "./src/assets/icons/logo_default.png"

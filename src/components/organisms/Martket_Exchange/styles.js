@@ -1,5 +1,5 @@
-import { Platform, StyleSheet } from "react-native";
-import { COLORS, SIZES } from "../../../constant";
+import { Platform, StyleSheet } from 'react-native'
+import { COLORS, SIZES } from '../../../constant'
 
 export const styles = StyleSheet.create({
   viewContainer: {
@@ -7,24 +7,24 @@ export const styles = StyleSheet.create({
   },
 
   viewTabHeader: {
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
   },
   tabHeader__text: {
     paddingBottom: 8,
     fontSize: 13,
-    color: "#7982a5",
-    fontWeight: "600",
-    position: "relative",
+    color: '#7982a5',
+    fontWeight: '600',
+    position: 'relative',
   },
   viewLine__text: {
     backgroundColor: COLORS.primary,
     color: COLORS.primary,
-    width: "100%",
+    width: '100%',
     height: 2,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
   },
@@ -32,56 +32,57 @@ export const styles = StyleSheet.create({
   textFilter: {
     paddingHorizontal: 15,
     paddingVertical: 8,
-    backgroundColor: "#151515",
+    backgroundColor: '#151515',
     borderRadius: 5,
     fontSize: 10,
     color: COLORS.white,
-    fontWeight: "700",
+    fontWeight: '700',
     marginRight: 10,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
 
   viewLine: {
-    width: "100%",
+    width: '100%',
     height: 1,
-    backgroundColor: "#636a7757",
+    backgroundColor: '#636a7757',
     marginTop: 15,
   },
 
   viewCoinContainer: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     marginTop: 7,
   },
 
   viewFlexRowJustifyStart: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-start",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 
   viewLastFilterCoin: {
     flex: 1.2,
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    flexDirection: "row",
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
   },
 
   textFilterCoin: {
     color: COLORS.gray,
-    fontWeight: "600",
+    fontWeight: '600',
     opacity: 0.6,
     fontSize: 12,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
   },
 
   textBtnPercent: {
     paddingHorizontal: 15,
     paddingVertical: 8,
     borderRadius: 7,
-    overflow: "hidden",
+    overflow: 'hidden',
     color: COLORS.white,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
-});
+})

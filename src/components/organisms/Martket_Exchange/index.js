@@ -1,69 +1,55 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import IconSort from "../../../assets/icons/fontAwesome/IconSort";
-import { COLORS } from "../../../constant";
-import { convertNumToMoney } from "../../../constant/helpers/function";
-import {
-  useMarketGetListCoins,
-  useMarketGetMakePairsCoin,
-} from "../../../services/module/market";
-import { useAsync } from "../../common/hooks/useAsyncState";
-import Loop from "../../common/Loop";
-import { listCoinParent, listfilter } from "./constant";
+import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import IconSort from '../../../assets/icons/fontAwesome/IconSort'
+import { COLORS } from '../../../constant'
+import { convertNumToMoney } from '../../../constant/helpers/function'
+import { useMarketGetListCoins, useMarketGetMakePairsCoin } from '../../../services/module/market'
+import { useAsync } from '../../common/hooks/useAsyncState'
+import Loop from '../../common/Loop'
+import { listCoinParent, listfilter } from './constant'
 
-import { styles } from "./styles";
+import { styles } from './styles'
 
 const Market_Exchange = ({ navigation }) => {
   /**
    * Stores
    */
-  const {
-    state: listCoinsReducer,
-    get: getAllListCoins,
-  } = useMarketGetListCoins();
+  const { state: listCoinsReducer, get: getAllListCoins } = useMarketGetListCoins()
 
-  const {
-    execute: getAllListCoinsAsync,
-    status: getAllListCoinsStatus,
-  } = useAsync(getAllListCoins);
+  const { execute: getAllListCoinsAsync, status: getAllListCoinsStatus } = useAsync(getAllListCoins)
 
-  const {
-    state: makePairsDataReducer,
-    get: getPairsCoin,
-  } = useMarketGetMakePairsCoin();
+  const { state: makePairsDataReducer, get: getPairsCoin } = useMarketGetMakePairsCoin()
 
-  const { execute: getPairsCoinAsync, status: getPairsCoinStatus } = useAsync(
-    getPairsCoin
-  );
+  const { execute: getPairsCoinAsync, status: getPairsCoinStatus } = useAsync(getPairsCoin)
 
   /**
    * State
    */
-  const [tabParent, setTabParent] = useState({});
-  const [tabChildFilter, setTabChildFilter] = useState(listfilter[0]);
+  const [tabParent, setTabParent] = useState({})
+  const [tabChildFilter, setTabChildFilter] = useState(listfilter[0])
 
   /**
    * Function
    */
 
   const _handleSetTabCoin = (tabParent) => {
-    setTabParent(tabParent);
-    getPairsCoinAsync(tabParent.code);
-  };
+    setTabParent(tabParent)
+    getPairsCoinAsync(tabParent.code)
+  }
 
   /**
    * Effect
    */
 
   useEffect(() => {
-    getAllListCoinsAsync();
-  }, []);
+    getAllListCoinsAsync()
+  }, [])
 
   useEffect(() => {
-    if (!listCoinsReducer || listCoinsReducer.length <= 0) return;
-    setTabParent(listCoinsReducer[0]);
-    getPairsCoinAsync(listCoinsReducer[0].code);
-  }, [JSON.stringify(listCoinsReducer)]);
+    if (!listCoinsReducer || listCoinsReducer.length <= 0) return
+    setTabParent(listCoinsReducer[0])
+    getPairsCoinAsync(listCoinsReducer[0].code)
+  }, [JSON.stringify(listCoinsReducer)])
 
   return (
     <View style={styles.viewContainer}>
@@ -84,21 +70,16 @@ const Market_Exchange = ({ navigation }) => {
                     <Text
                       style={{
                         ...styles.tabHeader__text,
-                        color:
-                          tabParent.code === item.code
-                            ? COLORS.primary
-                            : COLORS.gray,
+                        color: tabParent.code === item.code ? COLORS.primary : COLORS.gray,
                       }}
                       numberOfLines={2}
                       onPress={() => _handleSetTabCoin(item)}
                     >
                       {item.code}
                     </Text>
-                    {tabParent.code === item.code && (
-                      <View style={styles.viewLine__text} />
-                    )}
+                    {tabParent.code === item.code && <View style={styles.viewLine__text} />}
                   </View>
-                );
+                )
               }}
             />
           )}
@@ -120,16 +101,13 @@ const Market_Exchange = ({ navigation }) => {
                 <Text
                   style={{
                     ...styles.textFilter,
-                    color:
-                      tabChildFilter.code === item.code
-                        ? COLORS.primary
-                        : COLORS.white,
+                    color: tabChildFilter.code === item.code ? COLORS.primary : COLORS.white,
                   }}
                 >
                   {item.name}
                 </Text>
               </TouchableOpacity>
-            );
+            )
           }}
         />
       </ScrollView>
@@ -142,27 +120,25 @@ const Market_Exchange = ({ navigation }) => {
           <View style={styles.viewFlexRowJustifyStart}>
             <TouchableOpacity style={styles.viewFlexRowJustifyStart}>
               <Text style={styles.textFilterCoin}>Name &nbsp;</Text>
-              <IconSort color={"#636a7757"} width={8} height={17} />
+              <IconSort color={'#636a7757'} width={8} height={17} />
             </TouchableOpacity>
             <Text style={styles.textFilterCoin}>&nbsp;/&nbsp;</Text>
             <TouchableOpacity style={styles.viewFlexRowJustifyStart}>
               <Text style={styles.textFilterCoin}>24h &nbsp;</Text>
-              <IconSort color={"#636a7757"} width={8} height={17} />
+              <IconSort color={'#636a7757'} width={8} height={17} />
             </TouchableOpacity>
           </View>
         </View>
         <View style={{ ...styles.viewLastFilterCoin, flex: 1 }}>
           <TouchableOpacity style={styles.viewFlexRowJustifyStart}>
             <Text style={styles.textFilterCoin}>Market Price &nbsp;</Text>
-            <IconSort color={"#636a7757"} width={8} height={17} />
+            <IconSort color={'#636a7757'} width={8} height={17} />
           </TouchableOpacity>
         </View>
         <View style={styles.viewLastFilterCoin}>
           <TouchableOpacity style={styles.viewFlexRowJustifyStart}>
-            <Text style={{ ...styles.textFilterCoin, fontSize: 11 }}>
-              Change % &nbsp;
-            </Text>
-            <IconSort color={"#636a7757"} width={8} height={17} />
+            <Text style={{ ...styles.textFilterCoin, fontSize: 11 }}>Change % &nbsp;</Text>
+            <IconSort color={'#636a7757'} width={8} height={17} />
           </TouchableOpacity>
         </View>
       </View>
@@ -171,17 +147,14 @@ const Market_Exchange = ({ navigation }) => {
         dataSet={makePairsDataReducer.dataCoinPairs}
         onRender={(item) => {
           return (
-            <View
-              key={item.code}
-              style={{ ...styles.viewCoinContainer, marginTop: 15 }}
-            >
+            <View key={item.code} style={{ ...styles.viewCoinContainer, marginTop: 15 }}>
               <View style={{ flex: 2 }}>
                 <View style={styles.viewFlexRowJustifyStart}>
                   <Text
                     style={{
                       color: COLORS.white,
-                      fontWeight: "700",
-                      textTransform: "uppercase",
+                      fontWeight: '700',
+                      textTransform: 'uppercase',
                     }}
                   >
                     {item.symbolFirst}
@@ -192,7 +165,7 @@ const Market_Exchange = ({ navigation }) => {
                       fontSize: 9,
                       paddingTop: 6,
                       opacity: 0.4,
-                      fontWeight: "600",
+                      fontWeight: '600',
                     }}
                   >
                     &nbsp; /{item.symbolSecond}
@@ -203,38 +176,31 @@ const Market_Exchange = ({ navigation }) => {
               <View
                 style={{
                   ...styles.viewLastFilterCoin,
-                  flexDirection: "column",
+                  flexDirection: 'column',
                   flex: 1,
                 }}
               >
-                <Text style={{ color: COLORS.white, fontWeight: "700" }}>
-                  {convertNumToMoney(item.currentPrice, "", "")}
+                <Text style={{ color: COLORS.white, fontWeight: '700' }}>
+                  {convertNumToMoney(item.currentPrice, '', '')}
                 </Text>
-                <Text style={{ ...styles.textFilterCoin }}>
-                  {convertNumToMoney(item.currentPrice, ".", "$", true)}
-                </Text>
+                <Text style={{ ...styles.textFilterCoin }}>{convertNumToMoney(item.currentPrice, '.', '$', true)}</Text>
               </View>
-              <View
-                style={{ ...styles.viewLastFilterCoin, alignItems: "center" }}
-              >
+              <View style={{ ...styles.viewLastFilterCoin, alignItems: 'center' }}>
                 <Text
                   style={{
                     ...styles.textBtnPercent,
-                    backgroundColor:
-                      Math.floor(Math.random() * 11) % 2
-                        ? COLORS.baseGreen
-                        : COLORS.red,
+                    backgroundColor: Math.floor(Math.random() * 11) % 2 ? COLORS.baseGreen : COLORS.red,
                   }}
                 >
                   ...... %
                 </Text>
               </View>
             </View>
-          );
+          )
         }}
       />
     </View>
-  );
-};
+  )
+}
 
-export default Market_Exchange;
+export default Market_Exchange

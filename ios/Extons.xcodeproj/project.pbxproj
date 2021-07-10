@@ -313,7 +313,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tunganh252.extons";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thisoption.extons";
 				PRODUCT_NAME = extons;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -340,7 +340,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tunganh252.extons";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thisoption.extons";
 				PRODUCT_NAME = extons;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Authenticate from "../../common/Authenticate";
-import Wallet from "../../templates/Wallet";
+import Authenticate from "common/Authenticate";
+import WalletMain from "components/templates/Wallet/Screens/Main";
 
 const Wallet_Authen = ({ navigation }) => {
   const [isLogin, setIsLogin] = useState(false);
@@ -12,7 +12,7 @@ const Wallet_Authen = ({ navigation }) => {
   return (
     <>
       {isLogin ? (
-        <Wallet navigation={navigation} />
+        <WalletMain navigation={navigation} />
       ) : (
         <Authenticate
           navigation={navigation}

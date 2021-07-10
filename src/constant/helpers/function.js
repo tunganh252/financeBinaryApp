@@ -37,3 +37,19 @@ export const convertNumToMoney = (num = 0, sign = ".", unit = "", isUnitFirst = 
 export const wait_macroTask = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
+
+/**
+ * 
+ * @param {*number} length 
+ * @returns string
+ */
+export const createCode = (length) => {
+    var result           = [];
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result.push(characters.charAt(Math.floor(Math.random() * 
+ charactersLength)));
+   }
+   return result.join('');
+}

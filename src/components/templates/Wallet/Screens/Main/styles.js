@@ -1,5 +1,5 @@
-import { Platform, StyleSheet } from "react-native";
-import { COLORS, FONTS, SIZES } from "../../../constant";
+import { Platform, StyleSheet } from 'react-native'
+import { COLORS, FONTS, SIZES } from 'constant'
 
 export const styles = StyleSheet.create({
   shadow: {
@@ -8,55 +8,59 @@ export const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
-    shadowOpacity: Platform.OS === "ios" ? 0.05 : 0.5,
+    shadowOpacity: Platform.OS === 'ios' ? 0.05 : 0.5,
     shadowRadius: 3.84,
     elevation: 5,
   },
   containerHeader: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: '#000',
   },
+
   viewSectionHeader: {
-    width: "100%",
-    height: Platform.OS === "ios" ? 150 : 130,
+    width: '100%',
+    height: 150,
   },
   viewBgHeader: {
     flex: 1,
     backgroundColor: COLORS.primary,
-    alignItems: "center",
-    paddingTop: Platform.OS === "ios" ? "12%" : "8%",
+    alignItems: 'center',
+    paddingTop: Platform.OS === 'ios' ? '12%' : '8%',
     paddingHorizontal: SIZES.padding * 2,
   },
   viewHeaderBar__eye: {
-    width: "100%",
-    height: 25,
-    marginRight: SIZES.padding * 3,
-    alignItems: "flex-end",
+    width: '100%',
+    alignItems: 'flex-end',
   },
   touchAble__icon_eye: {
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 40,
+    height: 50,
   },
   viewHeaderBar__asset: {
-    marginTop: -12,
-    width: "100%",
-    alignItems: "flex-start",
+    marginTop: -20,
+    width: '100%',
+    // display: 'flex',
+    // justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
   textAsset__title: {
     fontSize: 11,
     color: COLORS.white,
   },
   viewAsset__coin: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: SIZES.padding / 2,
   },
   textAsset_coint: {
     color: COLORS.white,
     fontSize: SIZES.h2,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   textConver__coint: {
     color: COLORS.white,
@@ -64,7 +68,7 @@ export const styles = StyleSheet.create({
     marginTop: 5,
   },
   viewSelectBtn: {
-    width: "100%",
+    width: '100%',
     height: 95,
     backgroundColor: COLORS.blueBlack,
     borderRadius: 5,
@@ -73,39 +77,39 @@ export const styles = StyleSheet.create({
   viewBlockItemSelect: {
     flex: 1,
     paddingHorizontal: 50,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   touchAbleSelectBtn: {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   linearGradientStyle: {
-    borderRadius: "50%",
+    borderRadius: '50%',
     width: 43,
     height: 43,
     borderRadius: 43 / 2,
-    justifyContent: "center",
-    flexDirection: "column",
-    alignItems: "center",
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   textNameSelectBtn: {
     fontSize: 11,
-    color: "#8b8b8b",
+    color: '#8b8b8b',
     // fontWeight: "600",
     marginTop: 3,
   },
   viewBgSelectBtn: {
-    borderRadius: "50%",
+    borderRadius: '50%',
     width: 40,
     height: 40,
     borderRadius: 40 / 2,
-    justifyContent: "center",
-    flexDirection: "column",
-    alignItems: "center",
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 
   /**
@@ -119,18 +123,18 @@ export const styles = StyleSheet.create({
     paddingBottom: 70,
   },
   viewTabHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
     marginTop: 20,
   },
   tabHeader__text: {
-    textAlign: "center",
+    textAlign: 'center',
     paddingBottom: 20,
-    fontSize: Platform.OS === "ios" ? 11 : 13,
-    color: "#636a7757",
-    fontWeight: "800",
+    fontSize: Platform.OS === 'ios' ? 11 : 13,
+    color: '#636a7757',
+    fontWeight: '800',
   },
   viewLine: {
     flex: 1,
@@ -141,9 +145,9 @@ export const styles = StyleSheet.create({
   viewLine__text: {
     backgroundColor: COLORS.primary,
     color: COLORS.primary,
-    width: "100%",
+    width: '100%',
     height: 2,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
   },
@@ -151,7 +155,6 @@ export const styles = StyleSheet.create({
   viewContentData: {
     marginTop: SIZES.padding2,
     paddingHorizontal: SIZES.padding * 2,
-    paddingBottom:
-      Platform.OS === "ios" ? SIZES.padding * 5 : SIZES.padding * 1.5,
+    paddingBottom: Platform.OS === 'ios' ? SIZES.padding * 5 : SIZES.padding * 1.5,
   },
-});
+})

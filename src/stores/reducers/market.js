@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-import * as marketActions from "../actions/market";
+import { createSlice } from '@reduxjs/toolkit'
+import * as marketActions from '../actions/market'
 
 export default createSlice({
-  name: "market",
+  name: 'market',
   /**
    * @type {UserReducerType}
    */
@@ -17,17 +17,17 @@ export default createSlice({
   reducers: {},
   extraReducers: {
     [marketActions.actionGetAllCoins]: (state, action) => {
-      if (!action || !action.payload) return;
+      if (!action || !action.payload) return
 
-      return { ...state, lisCoins: action.payload };
+      return { ...state, lisCoins: action.payload }
     },
     [marketActions.actionGetDetailCoins]: (state, action) => {
-      if (!action || !action.payload) return;
+      if (!action || !action.payload) return
 
-      return { ...state, coinDetail: action.payload };
+      return { ...state, coinDetail: action.payload }
     },
     [marketActions.actionGetMakePairsCoin]: (state, action) => {
-      if (!action || !action.payload) return;
+      if (!action || !action.payload) return
 
       return {
         ...state,
@@ -35,7 +35,7 @@ export default createSlice({
           ...state.makePairs,
           dataCoinPairs: action.payload,
         },
-      };
+      }
     },
   },
-});
+})

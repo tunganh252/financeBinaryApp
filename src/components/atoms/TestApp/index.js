@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { SafeAreaView, View, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, FONTS, icons, images } from "../../../constant";
+import { useNavigation } from '@react-navigation/native';
 
 const TestApp = () => {
   const featuresData = [
@@ -100,16 +94,38 @@ const TestApp = () => {
   const [specialPromos, setSpecialPromos] = React.useState(specialPromoData);
 
   function renderHeader() {
+    const navigator = useNavigation();
     return (
       <View style={{ flexDirection: "row", marginVertical: SIZES.padding * 2 }}>
         <View style={{ flex: 1 }}>
           <Text style={{ ...FONTS.h1, color: COLORS.white, marginTop: 10 }}>Extons</Text>
-          <Text style={{ ...FONTS.body2, color: COLORS.gray }}>
-            Charlie Munger
-          </Text>
+          <Text style={{ ...FONTS.body2, color: COLORS.gray }}>Charlie Munger</Text>
         </View>
 
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
+          <TouchableOpacity
+            style={{
+              height: 20,
+              width: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              // backgroundColor: COLORS.lightGray,
+            }}
+            onPress={()=> {
+              navigator.navigate("profile")
+            }}
+          >
+            <Image
+              source={icons.user}
+              style={{
+                width: 20,
+                height: 20,
+                tintColor: COLORS.white,
+                marginRight: 10,
+              }}
+            />
+          </TouchableOpacity>
+
           <TouchableOpacity
             style={{
               height: 40,
@@ -179,7 +195,6 @@ const TestApp = () => {
           width: 60,
           alignItems: "center",
         }}
-        onPress={() => console.log(item.description)}
       >
         <View
           style={{
@@ -202,9 +217,7 @@ const TestApp = () => {
             }}
           />
         </View>
-        <Text style={{ textAlign: "center", flexWrap: "wrap", ...FONTS.body4, color: COLORS.white }}>
-          {item.description}
-        </Text>
+        <Text style={{ textAlign: "center", flexWrap: "wrap", ...FONTS.body4, color: COLORS.white }}>{item.description}</Text>
       </TouchableOpacity>
     );
 
@@ -241,7 +254,7 @@ const TestApp = () => {
         <View style={{ flex: 1 }}>
           <Text style={{ ...FONTS.h3, color: COLORS.white }}>Special Promos</Text>
         </View>
-        <TouchableOpacity onPress={() => console.log("View All")}>
+        <TouchableOpacity onPress={() => {}}>
           <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>View All</Text>
         </TouchableOpacity>
       </View>
@@ -253,7 +266,6 @@ const TestApp = () => {
           marginVertical: SIZES.base,
           width: SIZES.width / 2.5,
         }}
-        onPress={() => console.log(item.title)}
       >
         <View
           style={{
@@ -304,11 +316,7 @@ const TestApp = () => {
     );
   }
 
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blueBlack }}>
-      {renderPromos()}
-    </SafeAreaView>
-  );
+  return <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blueBlack }}>{renderPromos()}</SafeAreaView>;
 };
 
 export default TestApp;

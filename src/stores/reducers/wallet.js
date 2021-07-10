@@ -1,93 +1,62 @@
-import { createSlice } from "@reduxjs/toolkit";
-import * as walletActions from "../actions/wallet";
-
+import { createSlice } from '@reduxjs/toolkit'
+import * as walletActions from '../actions/wallet'
 
 export default createSlice({
-    name: "wallet",
-    initialState: {
-        trading: {
-            data: [],
-            detail: {},
-            type: ""
-        },
-        investment: {
-            data: [],
-            detail: {},
-            type: ""
-        },
-        partner: {
-            data: [],
-            detail: {},
-            type: ""
-        }
+  name: 'wallet',
+  initialState: {
+    coins: {
+      data: [],
+      detail: {},
     },
-    reducers: {},
-    extraReducers: {
-        [walletActions.actionGetAllTrading]: (state, action) => {
-            if (!action || !action.payload) return;
-            return {
-                ...state,
-                trading: {
-                    ...state.trading,
-                    data: action.payload,
-                    type: action.type
-                }
-            }
+    chains: [],
+    address: '',
+    type: '',
+  },
+  reducers: {},
+  extraReducers: {
+    [walletActions.actionGetAllCoins]: (state, action) => {
+      if (!action || !action.payload) return
+      return {
+        ...state,
+        coins: {
+          ...state.coins,
+          data: action.payload,
         },
-        [walletActions.actionGetDetailTrading]: (state, action) => {
-            if (!action || !action.payload) return;
-            return {
-                ...state,
-                trading: {
-                    ...state.trading,
-                    detail: action.payload,
-                    type: action.type
-                }
-            }
+        type: action.type,
+      }
+    },
+    [walletActions.actionGetDetailCoins]: (state, action) => {
+      if (!action || !action.payload) return
+      return {
+        ...state,
+        coins: {
+          ...state.coins,
+          detail: action.payload,
         },
-        [walletActions.actionGetAllInvestment]: (state, action) => {
-            if (!action || !action.payload) return;
-            return {
-                ...state,
-                investment: {
-                    ...state.investment,
-                    data: action.payload,
-                    type: action.type
-                }
-            }
-        },
-        [walletActions.actionGetDetailInvestment]: (state, action) => {
-            if (!action || !action.payload) return;
-            return {
-                ...state,
-                investment: {
-                    ...state.investment,
-                    detail: action.payload,
-                    type: action.type
-                }
-            }
-        },
-        [walletActions.actionGetAllPartner]: (state, action) => {
-            if (!action || !action.payload) return;
-            return {
-                ...state,
-                partner: {
-                    ...state.partner,
-                    data: action.payload,
-                    type: action.type
-                }
-            }
-        },
-        [walletActions.actionGetDetailPartner]: (state, action) => {
-            if (!action || !action.payload) return;
-            return {
-                ...state,
-                partner: {
-                    ...state.partner,
-                    detail: action.payload,
-                    type: action.type
-                }
-            }
-        },
-    }
+        type: action.type,
+      }
+    },
+    [walletActions.actionGetDetailChains]: (state, action) => {
+      if (!action || !action.payload) return
+      return {
+        ...state,
+        chains: action.payload,
+        type: action.type,
+      }
+    },
+    [walletActions.actionGetAddressWallet]: (state, action) => {
+      if (!action || !action.payload) return
+      return {
+        ...state,
+        address: action.payload,
+        type: action.type,
+      }
+    },
+    [walletActions.actionPostWithdrawl]: (state, action) => {
+      return {
+        ...state,
+        type: action.type,
+      }
+    },
+  },
 })

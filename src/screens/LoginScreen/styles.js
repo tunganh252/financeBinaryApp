@@ -2,6 +2,16 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../constant";
 
 export const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 11,
+    },
+    shadowOpacity: 0.55,
+    shadowRadius: 14.78,
+    elevation: 22,
+  },
   container: {
     flex: 1,
     paddingTop: 30,
@@ -50,6 +60,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.white,
     color: COLORS.white,
+    width: "100%"
   },
   viewForgotPass: {
     display: "flex",
@@ -80,7 +91,9 @@ export const styles = StyleSheet.create({
   },
   viewCreateAccount: {
     alignContent: "center",
-    marginTop: 25,
+    marginTop: 35,
+    flex: 1,
+    marginHorizontal: 5,
   },
   touch__createAccount: {
     display: "flex",
@@ -104,5 +117,44 @@ export const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: "600",
     marginRight: 5,
+  },
+
+
+  viewCardModal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  viewContentModal: {
+    backgroundColor: COLORS.blueBlack,
+    borderRadius: 10,
+    height: 200,
+    width: 300,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    paddingHorizontal: 30,
+  },
+  viewBtnModal: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  viewBtnLoginModal: {
+    alignContent: "center",
+    marginTop: 15,
+    height: 40,
+  },
+  touch__LoginModal: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.primary,
+    color: COLORS.primary,
+    borderRadius: 7,
+    height: 40,
   },
 });

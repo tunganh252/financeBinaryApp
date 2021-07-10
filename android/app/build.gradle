@@ -132,7 +132,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'com.tunganh252.extons'
+        applicationId 'com.thisoption.extons'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

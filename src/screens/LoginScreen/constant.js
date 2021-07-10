@@ -15,3 +15,5 @@ export const valInputState = {
     password: "",
     isSetPassword: true,
 };
+
+export const otpRequiredMsgError = "otp required."

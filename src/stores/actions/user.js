@@ -2,6 +2,8 @@ import { createAction } from "@reduxjs/toolkit";
 
 export const actionRefreshState = createAction("@user/refresh-default");
 
+export const actionGetProfile = createAction("@user/get-profile");
+
 export const actionLoginUser = createAction("@user/login");
 export const actionCheckLoginError = createAction("@user/login-error");
 
